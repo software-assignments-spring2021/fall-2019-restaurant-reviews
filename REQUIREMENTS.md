@@ -85,3 +85,7 @@ Scenario: User Should be able to log into the system given their login credentia
 Actor: User
 
 Scenario: Users will be able to ‘star’ restaurants from the restaurant page, which will be saved in their favorite restaurants for easy finding later on.
+
+
+## Domain Model
+![Domain Model](https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews/blob/master/RRA%20Domain%20Model.pdf)
