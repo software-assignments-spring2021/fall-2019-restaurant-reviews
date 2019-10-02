@@ -1,3 +1,15 @@
+# Stakeholder Interviews
+
+Some of our learnings from conducting our interviews with Prof Bloomberg and Omkar:
+•Watch tutorial regarding react and node (2 hrs)
+•Do front and back end together
+•Consider building our own API for Yelp data
+•Focus on learning NodeJS and ReactJS first
+•'tf idf' (Natural Language Processing) can be useful for processing the reviews
+•Use bootstrap, material UI
+•We could trigger a ‘background task’ that maybe once a day or once a week does the processing/calculations and stores it as opposed to processing upon every search
+
+
 # End User Observation
 
 #### Person: Khayre Ali
