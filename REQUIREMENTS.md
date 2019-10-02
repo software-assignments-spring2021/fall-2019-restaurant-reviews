@@ -2,7 +2,7 @@
 
 #### Person: Khayre Ali
 
-Ocupation: Student
+Occupation: Student
 
 Age: 22
 
@@ -47,16 +47,16 @@ Scenario: A user who is unsure of what restaurant they’d like to dine at can b
 
 #### Title: Keyword Search
 Actor: User
-Scenario: 
+Scenario: This case occurs when the user already has a restaurant open. The restaurant page will have a list of keywords (eg. food items, adjectives related to the restaurant, particular features) with their corresponding ratings and the user can search for a particular keyword to see how it has been received.
 
 #### Title: Sign Up
 Actor: User
-Scenario: User should be able to sign into the system with a username, password, and email
+Scenario: The user will be able to sign up for an account using some basic information such as a username, password, and email.
 
 #### Title: Log In
 Actor: User
-Scenario: User Should be able to sign up for the system with a username and password
+Scenario: User Should be able to log into the system given their login credentials: user/pass or email/pass.
 
 #### Title: Favorite Restaurant
 Actor: User
-Scenario: User can save favorite restaurants
+Scenario: Users will be able to ‘star’ restaurants from the restaurant page, which will be saved in their favorite restaurants for easy finding later on.
