@@ -33,3 +33,5 @@ Sunday - Skype/FaceTime
   * No racism
   * Be punctual 
   * Talk efficiently and work efficiently 
+  * All decisions are based on vote to avoid serious conflicts. 
+  * There are **3** internal warnings if a person is absent from daily standups. If the person keeps being absent from meetings then each member has the responsibility to report to the boss(Professor).
