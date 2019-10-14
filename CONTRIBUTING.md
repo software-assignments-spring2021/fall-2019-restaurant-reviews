@@ -1,15 +1,14 @@
-Contributing
-=============
+# Contributing
+
 
 Limited to group members only but will adjust later.
-
 * Martin Wu
 * Matthew Rodgers
 * Maxim Fadeev
 * Tejas Agrawal
 
 
-========
+
 
 ## Contributing Process
  - Fork and clone the project.
@@ -20,15 +19,13 @@ Limited to group members only but will adjust later.
  - When you're done with your changes, update your fork and request a review on the pull request by @ mentioning a maintainer.
  
  
- ========
+
 
 ## Team Standup Schedule
 Monday - Meet at 12:00
 Wednesday - Meet at 12:00
 Thursday - Meet at 2:00
 Sunday - Skype/FaceTime
-
-========
 
 
 ## Team Values
