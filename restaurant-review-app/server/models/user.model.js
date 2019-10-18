@@ -1,26 +1,34 @@
+//import mongoose
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//create User schema
 const userSchema = new Schema({
+
     firstname: {
         type: String,
         required: true,
         unique:true,
         trim: true,
         minlength: 3
-    }
-    // lastName: {
-    //     type: String,
-    //     required: true,
-    //     default: ''
+    },
 
-    // },
-    // email: {
-    //     type: String,
-    //     required: true,
-    //     default: ''
+    lastname: {
 
-    // },
+        type: String,
+        required: true,
+        unique:true,
+        trim: true,
+        minlength: 2
+
+    },
+
+     email: {
+        type: String,
+        required: true,
+        default: ''
+
+    },
     // isDeleted: {
     //     type: Boolean,
     //     default: ''
@@ -30,6 +38,9 @@ const userSchema = new Schema({
     timestamps: true,
 
 });
+
+
+//export User schema
 
 const User = mongoose.model('User',userSchema);
 

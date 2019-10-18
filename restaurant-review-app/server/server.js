@@ -18,11 +18,6 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true }
 );
 
-// mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true,})
-//     .then(() => console.log('DB Connected!'))
-//     .catch(err => {
-//     console.log('DB Connection Error: ${err.message}');
-// });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -32,9 +27,9 @@ connection.once('open', () => {
 
 
 
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/user');
 
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 
 app.listen(port, ()=>{
     console.log(`Server is running on port: ${port}`);
