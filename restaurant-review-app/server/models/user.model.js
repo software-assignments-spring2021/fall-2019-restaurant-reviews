@@ -29,11 +29,11 @@ const userSchema = new Schema({
         default: ''
 
     },
-    // isDeleted: {
-    //     type: Boolean,
-    //     default: ''
+    passowrd:{
+        type:String,
+        required:true,
 
-    // }
+    }
 },{
     timestamps: true,
 

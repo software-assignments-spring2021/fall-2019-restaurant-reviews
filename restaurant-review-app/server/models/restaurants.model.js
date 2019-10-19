@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const restaurantSchema = new Schema({
 
-    id:mongoose.Schema.ObjectId,
 
     name:{
         type: String,
