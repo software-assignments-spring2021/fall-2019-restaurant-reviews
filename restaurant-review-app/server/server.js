@@ -1,19 +1,29 @@
-//import express cors and mongoose
+//import files
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
-
+const session = require('express-session');
+const passport = require('passport');
 require('dotenv').config();
 
 
 //setup localhost port to be 6000
 const port = process.env.PORT || 6000;
 
-
+//middleware 
 app.use(cors());
 app.use(express.json());
-
+app.use(session({
+  secret:'secret',
+  resave: true,
+  saveUninitialized: true
+}))
+//passport config
+require('./config/passport')(passport);
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //connect with MongoDB 
@@ -30,12 +40,12 @@ connection.once('open', () => {
 
 
 //Router 
-const usersRouter = require('./routes/user');
-const restaurantsRouter = require('./routes/restaurants');
+const userRouter = require('./routes/user');
+const restaurantRouter = require('./routes/restaurant');
 
 
-app.use('/user', usersRouter);
-app.use('/restaurants', restaurantRouter);
+app.use('/user', userRouter);
+// app.use('/restaurants', restaurantRouter);
 
 
 //show the server status
