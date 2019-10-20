@@ -27,6 +27,8 @@ router.route('/:id').get((req, res) => {
 //register
 router.route('/register').post([
   //validate user input
+    check('firstname').exists(),
+    check('lastname').exists(),
     check('email').isEmail(),
     check('password').isLength({min:6}),
     check('password','password1').equals()
@@ -72,12 +74,7 @@ router.route('/login').post((req,res,next)=>{
     successRedirect: '/dashboard'
   })(req, res, next);
 });
-// router.post('/login',(req,res,next) => {
-//   passport.authenticate('local',{
-//     failureRedirect: 'user/login',
-//     successRedirect: '/dashboard'
-//   })(req, res, next);
-// });
+
 
 
 
