@@ -4,6 +4,8 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# Mac OS files
+.DS_Store
 
 # Runtime data
 pids
@@ -59,3 +61,4 @@ typings/
 
 # next.js build output
 .next
+.DS_Store
