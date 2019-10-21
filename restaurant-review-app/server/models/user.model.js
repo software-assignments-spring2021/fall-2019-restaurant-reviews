@@ -34,10 +34,7 @@ const userSchema = new Schema({
         required:true,
 
     },
-    password1:{
-        type: String,
-        required: true
-    }
+
 },{
     timestamps: true,
 

@@ -31,7 +31,7 @@ router.route('/register').post([
     check('lastname').exists(),
     check('email').isEmail(),
     check('password').isLength({min:6}),
-    check('password','password1').equals()
+    
   ],(req, res) => {
 
   // Finds the validation errors in this request and wraps them in an object with handy functions
@@ -40,9 +40,9 @@ router.route('/register').post([
     return res.status(422).json({ errors: errors.array() });
   }
 
-  const {firstname,lastname,email,password,password1} = req.body;
-
-  const newUser = new User({firstname,lastname,email,password,password1});
+  const {firstname,lastname,email,password} = req.body;
+ 
+  const newUser = new User({firstname,lastname,email,password});
   
   //encrypt the password
   bcrypt.genSalt(10, (err,salt) =>{
@@ -55,9 +55,9 @@ router.route('/register').post([
       newUser.password = hash;
 
       newUser.save()
-      .then(() => res.json('You have registered! Now please sign in.'))
+      .then(() => res.json({message:'You have registered! Now please sign in.',newUser}))
       .catch(err => res.status(400).json('Error: ' + err));
-    });
+    })
   });
 
 

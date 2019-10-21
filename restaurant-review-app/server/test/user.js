@@ -18,7 +18,7 @@ describe('User routes', () => {
           done();
       });
     });
-    //Test /GET
+    //test /GET
     describe('get user info', () => {
       it('it should return all the user information', (done) => {
           chai.request(server)
@@ -31,6 +31,18 @@ describe('User routes', () => {
               });
       });
     });
+    //test delete 
+    // describe('delete user account', () =>{
+    //   it('it should delete the user data from database', (done) =>{
+
+    //     chai.request(server)
+    //         .delete('/user/:id')
+    //         .end((err, res) =>{
+              
+    //           done();
+    //         })
+    //   })
+    // })
 
     //test register
     describe('register', () => {
@@ -41,13 +53,13 @@ describe('User routes', () => {
             lastname: 'wu',
             email: 'hw1635@nyu.edu',
             password: 'admin123',
-            password1: 'admin123'
+           
           }
           chai.request(server)
               .post('/user/register')
               .send(user)
               .end((err, res) =>{
-                console.log(res.body);
+               
                 res.body.should.be.a('object');
                 res.body.should.have.property('errors');
                 // res.should.have.status(200);
@@ -63,7 +75,7 @@ describe('User routes', () => {
           firstname: 'martin',
           email: 'hw1635@nyu.edu',
           password: 'admin',
-          password1: 'admin'
+         
         }
         chai.request(server)
             .post('/user/register')
@@ -75,7 +87,83 @@ describe('User routes', () => {
               done();
             })
       });
+
+      it('it should not allow empty email', (done) => {
+
+        const user = {
+          firstname: 'Martin',
+          lastname: 'wu',
+          password: 'admin123',
+         
+        }
+        chai.request(server)
+            .post('/user/register')
+            .send(user)
+            .end((err, res) =>{
+              
+              res.body.should.be.a('object');
+              res.body.should.have.property('errors');
+              // res.should.have.status(200);
+              done();
+            })
+      });
+
+      it('it should not allow empty password', (done) => {
+
+        const user = {
+          firstname: 'Martin',
+          lastname: 'wu',
+          email: 'hw1635@nyu.edu',
+          
+        }
+        chai.request(server)
+            .post('/user/register')
+            .send(user)
+            .end((err, res) =>{
+              
+              res.body.should.be.a('object');
+              res.body.should.have.property('errors');
+              // res.should.have.status(200);
+              done();
+            })
+      });
+
+      it('it should register user successfully', (done) => {
+
+        const user = {
+          firstname: 'Martin',
+          lastname: 'Wu',
+          email: 'hw1635@nyu.edu',
+          password: 'admin123',
+        
+        }
+        chai.request(server)
+            .post('/user/register')
+            .send(user)
+            .end((err, res) =>{
+              console.log(res.body);
+
+              res.body.should.have.property('message').eql('You have registered! Now please sign in.');
+              res.body.newUser.should.have.property('firstname');
+              res.body.newUser.should.have.property('lastname');
+              res.body.newUser.should.have.property('email');
+              res.body.newUser.should.have.property('password');
+      
+              res.should.have.status(200);
+              done();
+            });
+      });
+
+      //test login 
+      describe( 'Log in' ,() => {
+        it('should ')
+
+
+      });
+      
+    });
+    
+
   
     
-    });
   });
