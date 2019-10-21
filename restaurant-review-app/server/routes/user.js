@@ -65,11 +65,22 @@ router.route('/register').post([
 });
 
 // log in 
-router.route('/login').post((req,res,next)=>{
+router.route('/login').post([
+  //validate login info
+    check('email').exists(),
+    check('email').isEmail(),
+    check('password').exists()
+    
+  ],(req,res,next)=>{
+  // Finds the validation errors in this request and wraps them in an object with handy functions
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   passport.authenticate('local', {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-
     // failureRedirect: '/login',
     successRedirect: '/dashboard'
   })(req, res, next);

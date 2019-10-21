@@ -141,29 +141,75 @@ describe('User routes', () => {
             .post('/user/register')
             .send(user)
             .end((err, res) =>{
-              console.log(res.body);
+             // console.log(res.body);
 
               res.body.should.have.property('message').eql('You have registered! Now please sign in.');
               res.body.newUser.should.have.property('firstname');
               res.body.newUser.should.have.property('lastname');
               res.body.newUser.should.have.property('email');
               res.body.newUser.should.have.property('password');
-      
               res.should.have.status(200);
               done();
             });
       });
 
-      //test login 
-      describe( 'Log in' ,() => {
-        it('should ')
-
-
-      });
-      
+    });
+//test login 
+  describe( 'Log in' ,() => {
+    it('email should not be empty', (done) => {
+      const input = {
+        email:'',
+        password:'admin123'
+      }
+      chai.request(server)
+          .post('/user/login')
+          .send(input)
+          .end((err, res) => {
+            res.should.have.status(422);
+            done();
+          });
     });
     
+    it('password should not be empty', (done) => {
+      const input = {
+        email:'hw1635@nyu.edu',
+        password:'admin123'
+      }
+      chai.request(server)
+          .post('/user/login')
+          .send(input)
+          .end((err, res) => {
+            console.log(res.body);
+            res.should.have.status(401);
+            
+            done();
+          });
+    });
+    
+    // it('user should be able to login', (done) => {
+    //   const input = {
+    //     email:'hw1635@nyu.edu',
+    //     password:'admin123'
+    //   }
+    //   chai.request(server)
+    //       .post('/user/login')
+    //       .send(input)
+    //       .end((err, res) => {
+    //         res.should.have.status(200);
+            
+    //         done();
+    //       });
+    // })
+    
+    
+  });
+
+});
+
+
+  
+  
 
   
     
-  });
+ 
