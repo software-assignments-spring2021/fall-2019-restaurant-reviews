@@ -10,7 +10,7 @@ class App extends React.Component {
       <div className="App">
           <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
           <div className="container">
-            <a className="navbar-brand" href="index.html">StiQR</a>
+            <a className="navbar-brand" href="index.html">Restaurant Review Agregator</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +36,8 @@ class App extends React.Component {
         <header className="masthead text-center text-white">
           <div className="masthead-content">
             <div className="container">
-                <h2 className="masthead-subheading mb-0">Another Way To Locate Misplaced Items</h2>
+              <h2 className="masthead-subheading mb-0">Give Your Tastebuds a Treat</h2>
+                <h2 className="masthead-subheading mb-0">Everyone Eats</h2>
               <a href="signup.html" className="btn btn-primary btn-xl rounded-pill mt-5">Sign Up!</a>
             </div>
           </div>
@@ -51,12 +52,12 @@ class App extends React.Component {
             <div className="row align-items-center">
               <div className="col-lg-6 order-lg-2">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("./img/find1.jpg")} alt="" />
+                    <img className="img-fluid rounded-circle" src={require("./img/food1.jpeg")} alt="" />
                     </div>
               </div>
               <div className="col-lg-6 order-lg-1">
                 <div className="p-5">
-                  <h2 className="display-4">What We Do</h2>
+                  <h2 className="display-4">Find the Best!</h2>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
                 </div>
               </div>
@@ -69,12 +70,12 @@ class App extends React.Component {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("./img/find2.png")} alt="" />
+                    <img className="img-fluid rounded-circle" src={require("./img/food2.jpeg")} alt="" />
                     </div>
               </div>
               <div className="col-lg-6">
                 <div className="p-5">
-                  <h2 className="display-4">For those who misplace items</h2>
+                  <h2 className="display-4">For those who want the best!</h2>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
                 </div>
               </div>
@@ -87,12 +88,12 @@ class App extends React.Component {
             <div className="row align-items-center">
               <div className="col-lg-6 order-lg-2">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("./img/findQRCode.png")} alt=""/>
+                    <img className="img-fluid rounded-circle" src={require("./img/food3.jpeg")} alt=""/>
                     </div>
               </div>
               <div className="col-lg-6 order-lg-1">
                 <div className="p-5">
-                  <h2 className="display-4">QR Codes</h2>
+                  <h2 className="display-4">Food Food Food!</h2>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
                 </div>
               </div>
