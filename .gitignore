@@ -7,9 +7,6 @@ yarn-error.log*
 # Mac OS files
 .DS_Store
 
-#ignore html
-.html
-
 # Runtime data
 pids
 *.pid
