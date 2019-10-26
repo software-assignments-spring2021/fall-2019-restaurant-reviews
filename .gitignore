@@ -7,6 +7,12 @@ yarn-error.log*
 # Mac OS files
 .DS_Store
 
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
 # Runtime data
 pids
 *.pid

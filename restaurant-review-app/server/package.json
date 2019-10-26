@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 3000"
+    "test": "nyc mocha --exit"
   },
   "author": "",
   "license": "ISC",
@@ -23,5 +23,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "nyc": "^14.1.1"
   }
 }
