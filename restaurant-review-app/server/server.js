@@ -45,7 +45,7 @@ const restaurantRouter = require('./routes/restaurant');
 
 
 app.use('/user', userRouter);
-// app.use('/restaurants', restaurantRouter);
+app.use('/restaurant', restaurantRouter);
 
 
 //show the server status
