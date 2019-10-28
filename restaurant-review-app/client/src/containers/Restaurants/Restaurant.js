@@ -6,7 +6,7 @@ class Restaurant extends Component{
 
     state = {
 
-     
+        // a sample data of a restaurant
         name : 'Good Noodles',
 
         location : '5 University Pl',
@@ -31,12 +31,6 @@ class Restaurant extends Component{
 
 
         ]
-            // {
-            //     name:'Stir-fried chicken noodles',
-            //     rating:'5',
-            //     keywords:['soft noodles','fresh vegetables']
-            // }
-        
         
     
 
