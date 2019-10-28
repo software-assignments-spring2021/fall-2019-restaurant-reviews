@@ -1,3 +1,4 @@
+
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 const mongoose = require("mongoose");
@@ -33,18 +34,6 @@ describe('User routes', () => {
               });
       });
     });
-    //test delete 
-    // describe('delete user account', () =>{
-    //   it('it should delete the user data from database', (done) =>{
-
-    //     chai.request(server)
-    //         .delete('/user/:id')
-    //         .end((err, res) =>{
-              
-    //           done();
-    //         })
-    //   })
-    // })
 
     //test register
     describe('register', () => {
@@ -153,60 +142,100 @@ describe('User routes', () => {
               res.should.have.status(200);
               done();
             });
+
+          //test delete 
+   
       });
 
     });
+
+  //test DELETE
+  describe('delete user account', () =>{
+    it('it should delete the user data from database', (done) =>{
+
+      chai.request(server)
+          .delete('/user/:id')
+          .end((err, res) =>{
+            
+            done();
+          })
+    })
+  })
 //test login 
   describe( 'Log in' ,() => {
-    it('email should not be empty', (done) => {
+    it('email should match', (done) => {
       const input = {
-        email:'',
+        email:'hw@nyu.edu',
         password:'admin123'
       }
       chai.request(server)
           .post('/user/login')
           .send(input)
           .end((err, res) => {
-            res.should.have.status(422);
+            res.should.have.status(401);
             done();
           });
     });
     
-    it('password should not be empty', (done) => {
+    it('password should match', (done) => {
       const input = {
         email:'hw1635@nyu.edu',
-        password:'admin123'
+        password:'admin666'
       }
       chai.request(server)
           .post('/user/login')
           .send(input)
           .end((err, res) => {
-            console.log(res.body);
+            
             res.should.have.status(401);
             
             done();
           });
     });
-    
-    // it('user should be able to login', (done) => {
-    //   const input = {
-    //     email:'hw1635@nyu.edu',
-    //     password:'admin123'
-    //   }
-    //   chai.request(server)
-    //       .post('/user/login')
-    //       .send(input)
-    //       .end((err, res) => {
-    //         res.should.have.status(200);
-            
-    //         done();
-    //       });
-    // })
-    
+       
     
   });
 
 });
+
+describe('User Login', () =>{
+  it('enter a valid user credential to database', (done) =>{
+
+    const user = {
+      firstname: 'Martin',
+      lastname: 'Wu',
+      email: 'hw1635@nyu.edu',
+      password: 'admin123',
+    
+    }
+    chai.request(server)
+    .post('/user/register')
+    .send(user)
+    .end((err, res) =>{
+      res.should.have.status(200);
+      done();
+    });
+    
+  })
+  it('user should be able to login now', (done) => {
+    const input = {
+      email:'hw1635@nyu.edu',
+      password:'admin123'
+    }
+    
+    
+    chai.request(server)
+        .post('/user/login')
+        .send(input)
+        .end((err, res) => {
+          res.should.have.status(200);
+          
+          done();
+        });
+  
+        
+  });
+})
 
 
   
