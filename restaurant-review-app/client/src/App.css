@@ -20,3 +20,23 @@
 .App-link {
   color: #09d3ac;
 }
+
+.form-gradient .header {
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem; }
+
+.form-gradient input[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #3238a8;
+  -webkit-box-shadow: 0 1px 0 0 #3238a8;
+  box-shadow: 0 1px 0 0 #3238a8; }
+
+.form-gradient input[type=text]:focus:not([readonly]) + label {
+  color: #4f4f4f; }
+
+.form-gradient input[type=password]:focus:not([readonly]) {
+  border-bottom: 1px solid #3238a8;
+  -webkit-box-shadow: 0 1px 0 0 #3238a8;
+  box-shadow: 0 1px 0 0 #3238a8; }
+
+.form-gradient input[type=password]:focus:not([readonly]) + label {
+  color: #4f4f4f; }
