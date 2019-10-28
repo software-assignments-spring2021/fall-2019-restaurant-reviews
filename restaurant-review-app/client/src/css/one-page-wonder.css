@@ -47,7 +47,6 @@ h6 {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1rem;
-  color: #FFF;
 }
 
 header.masthead {
@@ -140,7 +139,7 @@ header.masthead .bg-circle-4 {
 .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(63, 78, 191, 0.5);
 }
- 
+
 .btn-secondary {
   background-color: #5B3FBF;
   border-color: #5B3FBF;
@@ -153,14 +152,5 @@ header.masthead .bg-circle-4 {
 
 .btn-secondary:focus {
   box-shadow: 0 0 0 0.2rem rgba(72, 63, 191, 0.5);
-}
-
-.button {
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  cursor:pointer;
-  overflow: hidden;
-  outline:none;
 }
 

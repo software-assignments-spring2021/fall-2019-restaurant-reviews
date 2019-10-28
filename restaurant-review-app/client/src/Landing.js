@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
-import '../vendor/bootstrap/css/bootstrap.min.css';
-import '../css/one-page-wonder.min.css';
-import '../App.css';
-import { BrowserRouter as Router} from "react-router-dom";
-//import Signup from "./signup";
-//import Login from "./login";
-import { Switch } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import './vendor/bootstrap/css/bootstrap.min.css';
+import './css/one-page-wonder.min.css';
 
-class Landing extends Component {
 
-  render() {
-    return (
-        <div className="App">
+const Landing = () =>{
+    return(
+    <div className="Landing">
           <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
           <div className="container">
             <a className="navbar-brand" href="index.html">Restaurant Review Agregator</a>
@@ -22,57 +15,48 @@ class Landing extends Component {
             <div className="collapse navbar-collapse" id="navbarResponsive">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                <Router>
-                    <Switch>
-                        <button type="button" onClick={ refreshPage } className = "button">
-                            <Link to='/signup' className="nav-link" >Sign Up</Link>
-                        </button> 
-                    </Switch>
-                </Router>
-                 
-                  {/*<a className="nav-link" href="signup.html">Sign Up</a>*/}
+                  {/*<Router>
+                    <Route path="/" exact component={signUp} >
+                  </Router>*/}
+                  <a className="nav-link" href="signup.html">Sign Up</a>
                 </li>
                 <li className="nav-item">
-                <Router>
-                    <Switch>
-                        <button type="button" onClick={ refreshPage } className = "button">
-                            <Link to='/login' className="nav-link" >Login</Link>
-                        </button> 
-                    </Switch>
-                </Router>
-                  {/*<a className="nav-link" href="login.html">Log In</a>*/}
+                  {/*<Router>
+                    <Route path="/edit/:id" component={login} />
+                  </Router>*/}
+                  <a className="nav-link" href="login.html">Log In</a>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
 
+   
         <header className="masthead text-center text-white">
-          <div className="masthead-content">
+        <div className="masthead-content">
             <div className="container">
-              <h2 className="masthead-subheading mb-0">Give Your Tastebuds a Treat</h2>
+            <h2 className="masthead-subheading mb-0">Give Your Tastebuds a Treat</h2>
                 <h2 className="masthead-subheading mb-0">Everyone Eats</h2>
-                <Router>
-                    <Switch>
-                        <button type="button" onClick={ refreshPage } className = "btn btn-primary btn-xl rounded-pill mt-5">
-                            <Link to='/signup' className="nav-link" >Sign Up</Link>
-                        </button> 
-                    </Switch>
-                </Router>
+                <a href="/restaurant" className="btn btn-primary btn-xl rounded-pill mt-5">Search</a>
             </div>
-          </div>
-          <div className="bg-circle-1 bg-circle"></div>
-          <div className="bg-circle-2 bg-circle"></div>
-          <div className="bg-circle-3 bg-circle"></div>
-          <div className="bg-circle-4 bg-circle"></div>
+        </div>
+        <div className="bg-circle-1 bg-circle"></div>
+        <div className="bg-circle-2 bg-circle"></div>
+        <div className="bg-circle-3 bg-circle"></div>
+        <div className="bg-circle-4 bg-circle"></div>
         </header>
+        
+            
+            
+
+  
 
         <section>
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-6 order-lg-2">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food1.jpeg")} alt="" />
+                    <img className="img-fluid rounded-circle" src={require("./img/food1.jpeg")} alt="" />
                     </div>
               </div>
               <div className="col-lg-6 order-lg-1">
@@ -90,7 +74,7 @@ class Landing extends Component {
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food2.jpeg")} alt="" />
+                    <img className="img-fluid rounded-circle" src={require("./img/food2.jpeg")} alt="" />
                     </div>
               </div>
               <div className="col-lg-6">
@@ -108,7 +92,7 @@ class Landing extends Component {
             <div className="row align-items-center">
               <div className="col-lg-6 order-lg-2">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food3.jpeg")} alt=""/>
+                    <img className="img-fluid rounded-circle" src={require("./img/food3.jpeg")} alt=""/>
                     </div>
               </div>
               <div className="col-lg-6 order-lg-1">
@@ -127,15 +111,10 @@ class Landing extends Component {
           </div>
         </footer>
 
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       </div>
-    );
-  }
-}
-
-function refreshPage(){ 
-    window.location.reload(); 
-}
+    )
+};
 
 export default Landing;
