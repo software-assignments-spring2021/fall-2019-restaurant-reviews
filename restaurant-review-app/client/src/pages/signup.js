@@ -74,83 +74,81 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className="App">
-                <MDBContainer style={{
-                    position: 'absolute', left: '50%', top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                }}>
+            <div className="bg">
+                <MDBContainer>
                     <MDBRow>
-                        <MDBCol md="6">
-                        <MDBCard>
-                            <div className="header pt-3 peach-gradient">
-                            <MDBRow className="d-flex justify-content-center">
-                                <h3 className="white-text mb-3 pt-3 font-weight-bold">
-                                Sign Up
-                                </h3>
-                            </MDBRow>
-                            <MDBRow className="mt-2 mb-3 d-flex justify-content-center">
-                                <a href="#!" className="fa-lg p-2 m-2 fb-ic">
-                                <MDBIcon fab icon="facebook-f" size="lg" className="white-text" />
-                                </a>
-                                <a href="#!" className="fa-lg p-2 m-2 gplus-ic">
-                                <MDBIcon fab className="fa-google-plus-g white-text fa-lg" />
-                                </a>
-                            </MDBRow>
-                            </div>
-                            <MDBCardBody className="mx-4 mt-4">
-                                <MDBInput 
-                                    label="First Name" 
-                                    group type="text" 
-                                    validate 
-                                    containerClass="mb-0"
-                                    value={this.state.firstname}
-                                    onChange={this.onChangeFirstname}
-                                />
-                                <MDBInput 
-                                    label="Last Name" 
-                                    group type="text" 
-                                    validate 
-                                    containerClass="mb-0"
-                                    value={this.state.lastname}
-                                    onChange={this.onChangeLastname}
-                                />
-                                <MDBInput 
-                                    label="Your email" 
-                                    group type="text" 
-                                    validate 
-                                    value={this.state.email}
-                                    onChange={this.onChangeEmail}
-                                />
-                                <MDBInput
-                                    label="Your password"
-                                    group type="password"
-                                    validate
-                                    containerClass="mb-0"
-                                    value={this.state.password}
-                                    onChange={this.onChangePassword}
-                                />
-                            
-                            <MDBRow className="d-flex align-items-center mb-4 mt-5">
-                                <MDBCol md="5" className="d-flex align-items-start">
-                                <div className="text-center">
-                                    <MDBBtn
-                                    color="orange"
-                                    rounded
-                                    type="button"
-                                    className="z-depth-1a"
-                                    onClick={this.onSubmit}
-                                    >
-                                    Sign Up!
-                                    </MDBBtn>
+                    <MDBCol>
+                            <MDBCol md="6">
+                            <MDBCard >
+                                <div className="header pt-3 peach-gradient">
+                                <MDBRow className="d-flex justify-content-center">
+                                    <h3 className="white-text mb-3 pt-3 font-weight-bold">
+                                    Sign Up
+                                    </h3>
+                                </MDBRow>
+                                <MDBRow className="mt-2 mb-3 d-flex justify-content-center">
+                                    <a href="#!" className="fa-lg p-2 m-2 fb-ic">
+                                    <MDBIcon fab icon="facebook-f" size="lg" className="white-text" />
+                                    </a>
+                                    <a href="#!" className="fa-lg p-2 m-2 gplus-ic">
+                                    <MDBIcon fab className="fa-google-plus-g white-text fa-lg" />
+                                    </a>
+                                </MDBRow>
                                 </div>
-                                </MDBCol>
-                            </MDBRow>
-                            </MDBCardBody>
-                        </MDBCard>
+                                <MDBCardBody className="mx-4 mt-4">
+                                    <MDBInput 
+                                        label="First Name" 
+                                        group type="text" 
+                                        validate 
+                                        containerClass="mb-0"
+                                        value={this.state.firstname}
+                                        onChange={this.onChangeFirstname}
+                                    />
+                                    <MDBInput 
+                                        label="Last Name" 
+                                        group type="text" 
+                                        validate 
+                                        containerClass="mb-0"
+                                        value={this.state.lastname}
+                                        onChange={this.onChangeLastname}
+                                    />
+                                    <MDBInput 
+                                        label="Your email" 
+                                        group type="text" 
+                                        validate 
+                                        value={this.state.email}
+                                        onChange={this.onChangeEmail}
+                                    />
+                                    <MDBInput
+                                        label="Your password"
+                                        group type="password"
+                                        validate
+                                        containerClass="mb-0"
+                                        value={this.state.password}
+                                        onChange={this.onChangePassword}
+                                    />
+                                
+                                <MDBRow className="d-flex align-items-center mb-4 mt-5">
+                                    <MDBCol md="5" className="d-flex align-items-start">
+                                    <div className="text-center">
+                                        <MDBBtn
+                                        color="orange"
+                                        rounded
+                                        type="button"
+                                        className="z-depth-1a"
+                                        onClick={this.onSubmit}
+                                        >
+                                        Sign Up!
+                                        </MDBBtn>
+                                    </div>
+                                    </MDBCol>
+                                </MDBRow>
+                                </MDBCardBody>
+                            </MDBCard>
+                            </MDBCol>
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
-
             </div>
         );
     }
