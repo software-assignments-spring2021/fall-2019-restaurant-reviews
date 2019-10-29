@@ -109,6 +109,18 @@ header.masthead .bg-circle-4 {
   right: 35%;
 }
 
+.profileTableDiv {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(7rem + 72px);
+  padding-bottom: 7rem;
+  background: linear-gradient(0deg, #3238a8 0%, #3298a8 100%);
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+  padding: 100px;
+}
+
 @media (min-width: 992px) {
   header.masthead {
     padding-top: calc(10rem + 55px);
@@ -153,4 +165,3 @@ header.masthead .bg-circle-4 {
 .btn-secondary:focus {
   box-shadow: 0 0 0 0.2rem rgba(72, 63, 191, 0.5);
 }
-

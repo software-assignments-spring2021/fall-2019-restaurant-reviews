@@ -6,7 +6,7 @@ import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 //import components
 import Restaurant from './containers/Restaurants/Restaurant';
-
+import UserPage from './containers/UserPage';
 import Landing from './Landing';
 
 class App extends React.Component {
@@ -17,6 +17,7 @@ class App extends React.Component {
         <div>
           <Route path='/' component={Landing} exact />
           <Route path='/restaurant' component={Restaurant} />
+          <Route path='/userpage' component={UserPage} />
         </div>
       </Router>
   

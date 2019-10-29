@@ -1,6 +1,7 @@
 import React from 'react';
 import './vendor/bootstrap/css/bootstrap.min.css';
 import './css/one-page-wonder.min.css';
+import { Link } from 'react-router-dom';
 
 
 const Landing = () =>{
@@ -25,6 +26,12 @@ const Landing = () =>{
                     <Route path="/edit/:id" component={login} />
                   </Router>*/}
                   <a className="nav-link" href="login.html">Log In</a>
+                </li>
+                <li className="nav-item">
+                  {/*<Router>
+                    <Route path="/userpage" component={UserPage} />
+                  </Router>*/}
+                  <Link className="nav-link" to="/userpage">My User Page</Link>
                 </li>
               </ul>
             </div>
