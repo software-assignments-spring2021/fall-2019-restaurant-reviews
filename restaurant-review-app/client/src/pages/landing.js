@@ -42,6 +42,12 @@ class Landing extends Component {
                 </Router>
                   {/*<a className="nav-link" href="login.html">Log In</a>*/}
                 </li>
+                <li className="nav-item">
+                  {/*<Router>
+                    <Route path="/userpage" component={UserPage} />
+                  </Router>*/}
+                  <Link className="nav-link" to="/userpage">My User Page</Link>
+                </li>
               </ul>
             </div>
           </div>
