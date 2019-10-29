@@ -61,7 +61,7 @@ class Landing extends Component {
                 <Router>
                     <Switch>
                         <button type="button" onClick={ refreshPage } className = "btn btn-primary btn-xl rounded-pill mt-5">
-                            <Link to='/signup' className="nav-link" >Sign Up</Link>
+                            <Link to='/signup' className="nav-link" >Sign Up Yo</Link>
                         </button> 
                     </Switch>
                 </Router>
