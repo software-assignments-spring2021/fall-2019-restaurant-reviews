@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 //import { Link } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
 import "../App.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { BrowserRouter as Router} from "react-router-dom";
+import { Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-const Login = () => { {
+const Login = () => { 
 
     return (
         <div className="bg">
@@ -63,12 +66,13 @@ const Login = () => { {
                             <MDBCol md="7" className="d-flex justify-content-end">
                             <p className="font-small grey-text mt-3">
                                 Don't have an account?
-                                <a
-                                href="#!"
-                                className="dark-grey-text ml-1 font-weight-bold"
-                                >
-                                Sign up
-                                </a>
+                                <Router>
+                                    <Switch>
+                                        <button type="button" onClick={ refreshPage } className = "button">
+                                            <Link to='/signup' className="nav-link" >Sign Up</Link>
+                                        </button> 
+                                    </Switch>
+                                </Router>
                             </p>
                             </MDBCol>
                         </MDBRow>
@@ -79,7 +83,9 @@ const Login = () => { {
             </MDBContainer>
         </div>
     );
-  }
+  
 }
-
+function refreshPage(){ 
+    window.location.reload(); 
+}
 export default Login;
