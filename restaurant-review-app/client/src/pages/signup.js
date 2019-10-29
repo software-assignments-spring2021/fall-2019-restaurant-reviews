@@ -7,6 +7,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../vendor/bootstrap/css/bootstrap.min.css';
 import '../css/one-page-wonder.min.css';
 import axios from "axios";
+import { BrowserRouter as Router} from "react-router-dom";
+import { Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
 
@@ -141,6 +144,19 @@ class Signup extends Component {
                                         Sign Up!
                                         </MDBBtn>
                                     </div>
+
+                                    </MDBCol>
+                                    <MDBCol md="7" className="d-flex justify-content-end">
+                                    <div className="font-small grey-text mt-3">
+                                    Have an account? 
+                                    <Router>
+                                        <Switch>
+                                            <button type="button" onClick={ refreshPage } className = "button">
+                                                <Link to='/login' className="nav-link" >Login</Link>
+                                            </button> 
+                                        </Switch>
+                                    </Router>
+                                    </div>
                                     </MDBCol>
                                 </MDBRow>
                                 </MDBCardBody>
@@ -152,6 +168,10 @@ class Signup extends Component {
             </div>
         );
     }
+}
+
+function refreshPage(){ 
+    window.location.reload(); 
 }
 
 export default Signup;
