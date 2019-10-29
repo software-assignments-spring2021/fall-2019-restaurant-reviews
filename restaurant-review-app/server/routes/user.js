@@ -101,15 +101,23 @@ router.route('/:id').delete( (req, res) => {
 
 });
 
-
+//get a user's favorite restaurants. return a json that contains favored restaurants list
 router.route('/:id/favorites').get( (req, res) =>{
   User.findById(req.params.id)
-      .then(users => res.json(users.favorites))
+      .then(users => res.json(users.favoriteRes))
       .catch(err => res.status(400).json('Error: ' + err));
 })
 
-//IMPLEMENT USER INFO UPDATE ROUTE
-
-
+//update a user's favorite restaurants.
+router.route('/:id/update/favorites').post( (req, res) =>{
+  User.findById(req.params.id)
+      .then( (user) =>{
+          user.favoriteRes = req.body.favoriteRes;
+          user.save()
+              .then( () => res.json("Favorite restaurants updated!"))
+              .catch( (err) => res.status(400).json('Error' + err));
+      })
+      .catch( (err) => res.json('Err' + err));
+})
 
 module.exports = router;
