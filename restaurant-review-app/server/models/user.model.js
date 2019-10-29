@@ -34,6 +34,11 @@ const userSchema = new Schema({
 
     },
 
+    favoriteRes:{
+        type: [String],
+       
+    }
+
 },{
     timestamps: true,
 

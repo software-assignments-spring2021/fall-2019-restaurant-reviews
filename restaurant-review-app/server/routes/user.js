@@ -102,6 +102,14 @@ router.route('/:id').delete( (req, res) => {
 });
 
 
+router.route('/:id/favorites').get( (req, res) =>{
+  User.findById(req.params.id)
+      .then(users => res.json(users.favorites))
+      .catch(err => res.status(400).json('Error: ' + err));
+})
+
+//IMPLEMENT USER INFO UPDATE ROUTE
+
 
 
 module.exports = router;
