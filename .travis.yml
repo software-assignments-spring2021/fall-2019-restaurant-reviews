@@ -14,6 +14,6 @@ cache:
 
 env:
   global:
-    DB_URI = $DB_URI
+    DB_URI = $ATLAS_URI
 notifications:
   slack: nyuagile:Jjaz93JKlITFD1w2iPO5NXnx
