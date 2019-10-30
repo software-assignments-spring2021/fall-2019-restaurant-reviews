@@ -1,6 +1,19 @@
 language: node_js
+server: mongodb
 node_js:
-  - "node"
-  - "7"
+  - '12'
+install:
+  - cd server ; npm install
+  - cd server ; npm install -dev
+script:
+  - cd server ; npm test
+
+cache:
+  directories:
+  - node_modules
+
+env:
+  global:
+    DB_URI = $DB_URI
 notifications:
   slack: nyuagile:Jjaz93JKlITFD1w2iPO5NXnx
