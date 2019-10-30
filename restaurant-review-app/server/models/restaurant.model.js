@@ -16,10 +16,18 @@ const restaurantSchema = new Schema({
     },
 
  
-    // dishes:[
-    //     {type:mongoose.Schema.Types.ObjectId, ref:'Dish'}
-    // ]
+    dishes:{
+        // {type:mongoose.Schema.Types.ObjectId, ref:'Dish'}
+        type: String,
+        required: true
+
+    },
     
+    comments:{
+
+        type: String,
+        required: true
+    }
 
 },{timestamps:true})
 
