@@ -3,10 +3,10 @@ server: mongodb
 node_js:
   - '12'
 install:
-  - cd server ; npm install
-  - cd server ; npm install -dev
+  - cd restaurant-review-app/server ; npm install
+  - cd restaurant-review-app/server ; npm install -dev
 script:
-  - cd server ; npm test
+  - cd restaurant-review-app/server ; npm test
 
 cache:
   directories:
