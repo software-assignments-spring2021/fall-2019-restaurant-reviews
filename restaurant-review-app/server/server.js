@@ -8,8 +8,8 @@ const passport = require('passport');
 require('dotenv').config();
 
 
-//setup localhost port to be 6000
-const port = process.env.PORT || 6000;
+//setup localhost port to be 5000
+const port = process.env.PORT || 5000;
 
 //middleware 
 app.use(cors());
