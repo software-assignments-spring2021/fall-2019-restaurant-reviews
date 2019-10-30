@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+  - "node"
+  - "7"
+notifications:
+  slack: nyuagile:Jjaz93JKlITFD1w2iPO5NXnx
