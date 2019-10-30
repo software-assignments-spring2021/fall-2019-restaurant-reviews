@@ -1,4 +1,5 @@
 # Restaurant Review Web Application
+[![Build Status](https://travis-ci.com/nyu-software-engineering/fall-2019-restaurant-reviews.svg?branch=master)](https://travis-ci.com/nyu-software-engineering/fall-2019-restaurant-reviews)
 
 - You’re looking for a place to eat. You find a Thai restaurant on Google Maps with a score of 4.0. You look on Yelp and it has a score of 3.1 stars. You look on TripAdvisor and it’s rated 4.6. Who do you trust? You trust Restaurant Review Aggregator (RRA). The main purpose of RRA is to give its users (restaurant goers) clear and concise information on individual aspects of any given restaurant without them having to read hundreds of overly-enthusiastic, hateful, or paid-for reviews. It works as follows: user searches for a restaurant on RRA, the program finds links to that restaurant’s Yelp, TripAdvisor, Google Reviews, etc. pages and scans all of the available text reviews. Next, the program completes some data analysis on this data and outputs condensed, insightful metrics.
 
