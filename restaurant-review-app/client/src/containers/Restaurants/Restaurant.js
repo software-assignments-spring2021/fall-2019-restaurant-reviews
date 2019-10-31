@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import styles from './Restaurant.module.css';
+//import axios to connect backend
+import axios from 'axios';
+
 
 //NOTE: SHOULD INCLUDE A NAVBAR THE SAME AS IN THE LANDING PAGE.
 class Restaurant extends Component{
@@ -7,37 +10,53 @@ class Restaurant extends Component{
     state = {
 
         // a sample data of a restaurant
-        name : 'Good Noodles',
+        // name : 'Good Noodles',
 
-        location : '5 University Pl',
+        // location : '5 University Pl',
 
-        dishes : [
-            {
-                name:'Beef noodles',
-                rating:'4',
-                comments:['tasty beef','delicious soup']
-            },
+        // dishes : [
+        //     {
+        //         name:'Beef noodles',
+        //         rating:'4',
+        //         comments:['tasty beef','delicious soup']
+        //     },
 
-            {
-                name:'Chicken noodles',
-                rating:'2',
-                comments:['broth is normal','chicken is not fresh','pricy']
-            },
-            {
-                name:'Veggie noodles',
-                rating:'3.5',
-                comments:['great ingredients','smells good']
-            }
+        //     {
+        //         name:'Chicken noodles',
+        //         rating:'2',
+        //         comments:['broth is normal','chicken is not fresh','pricy']
+        //     },
+        //     {
+        //         name:'Veggie noodles',
+        //         rating:'3.5',
+        //         comments:['great ingredients','smells good']
+        //     }
 
 
-        ]
-        
-    
-
+        // ]
+        name:'',
+        location:'',
+        dishes:'',
+        comments:''
         // mycomment = {
         //     date:Date(),
         //     rating:''
         // }
+    }
+    componentDidMount(){
+        axios.get('http://localhost:5000/restaurant/')
+             .then( (res) => {
+                 this.setState({
+                     name:res.data[1].name,
+                     location:res.data[1].location,
+                     dishes:res.data[1].dishes,
+                     comments:res.data[1].comments,
+                 })
+                 console.log(res.data);
+             })
+             .catch( (err) =>{
+                console.log(err);
+             })
     }
     
     render(){
@@ -48,26 +67,12 @@ class Restaurant extends Component{
                 
                 <h4>{this.state.location}</h4>
                 <div className={styles.Dish}>     
-                    {this.state.dishes[0].name} <br/>
+                    {this.state.dishes} 
                     <div className={styles.Comments}>
-                    {this.state.dishes[0].comments[0]} <br/>
-                    {this.state.dishes[0].comments[1]}<br/>
+                    {this.state.comments} 
                     </div>
                 </div>
-                <div className={styles.Dish}>     
-                    {this.state.dishes[1].name} <br/>
-                    <div className={styles.Comments}>
-                    {this.state.dishes[1].comments[0]} <br/>
-                    {this.state.dishes[1].comments[1]}<br/>
-                    </div>
-                </div>
-                <div className={styles.Dish}>     
-                    {this.state.dishes[2].name} <br/>
-                    <div className={styles.Comments}>
-                    {this.state.dishes[2].comments[0]} <br/>
-                    {this.state.dishes[2].comments[1]}<br/>
-                    </div>
-                </div>
+             
                 {/* <MyComments>  </MyComments> */}
                 
             </div>

@@ -18,8 +18,8 @@ router.route('/:id').get((req, res) => {
 
 router.route('/add').post((req, res) =>{
 
-    const {name,location} = req.body;
-    const newRest = new Restaurant({name,location});
+    const {name,location,dishes,comments} = req.body;
+    const newRest = new Restaurant({name,location,dishes,comments});
     newRest.save()
       .then(() => res.json({message:'restaurant added.',newRest}))
       .catch(err => res.status(400).json('Error: ' + err));

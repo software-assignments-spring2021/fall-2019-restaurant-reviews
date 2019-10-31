@@ -1,0 +1,17 @@
+language: node_js
+server: mongodb
+node_js:
+  - '12'
+install:
+  - cd restaurant-review-app/server ; npm install
+  - cd restaurant-review-app/server ; npm install -dev
+script:
+  - cd restaurant-review-app/server ; npm test
+
+cache:
+  directories:
+  - node_modules
+
+
+notifications:
+  slack: nyuagile:Jjaz93JKlITFD1w2iPO5NXnx

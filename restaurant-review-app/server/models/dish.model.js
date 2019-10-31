@@ -9,7 +9,9 @@ dishSchema = new Schema({
         required: true
     },
 
-    reviews:[
+    rating:{type: Int8Array,required:true},
+
+    comments:[
         {type:mongoose.Schema.Types.ObjectId, ref:'Review'}
     ]
     
@@ -20,6 +22,6 @@ dishSchema = new Schema({
 
 //export dish schema
 
-const Review = mongoose.model('Review',reviewSchema);
+const Dish = mongoose.model('Dish',dishSchema);
 
-module.exports = Review;
+module.exports = Dish;
