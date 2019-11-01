@@ -15,6 +15,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={withRouter(Landing)} />
+          <Route exact path="/index.html" component={withRouter(Landing)} />
           <Route path="/signup" component={withRouter(Signup)} />
           <Route path="/login" component={Login} />
           <Route path='/userpage' component={UserPage} />

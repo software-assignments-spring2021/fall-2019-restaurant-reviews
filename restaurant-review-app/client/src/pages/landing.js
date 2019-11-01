@@ -7,8 +7,35 @@ import { BrowserRouter as Router} from "react-router-dom";
 //import Login from "./login";
 import { Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { MDBCol, MDBIcon } from "mdbreact";
+import Autocomplete from "../Autocomplete";
+import axios from "axios";
+
+
 
 class Landing extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      names: []
+    };
+  }
+
+  
+
+  componentDidMount(){
+    axios.get("http://localhost:5000/restaurant")
+    .then(response => {
+      if (response.data.length > 0){
+        this.setState({
+          names: response.data.map(restaurant => restaurant.name)
+          
+        })
+        console.log(this.names)
+      }
+    })
+  }
 
   render() {
     return (
@@ -16,7 +43,8 @@ class Landing extends Component {
           <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
           <div className="container">
             <a className="navbar-brand" href="index.html">Restaurant Review Agregator</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarResponsive">
@@ -29,6 +57,7 @@ class Landing extends Component {
                         </button> 
                     </Switch>
                 </Router>
+                
                  
                   {/*<a className="nav-link" href="signup.html">Sign Up</a>*/}
                 </li>
@@ -58,13 +87,210 @@ class Landing extends Component {
             <div className="container">
               <h2 className="masthead-subheading mb-0">Give Your Tastebuds a Treat</h2>
                 <h2 className="masthead-subheading mb-0">Everyone Eats</h2>
-                <Router>
-                    <Switch>
-                        <button type="button" onClick={ refreshPage } className = "btn btn-primary btn-xl rounded-pill mt-5">
-                            <Link to='/signup' className="nav-link" >Sign Up</Link>
-                        </button> 
-                    </Switch>
-                </Router>
+                  {/* <MDBCol md="12"> */}
+                  <Autocomplete
+                    suggestions={[
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "Andorra",
+            "Angola",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Brazil",
+            "Brunei",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Central African Republic (CAR)",
+            "Chad",
+            "Chile",
+            "China",
+            "Colombia",
+            "Comoros",
+            "Costa Rica",
+            "Cote d'Ivoire",
+            "Croatia",
+            "Cuba",
+            "Cyprus",
+            "Czech Republic",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Ethiopia",
+            "Fiji",
+            "Finland",
+            "France",
+            "Gabon",
+            "Gambia",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Greece",
+            "Grenada",
+            "Guatemala",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Honduras",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran",
+            "Iraq",
+            "Ireland",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Kosovo",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Laos",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Macedonia (FYROM)",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Mauritania",
+            "Mauritius",
+            "Mexico",
+            "Micronesia",
+            "Moldova",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Morocco",
+            "Mozambique",
+            "Myanmar (Burma)",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "Netherlands",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "North Korea",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Palestine",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Poland",
+            "Portugal",
+            "Qatar",
+            "Romania",
+            "Russia",
+            "Rwanda",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome and Principe",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Korea",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Sweden",
+            "Switzerland",
+            "Syria",
+            "Taiwan",
+            "Tajikistan",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Tuvalu",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates (UAE)",
+            "United Kingdom (UK)",
+            "United States of America (USA)",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Vatican City (Holy See)",
+            "Venezuela",
+            "Vietnam",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"
+          ]}/>
+                    {/* <form className="form-inline justify-content-center mt-5">
+                      <MDBIcon icon="search"/>
+                      <input className="form-control form-control-lg ml-4 w-75" type="text" placeholder="Search for your favorite restaurants..." aria-label="Search"/>
+                    </form> */}
+                  {/* </MDBCol> */}
             </div>
           </div>
           <div className="bg-circle-1 bg-circle"></div>
