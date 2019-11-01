@@ -12,8 +12,8 @@ const chai = require('chai');
 chai.use(chaiHttp);
 
 
-//test user routes
-describe('User routes', () => {
+//test user input validation
+describe('user input validation', () => {
 
     //empty database before each test 
     beforeEach( (done) => {
@@ -161,44 +161,13 @@ describe('User routes', () => {
           })
     })
   })
-//test login 
-  describe( 'Log in' ,() => {
-    it('email should match', (done) => {
-      const input = {
-        email:'hw@nyu.edu',
-        password:'admin123'
-      }
-      chai.request(server)
-          .post('/user/login')
-          .send(input)
-          .end((err, res) => {
-            res.should.have.status(401);
-            done();
-          });
-    });
-    
-    it('password should match', (done) => {
-      const input = {
-        email:'hw1635@nyu.edu',
-        password:'admin666'
-      }
-      chai.request(server)
-          .post('/user/login')
-          .send(input)
-          .end((err, res) => {
-            
-            res.should.have.status(401);
-            
-            done();
-          });
-    });
-       
-    
-  });
+
 
 });
 
-describe('User Login', () =>{
+
+//test login 
+describe( 'Log in' ,() => {
   it('enter a valid user credential to database', (done) =>{
 
     const user = {
@@ -217,6 +186,37 @@ describe('User Login', () =>{
     });
     
   })
+  it('email should match', (done) => {
+    const input = {
+      email:'hw@nyu.edu',
+      password:'admin123'
+    }
+    chai.request(server)
+        .post('/user/login')
+        .send(input)
+        .end((err, res) => {
+          //should have unauthorized status
+          res.should.have.status(401);
+          done();
+        });
+  });
+  
+  it('password should match', (done) => {
+    const input = {
+      email:'hw1635@nyu.edu',
+      password:'admin666'
+    }
+    chai.request(server)
+        .post('/user/login')
+        .send(input)
+        .end((err, res) => {
+          //should have unauthorized status
+          res.should.have.status(401);
+          
+          done();
+        });
+  });
+    
   it('user should be able to login now', (done) => {
     const input = {
       email:'hw1635@nyu.edu',
@@ -235,7 +235,8 @@ describe('User Login', () =>{
   
         
   });
-})
+  
+});
 
 
   

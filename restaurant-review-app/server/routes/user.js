@@ -82,7 +82,7 @@ router.route('/login').post([
   passport.authenticate('local', {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    failureRedirect: '/login',
+    // failureRedirect: '/login',
     successRedirect: '/user',
     
   })(req, res, next);
