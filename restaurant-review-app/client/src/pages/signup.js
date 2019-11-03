@@ -29,7 +29,7 @@ class Signup extends Component {
             password: '',
             firstname: '',
             lastname: '',
-            emialErr:'',
+            emailErr:'',
             passwordErr:'',
             nameErr:''
         }
@@ -59,6 +59,15 @@ class Signup extends Component {
     }
 
     validate(){
+        
+        let nameErr= '';
+        if(!this.state.firstname === "" || this.state.lastname === ""){
+            nameErr = "First name or last name cannot be empty.";
+            this.setState({nameErr:nameErr});
+            return false;
+
+        }
+
         let emailErr= '';
         if(!this.state.email.includes('@')){
 
@@ -68,17 +77,7 @@ class Signup extends Component {
             console.log(this.state.emailErr);
             return false;
         }
-        
 
-        let nameErr= '';
-        if(!this.state.firstname === "" || this.state.lastname === ""){
-            nameErr = "First name or last name cannot be empty.";
-            this.setState({nameErr:nameErr});
-            return false;
-
-        }
-
-        
         let passwordErr= '';
         if(this.state.password === ""){
             passwordErr = "Password cannot be empty.";
@@ -86,11 +85,11 @@ class Signup extends Component {
             return false;
 
         }
-        // this.setState({
-        //     emailErr:'',
-        //     nameErr:'',
-        //     passwordErr:''
-        // });
+        if(this.state.password.length < 6){
+            passwordErr = "Passwort must have at least 6 characters.";
+            this.setState({passwordErr:passwordErr});
+            return false;
+        }
 
         return true;
     }
@@ -106,25 +105,26 @@ class Signup extends Component {
                 password: this.state.password
             }
             console.log(user);
-
+            //stores data in mongodb
             axios.post('http://localhost:5000/user/register', user)
                 .then(res => console.log(res.data));
 
+
+            //window.location.replace('/login');
+
+            //set to initial state
             this.setState({
                 email: '',
                 password: '',
                 firstname: '',
                 lastname: '',
-                emialErr:'',
+                emailErr:'',
                 passwordErr:'',
                 nameErr:''
             });
         }
     }
-
-
-   
-
+    
     render() {
         return (
             <div className="bg">

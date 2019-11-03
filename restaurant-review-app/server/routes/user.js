@@ -78,15 +78,21 @@ router.route('/login').post([
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  console.log('logged in!');
+
   passport.authenticate('local', {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
-    // failureRedirect: '/login',
-    successRedirect: '/user',
-    
+    //failureRedirect: '/user/login',
+    successMessage:'Logged in!',
+    failureMessage: 'Invalid username or password.',
+    //successRedirect:'/user'
   })(req, res, next);
+
+  
+  
 });
+
+
 
 
 

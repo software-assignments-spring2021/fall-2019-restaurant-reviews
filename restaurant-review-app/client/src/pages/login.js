@@ -21,7 +21,10 @@ class Login extends Component {
     
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            emailErr:'',
+            passwordErr:'',
+            loginErr:''
         }
     }
     
@@ -37,22 +40,52 @@ class Login extends Component {
         })
     }
     
+    validate(){
+        let emailErr= '';
+
+        if(!this.state.email.includes('@')){
+
+            emailErr = 'Invalid Email.';
+            this.setState({emailErr:emailErr});
+                
+            console.log(this.state.emailErr);
+            return false;
+        }
+
+        let passwordErr= '';
+        if(this.state.password === ""){
+            passwordErr = "Password cannot be empty.";
+            this.setState({passwordErr:passwordErr});
+            return false;
+
+        }
+
+        return true;
+    }
     onSubmit(e) {
         e.preventDefault();
-    
-        const user = {
-            email: this.state.email,
-            password: this.state.password
+        const isValid = this.validate();
+
+        if(isValid){
+            const user = {
+                email: this.state.email,
+                password: this.state.password
+            }
+            console.log(user);
+            
+            axios.post('http://localhost:5000/user/login', user)
+            .then(res => {
+                console.log(res);
+            });
+            
+            this.setState({
+
+                emailErr:'',
+                passwordErr:''
+            });
         }
-        console.log(user);
-    
-        axios.post('http://localhost:5000/user/login', user)
-          .then(res => console.log(res.data));
-    
-        this.setState({
-          email: '',
-          password: ''
-        })
+
+     
     }
     
     render() {
@@ -85,6 +118,9 @@ class Login extends Component {
                                 value={this.state.email}
                                 onChange={this.onChangeEmail}
                             />
+                            <div style={{fontSize:15,color:"red"}}>                              
+                                {this.state.emailErr}
+                            </div>
                             <MDBInput
                                 label="Your password"
                                 group
@@ -94,6 +130,10 @@ class Login extends Component {
                                 value={this.state.password}
                                 onChange={this.onChangePassword}
                             />
+                             {/*display error message */}
+                            <div style={{fontSize:15,color:"red"}}>                              
+                                {this.state.passwordErr}
+                            </div>
                             <p className="font-small grey-text d-flex justify-content-end">
                                 Forgot
                                 <a
@@ -115,7 +155,12 @@ class Login extends Component {
                                     >
                                     Log in
                                     </MDBBtn>
+                                    {/*display error message */}
+                                    <div style={{fontSize:15,color:"red"}}>                              
+                                        {this.state.loginErr}
+                                    </div>
                                 </div>
+
                                 </MDBCol>
                                 <MDBCol md="7" className="d-flex justify-content-end">
                                 <p className="font-small grey-text mt-3">
