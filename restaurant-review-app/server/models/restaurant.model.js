@@ -1,5 +1,27 @@
+//import MongoDB
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+//The restaurant schema includes name, location, dishSchema
+
+
+
+//create dish schema
+const dishSchema = new Schema({
+
+    dishname:{
+        type: String, 
+        required: true
+    },
+
+    rating:{type: Number,required:true},
+
+    comments:[String]
+    
+
+},{
+    timestamps:false
+})
 
 const restaurantSchema = new Schema({
 
@@ -16,20 +38,10 @@ const restaurantSchema = new Schema({
     },
 
  
-    dishes:{
-        // {type:mongoose.Schema.Types.ObjectId, ref:'Dish'}
-        type: String,
-        required: true
+    dishes:[dishSchema]
+  
 
-    },
-    
-    comments:{
-
-        type: String,
-        required: true
-    }
-
-},{timestamps:true})
+},{timestamps:false})
 
 const Restaurant = mongoose.model('Restaurant',restaurantSchema);
 
