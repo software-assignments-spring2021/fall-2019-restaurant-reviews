@@ -85,7 +85,7 @@ router.route('/login').post([
     //failureRedirect: '/user/login',
     successMessage:'Logged in!',
     failureMessage: 'Invalid username or password.',
-    //successRedirect:'/user'
+    successRedirect:'/user'
   })(req, res, next);
 
   
