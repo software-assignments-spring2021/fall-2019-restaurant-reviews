@@ -113,7 +113,7 @@ class Autocomplete extends Component {
           <ul class="suggestions">
             {filteredSuggestions.map((suggestion, index) => {
               let className;
-              
+
               // Flag the active suggestion with a class
               if (index === activeSuggestion) {
                 className = "suggestion-active";
@@ -143,6 +143,7 @@ class Autocomplete extends Component {
 
     return (
       <Fragment>
+          <div> 
           <MDBCol md="12">
           <form className="form-inline justify-content-center mt-5">
           <MDBIcon icon="search"/>
@@ -153,11 +154,12 @@ class Autocomplete extends Component {
           value={userInput}
           className="form-control form-control-lg ml-4 w-75" type="text" placeholder="Search for your favorite restaurants..." aria-label="Search"
         />
-
+        
         </form>
         {suggestionsListComponent}
-
+        
         </MDBCol>
+        </div>
       </Fragment>
     );
   }
