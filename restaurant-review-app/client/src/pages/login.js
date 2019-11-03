@@ -24,7 +24,8 @@ class Login extends Component {
             password: '',
             emailErr:'',
             passwordErr:'',
-            loginErr:''
+            loginStatus:'',
+            success:false
         }
     }
     
@@ -65,7 +66,7 @@ class Login extends Component {
     onSubmit(e) {
         e.preventDefault();
         const isValid = this.validate();
-
+        
         if(isValid){
             const user = {
                 email: this.state.email,
@@ -75,20 +76,33 @@ class Login extends Component {
             
             axios.post('http://localhost:5000/user/login', user)
             .then(res => {
-                console.log(res);
+                console.log(res.data[0].user);
+                this.setState({success:true,loginStatus:'Logged in!'});
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({loginStatus:'Incorrect email or password',success:false});
+
             });
-            
+
+
             this.setState({
 
                 emailErr:'',
-                passwordErr:''
+                passwordErr:'',
+                loginStatus:'',
+                success:false
+
             });
         }
 
+       
+
      
     }
-    
+ 
     render() {
+
         return (
             <div className="bg">
                 <MDBContainer>
@@ -134,7 +148,12 @@ class Login extends Component {
                             <div style={{fontSize:15,color:"red"}}>                              
                                 {this.state.passwordErr}
                             </div>
+                            {/*display error message */}
+                            <div style={{fontSize:15,color:"red"}}>                              
+                                {this.state.loginStatus}
+                            </div>
                             <p className="font-small grey-text d-flex justify-content-end">
+                                   
                                 Forgot
                                 <a
                                 href="#!"
@@ -142,6 +161,7 @@ class Login extends Component {
                                 >
                                 Password?
                                 </a>
+
                             </p>
                             <MDBRow className="d-flex align-items-center mb-4 mt-5">
                                 <MDBCol md="5" className="d-flex align-items-start">
@@ -153,12 +173,9 @@ class Login extends Component {
                                     className="z-depth-1a"
                                     onClick={this.onSubmit}
                                     >
-                                    Log in
+                                        Log in
                                     </MDBBtn>
-                                    {/*display error message */}
-                                    <div style={{fontSize:15,color:"red"}}>                              
-                                        {this.state.loginErr}
-                                    </div>
+                                 
                                 </div>
 
                                 </MDBCol>
