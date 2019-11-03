@@ -64,7 +64,7 @@ class Signup extends Component {
         }
         console.log(user);
     
-        axios.post('http://localhost:5000/user/register', user)
+        axios.post('http://localhost:6000/user/register', user)
           .then(res => console.log(res.data));
     
         this.setState({
@@ -74,8 +74,6 @@ class Signup extends Component {
           lastname: ''
         })
       }
-
-
 
     render() {
         return (
