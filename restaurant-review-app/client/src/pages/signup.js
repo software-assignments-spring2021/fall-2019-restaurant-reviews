@@ -95,7 +95,6 @@ class Signup extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-<<<<<<< HEAD
         const isValid = this.validate();
         
         if(isValid){
@@ -126,28 +125,6 @@ class Signup extends Component {
         }
     }
     
-=======
-    
-        const user = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            password: this.state.password
-        }
-        console.log(user);
-    
-        axios.post('http://localhost:6000/user/register', user)
-          .then(res => console.log(res.data));
-    
-        this.setState({
-          email: '',
-          password: '',
-          firstname: '',
-          lastname: ''
-        })
-      }
-
->>>>>>> b58997aefd7a6ff319dd71c6044344528b60f886
     render() {
         return (
             <div className="bg">
