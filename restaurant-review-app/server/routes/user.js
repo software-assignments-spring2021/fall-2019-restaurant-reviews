@@ -74,19 +74,24 @@ router.route('/login').post([
     
   ],(req,res,next)=>{
   // Finds the validation errors in this request and wraps them in an object with handy functions
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
 
-  passport.authenticate('local', {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    // failureRedirect: '/login',
-    successRedirect: '/user',
+    passport.authenticate('local', {
+      // If this function gets called, authentication was successful.
+      // `req.user` contains the authenticated user.
+      //failureRedirect: '/user/login',
+      successRedirect:'/user'
+    })(req, res, next);
     
-  })(req, res, next);
+    console.log('Logged in!');
+  
+  
 });
+
+
 
 
 

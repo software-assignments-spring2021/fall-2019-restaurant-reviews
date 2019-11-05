@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon} from 'mdbreact';
 import "../App.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -21,12 +21,17 @@ class Signup extends Component {
         this.onChangeFirstname = this.onChangeFirstname.bind(this);
         this.onChangeLastname = this.onChangeLastname.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-    
+        this.validate = this.validate.bind(this);
+
+
         this.state = {
             email: '',
             password: '',
             firstname: '',
-            lastname: ''
+            lastname: '',
+            emailErr:'',
+            passwordErr:'',
+            nameErr:''
         }
     }
     
@@ -52,29 +57,74 @@ class Signup extends Component {
           lastname: e.target.value
         })
     }
-    
+
+    validate(){
+        
+        let nameErr= '';
+        if(!this.state.firstname === "" || this.state.lastname === ""){
+            nameErr = "First name or last name cannot be empty.";
+            this.setState({nameErr:nameErr});
+            return false;
+
+        }
+
+        let emailErr= '';
+        if(!this.state.email.includes('@')){
+
+            emailErr = 'Invalid Email.';
+            this.setState({emailErr:emailErr});
+                
+            console.log(this.state.emailErr);
+            return false;
+        }
+
+        let passwordErr= '';
+        if(this.state.password === ""){
+            passwordErr = "Password cannot be empty.";
+            this.setState({passwordErr:passwordErr});
+            return false;
+
+        }
+        if(this.state.password.length < 6){
+            passwordErr = "Passwort must have at least 6 characters.";
+            this.setState({passwordErr:passwordErr});
+            return false;
+        }
+
+        return true;
+    }
     onSubmit(e) {
         e.preventDefault();
-    
-        const user = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            password: this.state.password
-        }
-        console.log(user);
-    
-        axios.post('http://localhost:6000/user/register', user)
-          .then(res => console.log(res.data));
-    
-        this.setState({
-          email: '',
-          password: '',
-          firstname: '',
-          lastname: ''
-        })
-      }
+        const isValid = this.validate();
+        
+        if(isValid){
+            const user = {
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                email: this.state.email,
+                password: this.state.password
+            }
+            console.log(user);
+            //stores data in mongodb
+            axios.post('http://localhost:5000/user/register', user)
+                .then(res => console.log(res.data));
 
+
+            //window.location.replace('/login');
+
+            //set to initial state
+            this.setState({
+                email: '',
+                password: '',
+                firstname: '',
+                lastname: '',
+                emailErr:'',
+                passwordErr:'',
+                nameErr:''
+            });
+        }
+    }
+    
     render() {
         return (
             <div className="bg">
@@ -100,9 +150,10 @@ class Signup extends Component {
                                 </div>
                                 <MDBCardBody className="mx-4 mt-4">
                                     <MDBInput 
-                                        label="First Name" 
+                                        
+                                        label="First Name"                                      
                                         group type="text" 
-                                        validate 
+                                        validate        
                                         containerClass="mb-0"
                                         value={this.state.firstname}
                                         onChange={this.onChangeFirstname}
@@ -115,6 +166,10 @@ class Signup extends Component {
                                         value={this.state.lastname}
                                         onChange={this.onChangeLastname}
                                     />
+                                    {/*display error message */}
+                                    <div style={{fontSize:15,color:"red"}}>
+                                        {this.state.nameErr}
+                                    </div>
                                     <MDBInput 
                                         label="Your email" 
                                         group type="text" 
@@ -122,6 +177,11 @@ class Signup extends Component {
                                         value={this.state.email}
                                         onChange={this.onChangeEmail}
                                     />
+                                    {/*display error message */}
+                                    <div style={{fontSize:15,color:"red"}}>                              
+                                        {this.state.emailErr}
+                                    </div>
+                                    
                                     <MDBInput
                                         label="Your password"
                                         group type="password"
@@ -130,7 +190,10 @@ class Signup extends Component {
                                         value={this.state.password}
                                         onChange={this.onChangePassword}
                                     />
-                                
+                                    {/*display error message */}
+                                    <div style={{fontSize:15,color:"red"}}>
+                                        {this.state.passwordErr}
+                                    </div>
                                 <MDBRow className="d-flex align-items-center mb-4 mt-5">
                                     <MDBCol md="5" className="d-flex align-items-start">
                                     <div className="text-center">
