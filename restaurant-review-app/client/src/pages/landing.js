@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { MDBCol, MDBIcon } from "mdbreact";
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
+import SelectSearch from 'react-select-search'
+
 
 class Landing extends Component {
   constructor(props) {
@@ -19,8 +21,6 @@ class Landing extends Component {
       names: []
     };
   }
-
-
 
   componentDidMount(){
     axios.get("http://localhost:5000/restaurant")
@@ -33,12 +33,27 @@ class Landing extends Component {
     })
   }
 
+
+
   render() {
+//     const options = [
+//     {name: 'Swedish', value: 'sv'},
+//     {name: 'English', value: 'en'},
+//     {
+//         type: 'group',
+//         name: 'Group name',
+//         items: [
+//             {name: 'Spanish', value: 'es'},
+//         ]
+//     },
+// ];
     return (
         <div className="App">
           <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
           <div className="container">
-            <a className="navbar-brand" href="index.html">Restaurant Review Agregator</a>
+            {/* <a className="navbar-brand" >Restaurant Review Agregator</a> */}
+            <Link className="navbar-brand" to="/">rate the plate</Link>
+
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
@@ -46,25 +61,29 @@ class Landing extends Component {
             <div className="collapse navbar-collapse" id="navbarResponsive">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                <Router>
-                    <Switch>
-                        <button type="button" onClick={ refreshPage } className = "button">
-                            <Link to='/signup' className="nav-link" >Sign Up</Link>
-                        </button> 
-                    </Switch>
-                </Router>
+                {/* <Router> */}
+                    {/* <Switch> */}
+                        {/* <button type="button" onClick={ refreshPage } className = "button"> */}
+                            {/* <Link to='/signup' className="nav-link" >Sign Up</Link> */}
+                            <Link className="nav-link" to="/signup">Sign Up</Link>
+
+                        {/* </button>  */}
+                    {/* </Switch> */}
+                {/* </Router> */}
                 
                  
                   {/*<a className="nav-link" href="signup.html">Sign Up</a>*/}
                 </li>
                 <li className="nav-item">
-                <Router>
-                    <Switch>
-                        <button type="button" onClick={ refreshPage } className = "button">
-                            <Link to='/login' className="nav-link" >Login</Link>
-                        </button> 
-                    </Switch>
-                </Router>
+                {/* <Router> */}
+                    {/* <Switch> */}
+                        {/* <button type="button"  className = "button"> */}
+                            {/* <Link to='/login' className="nav-link" >Login</Link> */}
+                            <Link className="nav-link" to="/login">Login</Link>
+
+                        {/* </button>  */}
+                    {/* </Switch> */}
+                {/* </Router> */}
                   {/*<a className="nav-link" href="login.html">Log In</a>*/}
                 </li>
                 <li className="nav-item">
@@ -83,6 +102,7 @@ class Landing extends Component {
             <div className="container">
               <h2 className="masthead-subheading mb-0">Give Your Tastebuds a Treat</h2>
                 <h2 className="masthead-subheading mb-0">Everyone Eats</h2>
+                {/* <SelectSearch options={[map(this.state.names)]} value="sv" name="language" placeholder="Find your favorite restaurant" /> */}
                   <Autocomplete suggestions={this.state.names}/>
             </div>
           </div>
@@ -157,6 +177,17 @@ class Landing extends Component {
       </div>
     );
   }
+}
+
+function getRestaurantList(){
+  axios.get("http://localhost:5000/restaurant")
+  .then(response => {
+    if (response.data.length > 0){
+      console.log(response.data.map(restaurant => restaurant.name));
+      return response.data.map(restaurant => restaurant.name);
+
+    }
+  })
 }
 
 function refreshPage(){ 
