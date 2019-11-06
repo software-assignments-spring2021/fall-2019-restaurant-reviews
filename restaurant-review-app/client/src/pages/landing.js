@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../vendor/bootstrap/css/bootstrap.min.css';
+// import '../vendor/bootstrap/css/bootstrap.min.css';
 import '../css/one-page-wonder.min.css';
 import '../App.css';
 import { BrowserRouter as Router} from "react-router-dom";
@@ -36,17 +36,7 @@ class Landing extends Component {
 
 
   render() {
-//     const options = [
-//     {name: 'Swedish', value: 'sv'},
-//     {name: 'English', value: 'en'},
-//     {
-//         type: 'group',
-//         name: 'Group name',
-//         items: [
-//             {name: 'Spanish', value: 'es'},
-//         ]
-//     },
-// ];
+
     return (
         <div className="App">
           <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -100,19 +90,20 @@ class Landing extends Component {
         <header className="masthead text-center text-white">
           <div className="masthead-content">
             <div className="container">
-              <h2 className="masthead-subheading mb-0">Give Your Tastebuds a Treat</h2>
-                <h2 className="masthead-subheading mb-0">Everyone Eats</h2>
+              <h2 className="masthead-subheading mb-0">Search for a restaurant</h2>
+                {/* <h2 className="masthead-subheading mb-0">Everyone Eats</h2> */}
                 {/* <SelectSearch options={[map(this.state.names)]} value="sv" name="language" placeholder="Find your favorite restaurant" /> */}
                   <Autocomplete suggestions={this.state.names}/>
             </div>
           </div>
+
           <div className="bg-circle-1 bg-circle"></div>
           <div className="bg-circle-2 bg-circle"></div>
           <div className="bg-circle-3 bg-circle"></div>
           <div className="bg-circle-4 bg-circle"></div>
         </header>
 
-        <section>
+        {/* <section>
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-6 order-lg-2">
@@ -128,14 +119,14 @@ class Landing extends Component {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section>
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food2.jpeg")} alt="" />
+                    <img className="img-fluid rounded-circle" src={require("../img/food1.jpeg")} alt="" />
                     </div>
               </div>
               <div className="col-lg-6">
@@ -158,7 +149,7 @@ class Landing extends Component {
               </div>
               <div className="col-lg-6 order-lg-1">
                 <div className="p-5">
-                  <h2 className="display-4">Food Food Food!</h2>
+                  <h2 className="display-4">Find the Best!</h2>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
                 </div>
               </div>

@@ -10,22 +10,22 @@ import { Link } from 'react-router-dom';
 class Restaurant extends Component{
 
     state = {
-
         name:'',
         location:'',
         dishes:'',
         comments:''
-
     }
     componentDidMount(){
+        const { id } = this.props.location;
 
         axios.get('http://localhost:5000/restaurant/')
              .then( (res) => {
                  this.setState({
-                     name:res.data[2].name,
-                     location:res.data[1].location,
-                     dishes:res.data[1].dishes,
-                     comments:res.data[1].comments,
+                     name: id
+                    //  name:res.data[1].name,
+                    //  location:res.data[1].location,
+                    //  dishes:res.data[1].dishes,
+                    //  comments:res.data[1].comments,
                  })
                  console.log(res.data);
              })

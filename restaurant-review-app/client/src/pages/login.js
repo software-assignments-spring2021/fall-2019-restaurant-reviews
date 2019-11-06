@@ -73,16 +73,17 @@ class Login extends Component {
                 password: this.state.password
             }
             console.log(user);
-            
+            const {history} =this.props;
             axios.post('http://localhost:5000/user/login', user)
             .then(res => {
                 console.log(res.data[0].user);
                 this.setState({success:true,loginStatus:'Logged in!'});
+                history.push('/');
             })
             .catch(err => {
                 console.log(err);
                 this.setState({loginStatus:'Incorrect email or password',success:false});
-
+                
             });
 
 
