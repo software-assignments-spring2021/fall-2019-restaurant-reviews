@@ -128,6 +128,29 @@ class Signup extends Component {
     render() {
         return (
             <div className="bg">
+                <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+                    <div className="container">
+                        <Link className="navbar-brand" to="/">rate the plate</Link>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
+                        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarResponsive">
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/signup">Sign Up</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">Login</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/userpage">My User Page</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <br/><br/><br/><br/>
                 <MDBContainer>
                     <MDBRow>
                     <MDBCol>
@@ -135,11 +158,11 @@ class Signup extends Component {
                             <MDBCard >
                                 <div className="header pt-3 peach-gradient">
                                 <MDBRow className="d-flex justify-content-center">
-                                    <h3 className="white-text mb-3 pt-3 font-weight-bold">
+                                    <h3 className="white-text mb-2 pt-2 font-weight-bold">
                                     Sign Up
                                     </h3>
                                 </MDBRow>
-                                <MDBRow className="mt-2 mb-3 d-flex justify-content-center">
+                                <MDBRow className="mt-0 mb-3 d-flex justify-content-center">
                                     <a href="#!" className="fa-lg p-2 m-2 fb-ic">
                                     <MDBIcon fab icon="facebook-f" size="lg" className="white-text" />
                                     </a>
@@ -194,7 +217,7 @@ class Signup extends Component {
                                     <div style={{fontSize:15,color:"red"}}>
                                         {this.state.passwordErr}
                                     </div>
-                                <MDBRow className="d-flex align-items-center mb-4 mt-5">
+                                <MDBRow className="d-flex align-items-center mb-0 mt-0">
                                     <MDBCol md="5" className="d-flex align-items-start">
                                     <div className="text-center">
                                         <MDBBtn
