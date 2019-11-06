@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { MDBCol, MDBIcon } from "mdbreact";
 import axios from "axios";
+import { Link } from 'react-router-dom';
+
 
 
 class Autocomplete extends Component {
@@ -27,6 +29,7 @@ class Autocomplete extends Component {
       userInput: ""
     };
   }
+
 
   // Event fired when the input value is changed
   onChange = e => {
@@ -63,8 +66,7 @@ class Autocomplete extends Component {
   // Event fired when the user presses a key down
   onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
-    const us = this.state.userInput;
-    console.log(us);
+    // const us = this.state.userInput;
     // User pressed the enter key, update the input and close the
     // suggestions
     if (e.keyCode === 13) {
@@ -73,8 +75,11 @@ class Autocomplete extends Component {
         showSuggestions: false,
         userInput: filteredSuggestions[activeSuggestion],
       });
-      // const us = this.state.userInput;
-      // console.log(us);
+      e.preventDefault();
+
+      // console.log(this.state.userInput);
+      // alert(this.state.userInput);
+    
     }
     // User pressed the up arrow, decrement the index
     else if (e.keyCode === 38) {
@@ -138,7 +143,7 @@ class Autocomplete extends Component {
       } else {
         suggestionsListComponent = (
           <div class="no-suggestions">
-            <em>No suggestions</em>
+            <em>No such restaurant</em>
           </div>
         );
       }
@@ -149,13 +154,19 @@ class Autocomplete extends Component {
           <div> 
           <MDBCol md="12">
           <form className="form-inline justify-content-center mt-5">
-          <MDBIcon icon="search"/>
+  
+          <Link className="nav-link" to={{pathname: "/restaurant", id: this.state.userInput}}><MDBIcon icon="search"/></Link>
+          {/* <Link className="nav-link" to={{pathname: "/restaurant"+{}, id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
+
+          {/* <Link className="nav-link"/><MDBIcon icon="search"/></Link> */}
+
+
         <input
           type="text"
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={userInput}
-          className="form-control form-control-lg ml-4 w-75" type="text" placeholder="Search for your favorite restaurants..." aria-label="Search"
+          className="form-control form-control-lg ml-4 w-75" type="text" placeholder="Start typing..." aria-label="Search"
         />
         
         </form>

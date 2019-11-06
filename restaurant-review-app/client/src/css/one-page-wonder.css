@@ -52,7 +52,7 @@ h6 {
   letter-spacing: 0.1rem;
   color: #FFF;
 }
-header.masthead2 {
+/* header.masthead2 {
   position: relative;
   overflow: hidden;
   background: linear-gradient(0deg, #3238a8 0%, #3298a8 100%);
@@ -61,9 +61,10 @@ header.masthead2 {
   background-attachment: scroll;
   background-size: cover;
   z-index: -1;
-}
+} */
 
 header.masthead {
+  height: 85vh;
   position: relative;
   overflow: hidden;
   padding-top: calc(7rem + 72px);
