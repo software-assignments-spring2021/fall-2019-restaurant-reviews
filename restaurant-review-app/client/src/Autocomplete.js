@@ -77,8 +77,8 @@ class Autocomplete extends Component {
       });
       e.preventDefault();
 
-      console.log(this.state.userInput);
-      alert(this.state.userInput);
+      // console.log(this.state.userInput);
+      // alert(this.state.userInput);
     
     }
     // User pressed the up arrow, decrement the index
@@ -156,7 +156,7 @@ class Autocomplete extends Component {
           <form className="form-inline justify-content-center mt-5">
   
           <Link className="nav-link" to={{pathname: "/restaurant", id: this.state.userInput}}><MDBIcon icon="search"/></Link>
-          <Link className="nav-link" to={{pathname: "/restaurant"+{}, id: this.state.userInput}}><MDBIcon icon="search"/></Link>
+          {/* <Link className="nav-link" to={{pathname: "/restaurant"+{}, id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
 
           {/* <Link className="nav-link"/><MDBIcon icon="search"/></Link> */}
 
