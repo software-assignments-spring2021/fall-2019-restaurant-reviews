@@ -8,6 +8,9 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require("bcryptjs");
 //use passport to authenticate user when logging in
 const passport = require('passport');
+const jwt =require('jsonwebtoken');
+const jwtSecret =require('../config/jwtConfig');
+
 
 //route to fecth all user info from database
 router.route('/').get((req, res) => {
@@ -79,13 +82,31 @@ router.route('/login').post([
       return res.status(422).json({ errors: errors.array() });
     }
 
-    passport.authenticate('local', {
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-      //failureRedirect: '/user/login',
-      successRedirect:'/user'
-    })(req, res, next);
-    
+    passport.authenticate('login',(err, user,info) =>{
+      // if(err) {console.log(err);}
+      // if(info !== undefined){
+      //   console.log(info.message);
+      //   res.send(info.message);
+
+      // }
+      // else{
+      //     req.logIn(user, err =>{
+      //       User.findOne({
+      //         where : {username:user.email}
+      //       }).then(user =>{
+              
+      //          const token = jwt.sign({id:user.email}, jwtSecret.secret);
+      //          res.status(200).send({
+      //            auth:true,
+      //            token: token,
+      //            message:'user found and logged in'
+      //          });
+
+      //       });
+      //     });
+      // }
+
+    })(req, res, next)
     console.log('Logged in!');
   
   

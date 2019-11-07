@@ -76,7 +76,7 @@ class Login extends Component {
             const {history} =this.props;
             axios.post('http://localhost:5000/user/login', user)
             .then(res => {
-                console.log(res.data[0].user);
+                
                 this.setState({success:true,loginStatus:'Logged in!'});
                 history.push('/');
             })
