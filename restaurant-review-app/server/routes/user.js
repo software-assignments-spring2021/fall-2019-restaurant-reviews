@@ -83,29 +83,17 @@ router.route('/login').post([
     }
 
     passport.authenticate('login',(err, user,info) =>{
-      // if(err) {console.log(err);}
-      // if(info !== undefined){
-      //   console.log(info.message);
-      //   res.send(info.message);
+      if(err) {console.log(err);}
+      if(info !== undefined){
+        console.log(info.message);
+        res.send(info.message);
+      }
+      else{
+        res.send('success');
+       
+      }
 
-      // }
-      // else{
-      //     req.logIn(user, err =>{
-      //       User.findOne({
-      //         where : {username:user.email}
-      //       }).then(user =>{
-              
-      //          const token = jwt.sign({id:user.email}, jwtSecret.secret);
-      //          res.status(200).send({
-      //            auth:true,
-      //            token: token,
-      //            message:'user found and logged in'
-      //          });
-
-      //       });
-      //     });
-      // }
-
+      
     })(req, res, next)
     console.log('Logged in!');
   
@@ -113,7 +101,34 @@ router.route('/login').post([
 });
 
 
+//findUser
+router.route('findUser').post( (req,res,next) =>{
 
+  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
+
+    if(err) {
+      console.log(err);
+    }
+    if(info !== undefined){
+      console.log(info.message);
+      res.send(info.message);
+    }
+    else{
+      console.log('user found in mongodb');
+      res.status(200).send({
+        auth:true,
+        firstname:user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password,
+        message:'user found in mongodb'
+
+      })
+
+    }
+  })(req,res,next);
+  
+});
 
 
 

@@ -28,7 +28,7 @@ module.exports = (passport) =>{
                 if(isMatch){
                     //sign token for the user
                     jwt.sign({user}, 'secretKey', {expiresIn:'3600s'},(err, token)=>{
-                            console.log(token);    
+                              
                             return done(null, user);   
                     })
                     
