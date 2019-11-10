@@ -8,6 +8,9 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require("bcryptjs");
 //use passport to authenticate user when logging in
 const passport = require('passport');
+const jwt =require('jsonwebtoken');
+const jwtSecret =require('../config/jwtConfig');
+
 
 //route to fecth all user info from database
 router.route('/').get((req, res) => {
@@ -79,20 +82,53 @@ router.route('/login').post([
       return res.status(422).json({ errors: errors.array() });
     }
 
-    passport.authenticate('local', {
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-      //failureRedirect: '/user/login',
-      successRedirect:'/user'
-    })(req, res, next);
-    
+    passport.authenticate('login',(err, user,info) =>{
+      if(err) {console.log(err);}
+      if(info !== undefined){
+        console.log(info.message);
+        res.send(info.message);
+      }
+      else{
+        res.send('success');
+       
+      }
+
+      
+    })(req, res, next)
     console.log('Logged in!');
   
   
 });
 
 
+//findUser
+router.route('findUser').post( (req,res,next) =>{
 
+  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
+
+    if(err) {
+      console.log(err);
+    }
+    if(info !== undefined){
+      console.log(info.message);
+      res.send(info.message);
+    }
+    else{
+      console.log('user found in mongodb');
+      res.status(200).send({
+        auth:true,
+        firstname:user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password,
+        message:'user found in mongodb'
+
+      })
+
+    }
+  })(req,res,next);
+  
+});
 
 
 
