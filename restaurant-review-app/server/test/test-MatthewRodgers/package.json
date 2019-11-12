@@ -1,0 +1,26 @@
+{
+  "name": "fall-2019-restaurant-reviews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews/issues"
+  },
+  "homepage": "https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews/blob/master/README.md",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
