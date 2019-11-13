@@ -9,6 +9,7 @@ import { BrowserRouter as Router} from "react-router-dom";
 import { Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import Cookie from "js-cookie"
 
 class Login extends Component { 
 
@@ -25,7 +26,8 @@ class Login extends Component {
             emailErr:'',
             passwordErr:'',
             loginStatus:'',
-            success:false
+            success:false,
+            token:''
         }
     }
     
@@ -72,12 +74,15 @@ class Login extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-            console.log(user);
             const {history} =this.props;
+            //make a POST call to server to validate user data and get token
             axios.post('http://localhost:5000/user/login', user)
             .then(res => {
-                
+                console.log(res.data);
                 this.setState({success:true,loginStatus:'Logged in!'});
+
+                //store jwt in Cookie
+                Cookie.set("token",res.data.token);
                 history.push('/');
             })
             .catch(err => {

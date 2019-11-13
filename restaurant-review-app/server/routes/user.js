@@ -57,7 +57,6 @@ router.route('/register').post([
 
       //replace the password with encrpyted one
       newUser.password = hash;
-
       newUser.save()
       .then(() => res.json({message:'You have registered! Now please sign in.',newUser}))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -75,58 +74,67 @@ router.route('/login').post([
     check('email').isEmail(),
     check('password').exists()
     
-  ],(req,res,next)=>{
+  ],(req,res)=>{
   // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    passport.authenticate('login',(err, user,info) =>{
-      if(err) {console.log(err);}
-      if(info !== undefined){
-        console.log(info.message);
-        res.send(info.message);
-      }
-      else{
-        res.send('success');
-       
-      }
+    User.findOne({email:req.body.email})
+    .then(user => {
+        if(!user){
+            return res.status(400).send('The email is not registered');
+        }
+        //match password
+        bcrypt.compare(req.body.password, user.password)
+        .then(isMatch =>{
+            if(isMatch){
+                //sign token for the user
+                jwt.sign({user}, 'secret', {expiresIn:'3600s'},(err, token)=>{
+                    res.json({token: 'Bearer ' + token});
+                })         
+            }
+            else{
+                return res.status(403).send('Incorrect password.');
+            }
 
-      
-    })(req, res, next)
-    console.log('Logged in!');
-  
-  
+        });
+
+
+    })
+    .catch(err => res.send(err));
+    console.log('Logged in!'); 
+    
 });
 
 
-//findUser
-router.route('findUser').post( (req,res,next) =>{
+//protected route
+router.route('/protected', passport.authenticate('jwt', {session:false})).get( (req,res) =>{
+  res.send('hi there.');
+  // passport.authenticate('jwt', {session:false}, (err, user, info)=>{
 
-  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
+  //   if(err) {
+  //     console.log(err);
+  //   }
+  //   if(info !== undefined){
+  //     console.log(info.message);
+  //     res.send(info.message);
+  //   }
+  //   else{
+  //     console.log('user found in mongodb');
+  //     res.status(200).send({
+  //       auth:true,
+  //       firstname:user.firstname,
+  //       lastname: user.lastname,
+  //       email: user.email,
+  //       password: user.password,
+  //       message:'user found in mongodb'
 
-    if(err) {
-      console.log(err);
-    }
-    if(info !== undefined){
-      console.log(info.message);
-      res.send(info.message);
-    }
-    else{
-      console.log('user found in mongodb');
-      res.status(200).send({
-        auth:true,
-        firstname:user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        message:'user found in mongodb'
+  //     })
 
-      })
-
-    }
-  })(req,res,next);
+  //   }
+  // })(req,res,next);
   
 });
 
