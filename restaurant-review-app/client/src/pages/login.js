@@ -9,7 +9,7 @@ import { BrowserRouter as Router} from "react-router-dom";
 import { Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import Cookie from "js-cookie"
+import jwt from 'jsonwebtoken';
 
 class Login extends Component { 
 
@@ -78,11 +78,11 @@ class Login extends Component {
             //make a POST call to server to validate user data and get token
             axios.post('http://localhost:5000/user/login', user)
             .then(res => {
-                console.log(res.data);
+                
                 this.setState({success:true,loginStatus:'Logged in!'});
 
                 //store jwt in Cookie
-                Cookie.set("token",res.data.token);
+                localStorage.setItem('jwtToken',res.data.token);
                 history.push('/');
             })
             .catch(err => {

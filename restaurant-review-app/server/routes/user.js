@@ -9,7 +9,6 @@ const bcrypt = require("bcryptjs");
 //use passport to authenticate user when logging in
 const passport = require('passport');
 const jwt =require('jsonwebtoken');
-const jwtSecret =require('../config/jwtConfig');
 
 
 //route to fecth all user info from database
@@ -110,31 +109,31 @@ router.route('/login').post([
 
 
 //protected route
-router.route('/protected', passport.authenticate('jwt', {session:false})).get( (req,res) =>{
-  res.send('hi there.');
-  // passport.authenticate('jwt', {session:false}, (err, user, info)=>{
+router.route('/protected').get( (req,res) =>{
+  const user = res.body;
+  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
 
-  //   if(err) {
-  //     console.log(err);
-  //   }
-  //   if(info !== undefined){
-  //     console.log(info.message);
-  //     res.send(info.message);
-  //   }
-  //   else{
-  //     console.log('user found in mongodb');
-  //     res.status(200).send({
-  //       auth:true,
-  //       firstname:user.firstname,
-  //       lastname: user.lastname,
-  //       email: user.email,
-  //       password: user.password,
-  //       message:'user found in mongodb'
+    if(err) {
+      console.log(err);
+    }
+    if(info !== undefined){
+      console.log(info.message);
+      res.send(info.message);
+    }
+    else{
+      console.log('user found in mongodb');
+      res.status(200).send({
+        auth:true,
+        firstname:user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password,
+        message:'user found in mongodb'
 
-  //     })
+      })
 
-  //   }
-  // })(req,res,next);
+    }
+  })(req,res,next);
   
 });
 
