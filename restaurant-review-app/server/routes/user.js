@@ -8,6 +8,8 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require("bcryptjs");
 //use passport to authenticate user when logging in
 const passport = require('passport');
+const jwt =require('jsonwebtoken');
+
 
 //route to fecth all user info from database
 router.route('/').get((req, res) => {
@@ -54,7 +56,6 @@ router.route('/register').post([
 
       //replace the password with encrpyted one
       newUser.password = hash;
-
       newUser.save()
       .then(() => res.json({message:'You have registered! Now please sign in.',newUser}))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -72,27 +73,69 @@ router.route('/login').post([
     check('email').isEmail(),
     check('password').exists()
     
-  ],(req,res,next)=>{
+  ],(req,res)=>{
   // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    passport.authenticate('local', {
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-      //failureRedirect: '/user/login',
-      successRedirect:'/user'
-    })(req, res, next);
+    User.findOne({email:req.body.email})
+    .then(user => {
+        if(!user){
+            return res.status(400).send('The email is not registered');
+        }
+        //match password
+        bcrypt.compare(req.body.password, user.password)
+        .then(isMatch =>{
+            if(isMatch){
+                //sign token for the user
+                jwt.sign({user}, 'secret', {expiresIn:'3600s'},(err, token)=>{
+                    res.json({token: 'Bearer ' + token});
+                })         
+            }
+            else{
+                return res.status(403).send('Incorrect password.');
+            }
+
+        });
+
+
+    })
+    .catch(err => res.send(err));
+    console.log('Logged in!'); 
     
-    console.log('Logged in!');
-  
-  
 });
 
 
+//protected route
+router.route('/protected').get( (req,res) =>{
+  const user = res.body;
+  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
 
+    if(err) {
+      console.log(err);
+    }
+    if(info !== undefined){
+      console.log(info.message);
+      res.send(info.message);
+    }
+    else{
+      console.log('user found in mongodb');
+      res.status(200).send({
+        auth:true,
+        firstname:user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password,
+        message:'user found in mongodb'
+
+      })
+
+    }
+  })(req,res,next);
+  
+});
 
 
 

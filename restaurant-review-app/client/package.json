@@ -6,6 +6,8 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
     "git": "^0.1.5",
+    "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
     "mdbreact": "^4.21.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",

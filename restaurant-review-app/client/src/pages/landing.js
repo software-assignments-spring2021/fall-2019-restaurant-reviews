@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
 import { MDBCol, MDBIcon } from "mdbreact";
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
-// import SelectSearch from 'react-select-search'
+import SelectSearch from 'react-select-search'
+
 
 
 class Landing extends Component {
