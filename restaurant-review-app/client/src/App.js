@@ -19,7 +19,7 @@ class App extends Component {
           <Route path="/signup" component={withRouter(Signup)} />
           <Route path="/login" component={Login} />
           <Route path='/userpage' component={UserPage} />
-          <Route path='/restaurant' component={Restaurant} />
+          <Route path='/restaurant/:handle' component={Restaurant} />
         </Switch>
       </Router>
     );

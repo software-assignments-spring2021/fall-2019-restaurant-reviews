@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 class Autocomplete extends Component {
   static propTypes = {
-    suggestions: PropTypes.instanceOf(Array)
+    suggestions: PropTypes.instanceOf(Object)
   };
 
   static defaultProps = {
-    suggestions: []
+    suggestions: {}
   };
 
   constructor(props) {
@@ -26,14 +26,14 @@ class Autocomplete extends Component {
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
-      userInput: ""
+      userInput: "", 
     };
   }
 
-
   // Event fired when the input value is changed
   onChange = e => {
-    const { suggestions } = this.props;
+    // console.log(this.props.suggestionszz);
+    const suggestions = Object.keys(this.props.suggestions);
     const userInput = e.currentTarget.value;
 
     // Filter our suggestions that don't contain the user's input
@@ -154,8 +154,9 @@ class Autocomplete extends Component {
           <div> 
           <MDBCol md="12">
           <form className="form-inline justify-content-center mt-5">
-  
-          <Link className="nav-link" to={{pathname: "/restaurant", id: this.state.userInput}}><MDBIcon icon="search"/></Link>
+          <Link className="nav-link" to={{pathname: `/restaurant/${this.props.suggestions[this.state.userInput]}`}}><MDBIcon icon="search"/></Link>
+          {/* <Link className="nav-link" to={{pathname: "/restaurant", id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
+
           {/* <Link className="nav-link" to={{pathname: "/restaurant"+{}, id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
 
           {/* <Link className="nav-link"/><MDBIcon icon="search"/></Link> */}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import '../vendor/bootstrap/css/bootstrap.min.css';
 import '../css/one-page-wonder.min.css';
 import '../App.css';
+import NavBar from './navbar';
 import { BrowserRouter as Router} from "react-router-dom";
 //import Signup from "./signup";
 //import Login from "./login";
@@ -10,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { MDBCol, MDBIcon } from "mdbreact";
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
+import SelectSearch from 'react-select-search'
 
 
 
@@ -18,7 +20,10 @@ class Landing extends Component {
     super(props);
 
     this.state = {
-      names: []
+      ids:[],
+      names: [],
+      my_dict: {}
+
     };
   }
 
@@ -26,108 +31,58 @@ class Landing extends Component {
     axios.get("http://localhost:5000/restaurant")
     .then(response => {
       if (response.data.length > 0){
+        console.log(response.data)
+        var keys = response.data.map(restaurant => restaurant.name);
+        var values = response.data.map(restaurant => restaurant._id);
+        var result = {};
+        keys.forEach((key, i) => result[key] = values[i]);
+
+        console.log(result)
         this.setState({
-          names: response.data.map(restaurant => restaurant.name)
+          names: keys,
+          my_dict: result
+
+          // ids: response.data.map(restaurant => restaurant._id),
+          // names: response.data.map(restaurant => restaurant.name),
+
+          // my_dict: this.state.names.map(function(obj,index){
+          //   var myobj = {};
+          //   myobj[this.state.ids[index]] = obj;
+          //   return myobj;
+          // })
+
         })
       }
+      console.log(typeof(this.state.my_dict));
+
     })
   }
 
-
-
   render() {
-
     return (
         <div className="App">
-          <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-          <div className="container">
-            {/* <a className="navbar-brand" >Restaurant Review Agregator</a> */}
-            <Link className="navbar-brand" to="/">rate the plate</Link>
-
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarResponsive">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                {/* <Router> */}
-                    {/* <Switch> */}
-                        {/* <button type="button" onClick={ refreshPage } className = "button"> */}
-                            {/* <Link to='/signup' className="nav-link" >Sign Up</Link> */}
-                            <Link className="nav-link" to="/signup">Sign Up</Link>
-
-                        {/* </button>  */}
-                    {/* </Switch> */}
-                {/* </Router> */}
-                
-                 
-                  {/*<a className="nav-link" href="signup.html">Sign Up</a>*/}
-                </li>
-                <li className="nav-item">
-                {/* <Router> */}
-                    {/* <Switch> */}
-                        {/* <button type="button"  className = "button"> */}
-                            {/* <Link to='/login' className="nav-link" >Login</Link> */}
-                            <Link className="nav-link" to="/login">Login</Link>
-
-                        {/* </button>  */}
-                    {/* </Switch> */}
-                {/* </Router> */}
-                  {/*<a className="nav-link" href="login.html">Log In</a>*/}
-                </li>
-                <li className="nav-item">
-                  {/*<Router>
-                    <Route path="/userpage" component={UserPage} />
-                  </Router>*/}
-                  <Link className="nav-link" to="/userpage">My User Page</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <header className="masthead text-center text-white">
-          <div className="masthead-content">
-            <div className="container">
-              <h2 className="masthead-subheading mb-0">Search for a restaurant</h2>
-                {/* <h2 className="masthead-subheading mb-0">Everyone Eats</h2> */}
-                {/* <SelectSearch options={[map(this.state.names)]} value="sv" name="language" placeholder="Find your favorite restaurant" /> */}
-                  <Autocomplete suggestions={this.state.names}/>
-            </div>
-          </div>
-
-          <div className="bg-circle-1 bg-circle"></div>
-          <div className="bg-circle-2 bg-circle"></div>
-          <div className="bg-circle-3 bg-circle"></div>
-          <div className="bg-circle-4 bg-circle"></div>
-        </header>
-
-        {/* <section>
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-lg-6 order-lg-2">
-                <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food1.jpeg")} alt="" />
-                    </div>
-              </div>
-              <div className="col-lg-6 order-lg-1">
-                <div className="p-5">
-                  <h2 className="display-4">Find the Best!</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-                </div>
+          <NavBar/>
+          <header className="masthead text-center text-white">
+            <div className="masthead-content">
+              <div className="container">
+                <h2 className="masthead-subheading mb-0">Search for a restaurant</h2>
+                <Autocomplete suggestions={this.state.my_dict}/>
               </div>
             </div>
-          </div>
-        </section> */}
+
+            <div className="bg-circle-1 bg-circle"></div>
+            <div className="bg-circle-2 bg-circle"></div>
+            <div className="bg-circle-3 bg-circle"></div>
+            <div className="bg-circle-4 bg-circle"></div>
+          </header>
 
         <section>
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food1.jpeg")} alt="" />
-                    </div>
+                  <img className="img-fluid rounded-circle" src={require("../img/food1.jpeg")} alt="" />
+                </div>
               </div>
               <div className="col-lg-6">
                 <div className="p-5">
