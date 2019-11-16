@@ -23,7 +23,9 @@ function NavBar(props) {
                   <Link className="nav-link" to="/">Sign Out</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/userpage">Profile</Link>
+                  <Link className="nav-link" to="/userpage">
+                    Profile
+                  </Link>
                 </li>
               </ul>
             </div>

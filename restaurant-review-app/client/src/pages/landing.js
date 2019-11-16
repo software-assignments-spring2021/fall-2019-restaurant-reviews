@@ -20,6 +20,7 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.signoutHandler = this.signoutHandler.bind(this);
+    this.loginStatusCheck = this.loginStatusCheck.bind(this);
     this.state = {
       ids:[],
       names: [],
@@ -29,10 +30,33 @@ class Landing extends Component {
 
     };
   }
+
+  loginStatusCheck(){
+    const currentHour = new Date().getHours();
+    console.log(currentHour);
+    
+    //check user has logged in or not. If logged in, set login boolean to be true.
+
+    if(localStorage.getItem('jwtToken')){
+      console.log(localStorage.getItem('jwtToken'));
+      this.setState({loggedIn:true,loginHour:new Date().getHours()});
+      console.log(this.state.loginHour);
+    }
+    //remove token from local storage after an hour
+    if(currentHour - this.state.loginhour > 0 ){
+      localStorage.removeItem('jwtToken');    
+      this.setState({loggedIn:false}); 
+    }
+
+  }
   signoutHandler(){
     this.setState({loggedIn:false});
+    localStorage.setItem('jwtToken',null);
   }
+
+
   componentDidMount(){
+    this.loginStatusCheck();
     axios.get("http://localhost:5000/restaurant")
     .then(response => {
       if (response.data.length > 0){
@@ -61,22 +85,7 @@ class Landing extends Component {
       console.log(typeof(this.state.my_dict));
 
     })
-    //check user has logged in or not. If logged in, set login boolean to be true.
 
-    if(localStorage.getItem('jwtToken')){
-      console.log(localStorage.getItem('jwtToken'));
-      this.setState({loggedIn:true,loginHour:new Date().getHours()});
-      console.log(this.state.loginHour);
-    }
-
-    const currentHour = new Date().getHours();
-    console.log(currentHour);
-    
-    //remove token from local storageafter an hour
-    if(currentHour - this.state.loginhour > 0 ){
-      localStorage.removeItem('jwtToken');    
-      this.setState({loggedIn:false}); 
-    }
   }
 
   render() {
