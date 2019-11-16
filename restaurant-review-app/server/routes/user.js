@@ -1,7 +1,7 @@
 //user router : includes login and register route
 
 const router = require('express').Router();
-let User = require('../models/user.model');
+const User = require('../models/user.model');
 //use express-validator to validate inputs
 const { check, validationResult } = require('express-validator');
 //use bcrypt to encrypt passwords

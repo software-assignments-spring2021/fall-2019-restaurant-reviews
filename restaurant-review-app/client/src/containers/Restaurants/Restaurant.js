@@ -3,9 +3,9 @@ import axios from 'axios';
 // import '../vendor/bootstrap/css/bootstrap.min.css';
 // import './../css/one-page-wonder.min.css';
 // import './restaurants/App.css';
-import { BrowserRouter as Router} from "react-router-dom";
-import { Switch } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { BrowserRouter as Router} from "react-router-dom";
+// import { Switch } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import NavBar from '../../pages/navbar';
 
 

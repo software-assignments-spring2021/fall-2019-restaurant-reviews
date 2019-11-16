@@ -3,30 +3,35 @@ import React, { Component } from 'react';
 import '../css/one-page-wonder.min.css';
 import '../App.css';
 import NavBar from './navbar';
-import { BrowserRouter as Router} from "react-router-dom";
+//import { BrowserRouter as Router} from "react-router-dom";
 //import Signup from "./signup";
 //import Login from "./login";
-import { Switch } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { MDBCol, MDBIcon } from "mdbreact";
+// import { Switch } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+// import { MDBCol, MDBIcon } from "mdbreact";
+// import SelectSearch from 'react-select-search'
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
-import SelectSearch from 'react-select-search'
+
 
 
 
 class Landing extends Component {
   constructor(props) {
     super(props);
-
+    this.signoutHandler = this.signoutHandler.bind(this);
     this.state = {
       ids:[],
       names: [],
-      my_dict: {}
+      my_dict: {},
+      loggedIn: true,
+      loginHour: 0
 
     };
   }
-
+  signoutHandler(){
+    this.setState({loggedIn:false});
+  }
   componentDidMount(){
     axios.get("http://localhost:5000/restaurant")
     .then(response => {
@@ -56,12 +61,29 @@ class Landing extends Component {
       console.log(typeof(this.state.my_dict));
 
     })
+    //check user has logged in or not. If logged in, set login boolean to be true.
+
+    if(localStorage.getItem('jwtToken')){
+      console.log(localStorage.getItem('jwtToken'));
+      this.setState({loggedIn:true,loginHour:new Date().getHours()});
+      console.log(this.state.loginHour);
+    }
+
+    const currentHour = new Date().getHours();
+    console.log(currentHour);
+    
+    //remove token from local storageafter an hour
+    if(currentHour - this.state.loginhour > 0 ){
+      localStorage.removeItem('jwtToken');    
+      this.setState({loggedIn:false}); 
+    }
   }
 
   render() {
+    
     return (
         <div className="App">
-          <NavBar/>
+          <NavBar loggedin = {this.state.loggedIn} onClick = {this.signoutHandler}/>
           <header className="masthead text-center text-white">
             <div className="masthead-content">
               <div className="container">
