@@ -22,7 +22,7 @@ router.route('/').get((req, res) => {
 //specify id so that it can fetch the unique user
 router.route('/:id').get((req, res) => {
   User.findById(req.params.id)
-    .then(users => res.json(users))
+    .then(user => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -91,7 +91,7 @@ router.route('/login').post([
             if(isMatch){
                 //sign token for the user
                 jwt.sign({user}, 'secret', {expiresIn:'3600s'},(err, token)=>{
-                    res.json({token: 'Bearer ' + token});
+                    res.json({token: 'Bearer ' + token , id:user._id});
                 })         
             }
             else{
@@ -156,13 +156,13 @@ router.route('/:id/favorites').get( (req, res) =>{
       .catch(err => res.status(400).json('Error: ' + err));
 })
 
-//update a user's favorite restaurants.
-router.route('/:id/update/favorites').post( (req, res) =>{
+//add a user's favorite restaurants.
+router.route('/:id/favorites/add').post( (req, res) =>{
   User.findById(req.params.id)
       .then( (user) =>{
-          user.favoriteRes = req.body.favoriteRes;
+          user.favoriteRes.push(req.body.newFavorite);
           user.save()
-              .then( () => res.json("Favorite restaurants updated!"))
+              .then( () => res.json("Favorite restaurants added!"))
               .catch( (err) => res.status(400).json('Error' + err));
       })
       .catch( (err) => res.json('Err' + err));

@@ -81,9 +81,9 @@ class Login extends Component {
             .then(res => {
                 
                 this.setState({success:true,loginStatus:'Logged in!'});
-
                 //store jwt in Cookie
                 localStorage.setItem('jwtToken',res.data.token);
+                localStorage.setItem('userID',res.data.id);
                 history.push('/');
             })
             .catch(err => {

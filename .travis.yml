@@ -5,8 +5,6 @@ node_js:
 install:
   - cd restaurant-review-app/server ; npm install
   - cd restaurant-review-app/server ; npm install -dev
-script:
-  - cd restaurant-review-app/server ; npm test
 
 cache:
   directories:

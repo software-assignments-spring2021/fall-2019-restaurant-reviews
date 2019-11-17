@@ -13,9 +13,6 @@ import NavBar from './navbar';
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
 
-
-
-
 class Landing extends Component {
   constructor(props) {
     super(props);

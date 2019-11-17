@@ -5,7 +5,7 @@ import axios from 'axios';
 // import { BrowserRouter as Router} from "react-router-dom";
 // import { Switch } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
-import NavBar from '../../pages/navbar';
+import NavBar from '../pages/navbar';
 
 
 class Restaurant extends Component{
@@ -56,9 +56,6 @@ class Restaurant extends Component{
         )
     }
     
-}
-function refreshPage(){ 
-    window.location.reload(); 
 }
 
 export default Restaurant;
