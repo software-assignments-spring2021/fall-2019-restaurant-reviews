@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 // import '../vendor/bootstrap/css/bootstrap.min.css';
 // import './../css/one-page-wonder.min.css';
-// import './restaurants/App.css';
 // import { BrowserRouter as Router} from "react-router-dom";
 // import { Switch } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
@@ -44,17 +43,15 @@ class Restaurant extends Component{
     render(){
         return(
         <div className="App">
-        <NavBar/>
-        <header className="masthead text-white">
-        <div className="masthead-content">
-        <div className="container">
-            <h2 className="masthead-subheading text-left">{this.state.name}</h2>
-            
+            <NavBar/>
+            <header className="masthead text-white">
+                <div className="masthead-content">
+                    <div className="container">
+                        <h2 className="masthead-subheading text-left">{this.state.name}</h2>
+                    </div>
+                </div>
+            </header>
         </div>
-        </div>
-        </header>
-
-    </div>
 
         )
     }
