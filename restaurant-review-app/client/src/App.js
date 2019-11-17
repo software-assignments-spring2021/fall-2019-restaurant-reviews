@@ -8,7 +8,7 @@ import Login from "./pages/login";
 import { Switch } from 'react-router-dom';
 import UserPage from './pages/UserPage';
 import Landing from "./pages/landing"
-import Restaurant from "./containers/Restaurants/Restaurant";
+import Restaurant from "./components/Restaurant";
 class App extends Component {
   render() {
     return(
