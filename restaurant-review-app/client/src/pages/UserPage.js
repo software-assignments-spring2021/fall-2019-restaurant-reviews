@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import '../vendor/bootstrap/css/bootstrap.css';
 import "mdbreact/dist/css/mdb.css";
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
-import { BrowserRouter as Router} from "react-router-dom";
-import { Switch } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { BrowserRouter as Router} from "react-router-dom";
+// import { Switch } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import '../css/one-page-wonder.css';
 import NavBar from './navbar';
 import axios from 'axios';
@@ -15,7 +15,6 @@ class UserPage extends Component {
         
         super(props);
         this.signoutHandler =this.signoutHandler.bind(this);
-
         this.state = {
             email       : '',
             favRest     : [],
@@ -29,7 +28,6 @@ class UserPage extends Component {
         this.setState({loggedIn:false});
         localStorage.setItem('jwtToken',null);
         history.push('/');
-        
     }
 
     componentDidMount() {
