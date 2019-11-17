@@ -1,10 +1,10 @@
-const LocalStrategy = require("passport-local").Strategy;
+//const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require("../models/user.model");
-const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
-const jwtSecret =require('./jwtConfig');
+// const bcrypt = require("bcryptjs");
+// const jwt = require('jsonwebtoken');
+
 
 
 module.exports = (passport) =>{
