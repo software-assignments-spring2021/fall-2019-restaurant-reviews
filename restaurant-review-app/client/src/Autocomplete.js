@@ -154,7 +154,7 @@ class Autocomplete extends Component {
           <div> 
           <MDBCol md="12">
           <form className="form-inline justify-content-center mt-5">
-          <Link className="nav-link" to={{pathname: `/restaurant/${this.props.suggestions[this.state.userInput]}`}}><MDBIcon icon="search"/></Link>
+          <Link className="nav-link" to={{pathname: `/restaurant/${this.props.suggestions[this.state.userInput]}`}}><MDBIcon icon="search" className="amber-text pr-3"/></Link>
           {/* <Link className="nav-link" to={{pathname: "/restaurant", id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
 
           {/* <Link className="nav-link" to={{pathname: "/restaurant"+{}, id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
