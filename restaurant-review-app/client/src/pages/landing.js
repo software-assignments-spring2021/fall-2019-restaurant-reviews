@@ -49,6 +49,7 @@ class Landing extends Component {
   signoutHandler(){
     this.setState({loggedIn:false});
     localStorage.setItem('jwtToken',null);
+    localStorage.setItem('userID',null);
   }
 
 

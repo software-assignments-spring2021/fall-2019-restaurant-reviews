@@ -27,6 +27,7 @@ class UserPage extends Component {
         const {history} =this.props;
         this.setState({loggedIn:false});
         localStorage.setItem('jwtToken',null);
+        localStorage.setItem('userID',null);
         history.push('/');
     }
 
