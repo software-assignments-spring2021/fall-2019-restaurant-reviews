@@ -6,7 +6,7 @@ import axios from 'axios';
 // import { Switch } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 import NavBar from '../pages/navbar';
-
+import Dish from '../components/Dish';
 
 class Restaurant extends Component{
 
@@ -23,8 +23,11 @@ class Restaurant extends Component{
              .then( (res) => {
                  this.setState({
                      name: res.data['name'],
-                     dishes: res.data['dishes'],
-                     id: res.data['_id']
+                     dishes: res.data['menu_ratings'],
+                     id: res.data['_id'],
+                     address: res.data['address'],
+                     rating: res.data['rating'],
+                     cuisine: res.data['cuisine']
                  })
              })
              .catch( (err) =>{
@@ -48,9 +51,16 @@ class Restaurant extends Component{
                 <div className="masthead-content">
                     <div className="container">
                         <h2 className="masthead-subheading text-left">{this.state.name}</h2>
+                        <h4 align='left'> {this.state.address} </h4>
+                        <h4 align='left'> {this.state.rating} star restaurant</h4>
+                        <h4 align='left'> {this.state.cuisine} </h4>
                     </div>
                 </div>
             </header>
+            <div>
+                <h1 className="masthead"> The Menu </h1>
+                <Dish dishList={this.state.dishes}/>
+            </div>
         </div>
 
         )
