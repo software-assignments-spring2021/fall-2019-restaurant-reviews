@@ -95,7 +95,7 @@ class Landing extends Component {
             <div className="masthead-content">
               <div className="container">
                 <h2 className="masthead-subheading mb-0">Search for a restaurant</h2>
-                <Autocomplete suggestions={this.state.my_dict}/>
+                <Autocomplete suggestions={this.state.my_dict} loggedStatus={this.state.loggedIn}/>
               </div>
             </div>
 
