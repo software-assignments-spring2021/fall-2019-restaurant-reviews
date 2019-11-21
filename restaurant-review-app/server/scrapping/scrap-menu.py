@@ -44,6 +44,7 @@ def compare():
     
     print(count)
     print(common)
+    return (common)
 
 
 
