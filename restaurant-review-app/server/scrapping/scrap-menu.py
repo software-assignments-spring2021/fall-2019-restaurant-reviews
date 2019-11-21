@@ -29,7 +29,7 @@ def get_names():
 
 def compare():
     names=get_names()
-    print (names)
+    #print (names)
     count=0
     selected=[]
     common=[]
