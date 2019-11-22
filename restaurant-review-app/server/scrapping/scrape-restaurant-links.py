@@ -10,7 +10,8 @@ import requests
 
 def get_restaurant_page(page):
     if page == 1:
-        url = "https://www.yelp.com/search?find_desc=&find_loc=Manhattan%2C+NY&ns=1"
+        #url = "https://www.yelp.com/search?find_desc=&find_loc=Manhattan%2C+NY&ns=1"
+        url='https://www.yelp.com/search?cflt=restaurants&find_loc=Manhattan%2C%20NY'
         response = requests.get(url)
         return response.text
     
@@ -28,17 +29,19 @@ def get_link(page):
         soup = BeautifulSoup(get_restaurant_page(i), 'html.parser')
         
         restaurants = soup.find_all('a',{"class":"lemon--a__373c0__IEZFH link__373c0__29943 link-color--blue-dark__373c0__1mhJo link-size--inherit__373c0__2JXk5"})
-        
+        print('-------')
+        #print(restaurants)
         for name in restaurants:
-            restaurant_link = restaurant_link + name.get('href') +'\n'
+            #restaurant_link = restaurant_link + name.get('href') +'\n'
+            print(name.get('href'))
             
 
 
 #write the data into a file to avoid sending too many requests to yelp server
         
-f = open("restaurant-link.txt", "w")
-f.write(restaurant_link)
-f.close()
+#f = open("restaurant-link.txt", "w")
+#f.write(restaurant_link)
+#f.close()
 
 #analyze the datda and extract only the restaurant url
 f = open("restaurant-link.txt", "r")
@@ -55,7 +58,7 @@ f = open("true-restaurant-link.txt", "w")
 f.write(links)
 f.close()
       
-      
+get_link(2)      
       
       
       
