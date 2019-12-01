@@ -15,7 +15,8 @@ def get_restaurant_page(page):
         response = requests.get(url)
         return response.text
     
-    
+    #This might be the right url (not sure)
+    #https://www.yelp.com/search?cflt=restaurants&find_loc=Manhattan%2C%20NY
     url = "https://www.yelp.com/search?find_desc=&find_loc=Manhattan%2C+NY&ns=&start=" + str(10*(page-1))
     response = requests.get(url)
   
@@ -35,8 +36,30 @@ def get_link(page):
             #restaurant_link = restaurant_link + name.get('href') +'\n'
             print(name.get('href'))
             
+#scrape all restaurant names in Manhattan from Yelp
+def get_all_names():
+    names = ""
+    #there are 657 pages of restaurants in Manhattan
+    for i in range(1,657):
+        soup = BeautifulSoup(get_restaurant_page(i), 'html.parser')
+        restaurant_names = soup.find_all('a',{"class":"lemon--a__373c0__IEZFH link__373c0__29943 link-color--blue-dark__373c0__1mhJo link-size--inherit__373c0__2JXk5"})
+        for name in restaurant_names:
+            if name.get('name') != "":
+                names = names + name.string.encode('utf-8')+'\n'
 
+    
+    return names
 
+  
+
+#write down all restaurant names from Yelp. NOTE: it seems that Yelp prevents the scraper from reaching deeper
+#for example, if we want to visit page 100 it will not show the results.
+f = open("all_restaurants_in_yelp.txt", "w")
+restaurant_names = get_all_names()
+f.write(restaurant_names)
+f.close()  
+  
+'''
 #write the data into a file to avoid sending too many requests to yelp server
         
 #f = open("restaurant-link.txt", "w")
@@ -59,8 +82,7 @@ f.write(links)
 f.close()
       
 get_link(2)      
-      
-      
+'''
       
       
       
