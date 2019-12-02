@@ -192,7 +192,23 @@ header.masthead .bg-circle-4 {
 }
 
 .bg {
-  background-image: url("https://mdbootstrap.com/img/Photos/Others/gradient1.jpg");
+  background-color: #3238a8;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg2 {
+  background-color: #89898c;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg3 {
+  background-color: #89898c;
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;

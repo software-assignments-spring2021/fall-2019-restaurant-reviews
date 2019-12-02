@@ -16,6 +16,7 @@ class UserPage extends Component {
         super(props);
         this.signoutHandler =this.signoutHandler.bind(this);
         this.state = {
+            firstname   : '',
             email       : '',
             favRest     : [],
             loggedIn: false,        
@@ -41,6 +42,7 @@ class UserPage extends Component {
             .then(res =>{
                 console.log(res.data);
                 this.setState({
+                    firstname: res.data.firstname,
                     email: res.data.email,
                     favRest: res.data.favoriteRes,
                     loggedIn: loggedin
@@ -56,38 +58,41 @@ class UserPage extends Component {
 
     render () {
         return(
-            <div className="bg">
+            <div className="bg2">
             <NavBar loggedin = {this.state.loggedIn} onClick = {this.signoutHandler}/>
-            <br/><br/><br/><br/>
+            
+
             <MDBContainer>
                <MDBRow>
                    <MDBCol md="12">
                    <MDBCard>
                    <div className="header pt-3 peach-gradient">
                        <MDBRow className="d-flex justify-content-center">
-                         <h3 className="white-text mb-3 pt-3 font-weight-bold"> Your Profile </h3>
+                         <h3 className="white-text mb-3 pt-3 font-weight-bold">Profile </h3>
                        </MDBRow>
                     </div>
                     <MDBCardBody className="mx-4 mt-4">
-                    Welcome back, <b>{this.state.email}</b>!
+                    Welcome back, <b>{this.state.firstname}</b>!
                     <div align="right">
                         <MDBBtn
-                         color="orange"
-                         rounded
-                         type="button"
-                         className="z-depth-1a"
-                         align="right"
-                         onClick={this.onSubmit} >
+                            outline color="primary"
+                            color="blue"
+                            rounded
+                            type="button"
+                            className="z-depth-1a"
+                            align="left"
+                            onClick={this.onSubmit} >
                          Change Email
                          </MDBBtn>
                          <MDBBtn
-                          color="orange"
-                          rounded
-                          type="button"
-                          className="z-depth-1a"
-                          align="right"
-                          onClick={this.onSubmit} >
-                          Change Password
+                              outline color="primary"
+                              color="blue"
+                              rounded
+                              type="button"
+                              className="z-depth-1a"
+                              align="left"
+                              onClick={this.onSubmit} >
+                              Change Password
                           </MDBBtn>
                       </div>
                        <br/><br/>

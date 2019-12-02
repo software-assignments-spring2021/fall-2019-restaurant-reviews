@@ -130,7 +130,9 @@ class Signup extends Component {
         return (
             <div className="bg">
                 <NavBar/>
-                <br/><br/><br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <center>
                 <MDBContainer>
                     <MDBRow>
                     <MDBCol>
@@ -141,14 +143,6 @@ class Signup extends Component {
                                     <h3 className="white-text mb-2 pt-2 font-weight-bold">
                                     Sign Up
                                     </h3>
-                                </MDBRow>
-                                <MDBRow className="mt-0 mb-3 d-flex justify-content-center">
-                                    <a href="#!" className="fa-lg p-2 m-2 fb-ic">
-                                    <MDBIcon fab icon="facebook-f" size="lg" className="white-text" />
-                                    </a>
-                                    <a href="#!" className="fa-lg p-2 m-2 gplus-ic">
-                                    <MDBIcon fab className="fa-google-plus-g white-text fa-lg" />
-                                    </a>
                                 </MDBRow>
                                 </div>
                                 <MDBCardBody className="mx-4 mt-4">
@@ -231,7 +225,9 @@ class Signup extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
+                </center>
             </div>
+        
         );
     }
 }

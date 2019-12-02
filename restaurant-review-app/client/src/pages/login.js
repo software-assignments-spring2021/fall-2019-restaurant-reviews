@@ -111,102 +111,99 @@ class Login extends Component {
     render() {
 
         return (
+
             <div className="bg">
                 <NavBar />
-                <br/><br/><br/><br/>
-
+                <br/><br/>
+                <br/><br/>
+                <center>
                 <MDBContainer>
                     <MDBRow>
+                    <MDBCol>
                         <MDBCol md="6">
-                        <MDBCard>
-                            <div className="header pt-3 peach-gradient">
-                            <MDBRow className="d-flex justify-content-center">
-                                <h3 className="white-text mb-3 pt-3 font-weight-bold">
-                                Log in
-                                </h3>
-                            </MDBRow>
-                            <MDBRow className="mt-2 mb-3 d-flex justify-content-center">
-                                <a href="#!" className="fa-lg p-2 m-2 fb-ic">
-                                <MDBIcon fab icon="facebook-f" size="lg" className="white-text" />
-                                </a>
-                                <a href="#!" className="fa-lg p-2 m-2 gplus-ic">
-                                <MDBIcon fab className="fa-google-plus-g white-text fa-lg" />
-                                </a>
-                            </MDBRow>
-                            </div>
-                            <MDBCardBody className="mx-4 mt-4">
-                            <MDBInput 
-                                label="Your email" 
-                                group type="text" 
-                                validate 
-                                value={this.state.email}
-                                onChange={this.onChangeEmail}
-                            />
-                            <div style={{fontSize:15,color:"red"}}>                              
-                                {this.state.emailErr}
-                            </div>
-                            <MDBInput
-                                label="Your password"
-                                group
-                                type="password"
-                                validate
-                                containerClass="mb-0"
-                                value={this.state.password}
-                                onChange={this.onChangePassword}
-                            />
-                             {/*display error message */}
-                            <div style={{fontSize:15,color:"red"}}>                              
-                                {this.state.passwordErr}
-                            </div>
-                            {/*display error message */}
-                            <div style={{fontSize:15,color:"red"}}>                              
-                                {this.state.loginStatus}
-                            </div>
-                            <p className="font-small grey-text d-flex justify-content-end">
-                                   
-                                Forgot
-                                <a
-                                href="#!"
-                                className="dark-grey-text ml-1 font-weight-bold"
-                                >
-                                Password?
-                                </a>
-
-                            </p>
-                            <MDBRow className="d-flex align-items-center mb-4 mt-5">
-                                <MDBCol md="5" className="d-flex align-items-start">
-                                <div className="text-center">
-                                    <MDBBtn
-                                    color="orange"
-                                    rounded
-                                    type="button"
-                                    className="z-depth-1a"
-                                    onClick={this.onSubmit}
-                                    >
-                                        Log in
-                                    </MDBBtn>
-                                 
+                            <MDBCard>
+                                <div className="header pt-3 peach-gradient">
+                                <MDBRow className="d-flex justify-content-center">
+                                    <h3 className="white-text mb-3 pt-3 font-weight-bold">
+                                    Log in
+                                    </h3>
+                                </MDBRow>
                                 </div>
+                                <MDBCardBody className="mx-4 mt-4">
+                                <MDBInput 
+                                    label="Your email" 
+                                    group type="text" 
+                                    validate 
+                                    value={this.state.email}
+                                    onChange={this.onChangeEmail}
+                                />
+                                <div style={{fontSize:15,color:"red"}}>                              
+                                    {this.state.emailErr}
+                                </div>
+                                <MDBInput
+                                    label="Your password"
+                                    group
+                                    type="password"
+                                    validate
+                                    containerClass="mb-0"
+                                    value={this.state.password}
+                                    onChange={this.onChangePassword}
+                                />
+                                {/*display error message */}
+                                <div style={{fontSize:15,color:"red"}}>                              
+                                    {this.state.passwordErr}
+                                </div>
+                                {/*display error message */}
+                                <div style={{fontSize:15,color:"red"}}>                              
+                                    {this.state.loginStatus}
+                                </div>
+                                <p className="font-small grey-text d-flex justify-content-end">
+                                    
+                                    Forgot
+                                    <a
+                                    href="#!"
+                                    className="dark-grey-text ml-1 font-weight-bold"
+                                    >
+                                    Password?
+                                    </a>
 
-                                </MDBCol>
-                                <MDBCol md="7" className="d-flex justify-content-end">
-                                <p className="font-small grey-text mt-3">
-                                    Don't have an account?
-                                    <Router>
-                                        <Switch>
-                                            <button type="button" onClick={ refreshPage } className = "button">
-                                                <Link to='/signup' className="nav-link" >Sign Up</Link>
-                                            </button> 
-                                        </Switch>
-                                    </Router>
                                 </p>
-                                </MDBCol>
-                            </MDBRow>
-                            </MDBCardBody>
-                        </MDBCard>
+                                <MDBRow className="d-flex align-items-center mb-4 mt-5">
+                                    <MDBCol md="5" className="d-flex align-items-start">
+                                    <div className="text-center">
+                                        <MDBBtn
+                                        color="orange"
+                                        rounded
+                                        type="button"
+                                        className="z-depth-1a"
+                                        onClick={this.onSubmit}
+                                        >
+                                            Log in
+                                        </MDBBtn>
+                                    
+                                    </div>
+
+                                    </MDBCol>
+                                    <MDBCol md="7" className="d-flex justify-content-end">
+                                    <p className="font-small grey-text mt-3">
+                                        Don't have an account?
+                                        <Router>
+                                            <Switch>
+                                                <button type="button" onClick={ refreshPage } className = "button">
+                                                    <Link to='/signup' className="nav-link" >Sign Up</Link>
+                                                </button> 
+                                            </Switch>
+                                        </Router>
+                                    </p>
+                                    </MDBCol>
+                                </MDBRow>
+                                </MDBCardBody>
+                            </MDBCard>
                         </MDBCol>
+                    </MDBCol>
                     </MDBRow>
                 </MDBContainer>
+                </center>
             </div>
         );
     }
