@@ -46,6 +46,9 @@ def mongo_connect():
 
 def get_page(page):
     driver=webdriver.Chrome('C:/Users/mayuk/Desktop/chromedriver.exe')
+    
+    #!!!! Is this url only for scrap Ichiran page?
+    #
     driver.get("view-source:https://www.yelp.com/biz/ichiran-midtown-new-york?start="+(str)(page))
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     #dump=[item.get_text(strip=True) for item in soup.select("span.html-attribute-value")]
