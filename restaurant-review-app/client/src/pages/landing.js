@@ -116,7 +116,10 @@ class Landing extends Component {
               <div className="col-lg-6">
                 <div className="p-5">
                   <h2 className="display-4">For those who want the best!</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                  <p>The main purpose of RRA is to give its users (restaurant goers) 
+                    clear and concise information on individual dishes of any given 
+                    restaurant without them having to read hundreds of overly-enthusiastic, 
+                    hateful, or paid-for reviews.</p>
                 </div>
               </div>
             </div>
@@ -134,7 +137,7 @@ class Landing extends Component {
               <div className="col-lg-6 order-lg-1">
                 <div className="p-5">
                   <h2 className="display-4">Find the Best!</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                  <p>Search through restaurants in NYC and see aggregated scores for dishes served at your restaurant of choice!</p>
                 </div>
               </div>
             </div>
