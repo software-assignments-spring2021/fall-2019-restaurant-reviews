@@ -95,7 +95,7 @@ class Restaurant extends Component{
             </header>
             <div>
                 <h1 className="masthead"> The Menu </h1>
-                <Dish dishList={this.state.dishes}/>
+                <Dish dishList={this.state.dishes} loginStatus={this.state.loggedIn}/>
             </div>
         </div>
 
