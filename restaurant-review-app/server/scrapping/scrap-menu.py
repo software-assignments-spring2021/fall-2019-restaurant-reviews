@@ -37,7 +37,7 @@ def get_names():
 
 #this function fetches the menu items for each matching restaurant 
 def fetch_menu(url, name):
-    print(url)
+    #print(url)
     print(name)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -53,8 +53,11 @@ def fetch_menu(url, name):
     
 def compare():
     names=get_names()
-    
-    #print (names)
+    '''MyFile=open('menu_pages_restaurants.txt','w',encoding="utf-8")
+    for element in names:
+        MyFile.write(element)
+        MyFile.write('\n')
+    MyFile.close()'''
     count=0
     selected=[]
     common=[]
