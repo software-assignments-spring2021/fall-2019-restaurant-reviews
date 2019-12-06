@@ -1,22 +1,13 @@
-from pymongo import MongoClient
-from bson.objectid import ObjectId
-from nlp import NLP
-
-cluster = MongoClient(
-    "mongodb+srv://hw1635:wuhaodong250382@cluster0-lirni.mongodb.net/test?retryWrites=true&w=majority")
-db = cluster["test"]
-collection = db["restaurants"]
-#                                                 insert id of restaurant here
-restaurant = collection.find_one({"_id": ObjectId("5dd1a02d1e9b0a9800f465dc")})
-menu = restaurant["menu"]
-reviews = restaurant["reviews"]
+# from pymongo import MongoClient
+# from bson.objectid import ObjectId
+# from nlp import NLP
 
 
-n = NLP(menu, reviews)
-print(n.menu)
+# n = NLP(menu, reviews)
+# print(n.menu)
 
 
-# # something here
+# # # something here
 # #
 # #
 
