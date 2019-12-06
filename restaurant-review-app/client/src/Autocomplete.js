@@ -17,7 +17,6 @@ class Autocomplete extends Component {
     super(props);
 
     this.state = {
-      // The active selection's index
       activeSuggestion: 0,
       // The suggestions that match the user's input
       filteredSuggestions: [],

@@ -4,7 +4,7 @@ import '../vendor/bootstrap/css/bootstrap.css';
 import "mdbreact/dist/css/mdb.css";
 
 function FavoriteResList(props) {
-    console.log(props.favRes);
+   
     return props.favRes.map( favorite => {     
         return(
             <div>

@@ -27,6 +27,7 @@ class Restaurant extends Component {
     };
   }
 
+
   componentDidMount() {
     const { handle } = this.props.match.params;
     const userID = localStorage.getItem("userID");
@@ -142,6 +143,7 @@ class Restaurant extends Component {
                   Add to my favorite.
                 </button>
               </div>
+
             </div>
           </header>
           <div className="items">

@@ -17,6 +17,7 @@
     "react-select-search": "^0.10.1",
     "react-star-rating-component": "^1.4.1",
     "react-star-ratings": "^2.3.0"
+    "react-star-rating-component": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
