@@ -1,107 +1,172 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 // import '../vendor/bootstrap/css/bootstrap.min.css';
 // import './../css/one-page-wonder.min.css';
 // import { BrowserRouter as Router} from "react-router-dom";
 // import { Switch } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
-import NavBar from '../pages/navbar';
-import Dish from '../components/Dish';
+import NavBar from "../pages/navbar";
+import Dish from "../components/Dish";
+import { ClipLoader } from "react-spinners";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
-class Restaurant extends Component{
-    constructor(props) {
-        super(props);
-        this.favoriteHandler = this.favoriteHandler.bind(this);
+class Restaurant extends Component {
+  constructor(props) {
+    super(props);
+    this.favoriteHandler = this.favoriteHandler.bind(this);
+    this.makeDishes = this.makeDishes.bind(this);
 
-        this.state = {
-            name: "",
-            dishes: [],
-            id: null,
-            stared:true,
-            loggedIn: false
-        }
+    this.state = {
+      name: "",
+      dishes: [],
+      snippets: [],
+      id: null,
+      stared: true,
+      loggedIn: false,
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    const { handle } = this.props.match.params;
+    const userID = localStorage.getItem("userID");
+    if (userID != null) {
+      this.setState({ loggedIn: true });
     }
-   
-    componentDidMount(){
-        const { handle } = this.props.match.params;
-        const userID = localStorage.getItem('userID');
-        if(userID != null){this.setState({loggedIn:true});}
-        axios.get(`http://localhost:5000/restaurant/${handle}`)
-             .then( (res) => {
-                 this.setState({
-                     name: res.data['name'],
-                     dishes: res.data['menu_ratings'],
-                     id: res.data['_id'],
-                     address: res.data['address'],
-                     rating: res.data['rating'],
-                     cuisine: res.data['cuisine']
-                 })
-                 console.log(this.state.name);
-             })
-             .catch( (err) =>{
-                console.log(err);
-             });
+    axios
+      .get(`http://localhost:5000/restaurant/${handle}`)
+      .then(res => {
+        this.setState({
+          name: res.data["name"],
+          dishes: res.data["menu"],
+          snippets: res.data["menu_snippets"],
+          id: res.data["_id"],
+          address: res.data["address"],
+          rating: res.data["rating"],
+          cuisine: res.data["cuisine"],
+          items: res.data["menu_items"]
+        });
+      })
+      .catch(err => {
+        console.log("fuckkkk");
+        console.log(err);
+      });
+  }
+  favoriteHandler(e) {
+    e.preventDefault();
+    console.log(this);
+    const userID = localStorage.getItem("userID");
+    //console.log(this.state.name);
 
-        
-
+    if (userID === null) {
+      alert("You must log in to star your favorite restaurants!");
+    } else {
+      const newfav = { newFavorite: this.state.name };
+      axios
+        .post("http://localhost:5000/user/" + userID + "/favorites/add", newfav)
+        .then(res => {
+          this.setState({ stared: true });
+        })
+        .catch(err => "Err" + err);
     }
-    favoriteHandler(e){
-        e.preventDefault();
-        console.log(this);
-        const userID = localStorage.getItem('userID');
-        //console.log(this.state.name);
-       
-        if(userID === null){
-           
-            alert('You must log in to star your favorite restaurants!');
-            
-        }else{
-            const newfav= {"newFavorite": this.state.name};
-            axios.post('http://localhost:5000/user/' + userID + '/favorites/add', newfav)
-            .then( (res) =>{
-                this.setState({stared:true});
-            })
-            .catch( err => "Err" + err);
-        }
-        alert("You have stared this restaurant!");   
-    }
+    alert("You have stared this restaurant!");
+  }
 
-    getUrlParameter(url, parameter) {
-        parameter = parameter.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?|&]' + parameter.toLowerCase() + '=([^&#]*)');
-        var results = regex.exec('?' + url.toLowerCase().split('?')[1]);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-    
-    render(){
-       
+  getUrlParameter(url, parameter) {
+    parameter = parameter.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?|&]" + parameter.toLowerCase() + "=([^&#]*)");
+    var results = regex.exec("?" + url.toLowerCase().split("?")[1]);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
 
-        return(
+  makeDishes(dishes) {
+    console.log("dishes: ", dishes);
+    var arr = [];
+    for (const name of Object.keys(dishes)) {
+      arr.push(
+        <Dish
+          dishName={name}
+          dishSnippets={dishes[name][0]}
+          dishRating={dishes[name][1]}
+        />
+      );
+    }
+    console.log("arr-->", arr);
+    return arr;
+  }
+
+  split(obj) {
+    let objOne = {};
+    let objTwo = {};
+    let i = 0;
+    for (const name of Object.keys(obj)) {
+      i += 1;
+
+      if (i > Object.keys(obj).length / 2) {
+        objTwo[name] = obj[name];
+      } else {
+        objOne[name] = obj[name];
+      }
+    }
+    return [objOne, objTwo];
+  }
+
+  render() {
+    if (this.state.items !== undefined) {
+      let x = this.split(this.state.items);
+      let y = x[0];
+      let z = x[1];
+      console.log("x = ", y);
+      console.log("y = ", z);
+
+      return (
         <div className="App">
-            <NavBar loggedin={this.state.loggedIn}/>
-            <header className="masthead text-white">
-                <div className="masthead-content">
-                    <div className="container">
-                        <h2 className="masthead-subheading text-left">{this.state.name}</h2>
-                        <h4 align='left'> {this.state.address} </h4>
-                        <h4 align='left'> {this.state.rating} star restaurant</h4>
-                        <h4 align='left'> {this.state.cuisine} </h4>
-                
-                        <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite.</button>
-                      
-                       
-                    </div>
-                </div>
-            </header>
-            <div>
-                <h1 className="masthead"> The Menu </h1>
-                <Dish dishList={this.state.dishes} loginStatus={this.state.loggedIn}/>
-            </div>
-        </div>
+          <NavBar loggedin={this.state.loggedIn} />
+          <header className="masthead text-white">
+            <div className="masthead-content">
+              <div className="container">
+                <h2 className="masthead-subheading text-left">
+                  {this.state.name}
+                </h2>
+                <h4 align="left"> {this.state.address} </h4>
+                <h4 align="left"> {this.state.rating} star restaurant</h4>
+                <h4 align="left"> {this.state.cuisine} </h4>
 
-        )
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                  onClick={this.favoriteHandler}
+                >
+                  Add to my favorite.
+                </button>
+              </div>
+            </div>
+          </header>
+          <div className="items">
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol>{this.makeDishes(y)}</MDBCol>
+                <MDBCol>{this.makeDishes(z)}</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="center-screen ">
+          <ClipLoader
+            sizeUnit={"px"}
+            size={150}
+            color={"#123abc"}
+            loading={this.state.loading}
+          />
+        </div>
+      );
     }
-    
+  }
 }
 
 export default Restaurant;
