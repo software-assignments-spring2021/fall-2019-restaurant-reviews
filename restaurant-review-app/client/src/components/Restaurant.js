@@ -12,7 +12,7 @@ class Restaurant extends Component{
     constructor(props) {
         super(props);
         this.favoriteHandler = this.favoriteHandler.bind(this);
-
+        this.unfavoriteHandler = this.unfavoriteHandler.bind(this);
         this.state = {
             name: "",
             dishes: [],
@@ -66,6 +66,21 @@ class Restaurant extends Component{
         alert("You have stared this restaurant!");   
     }
 
+    // unfavoriteHandler(e){
+    //     e.preventDefault();
+    //     if(userID === null){
+    //         alert('You must log in to star your favorite restaurants!');
+    //     }else{
+    //         const restaurantname= {"newFavorite": this.state.name};
+    //         axios.delete('http://localhost:5000/user/' + userID + '/favorites/', restaurantname)
+    //         .then( (res) =>{
+    //             this.setState({stared:true});
+    //         })
+    //         .catch( err => "Err" + err);
+    //     }
+    //     alert("You have stared this restaurant!");    
+        
+    // }
     getUrlParameter(url, parameter) {
         parameter = parameter.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?|&]' + parameter.toLowerCase() + '=([^&#]*)');
@@ -75,10 +90,12 @@ class Restaurant extends Component{
     
     render(){
         let favbutton = null;
+        //use the state design pattern to check if the user has already starred the restaurant or not.
+        //if it's starred, display "add it to favorites". Otherwise, display unfavorite the restaurant.
         if(this.state.stared == false)
             favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite.</button>
         else{
-            favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant.</button>
+            favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.unfavoriteHandler}>Unfavorite the restaurant.</button>
         }
         return(
         <div className="App">
