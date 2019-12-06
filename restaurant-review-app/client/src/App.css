@@ -51,7 +51,6 @@
 }
 
 .suggestions {
-  position: absolute;
   border-top-width: 0;
   list-style: none;
   margin-top: 10;
@@ -96,12 +95,4 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
-}
-
-.items {
-  background-color: lightgray;
-}
-
-.dish {
-  border-radius: 50%;
 }

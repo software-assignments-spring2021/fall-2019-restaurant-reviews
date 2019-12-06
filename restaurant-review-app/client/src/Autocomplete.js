@@ -2,9 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { MDBCol, MDBIcon } from "mdbreact";
 import axios from "axios";
-import { Link } from 'react-router-dom';
-
-
+import { Link } from "react-router-dom";
 
 class Autocomplete extends Component {
   static propTypes = {
@@ -26,7 +24,8 @@ class Autocomplete extends Component {
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
-      userInput: "", 
+      userInput: "",
+      clicked: false
     };
   }
 
@@ -59,7 +58,8 @@ class Autocomplete extends Component {
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      userInput: e.currentTarget.innerText
+      userInput: e.currentTarget.innerText,
+      clicked: true
     });
   };
 
@@ -73,13 +73,12 @@ class Autocomplete extends Component {
       this.setState({
         activeSuggestion: 0,
         showSuggestions: false,
-        userInput: filteredSuggestions[activeSuggestion],
+        userInput: filteredSuggestions[activeSuggestion]
       });
       e.preventDefault();
 
       // console.log(this.state.userInput);
       // alert(this.state.userInput);
-    
     }
     // User pressed the up arrow, decrement the index
     else if (e.keyCode === 38) {
@@ -117,27 +116,23 @@ class Autocomplete extends Component {
     if (showSuggestions && userInput) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
-            <nav class="suggest">
-          <ul class="suggestions">
-            {filteredSuggestions.map((suggestion, index) => {
-              let className;
+          <nav class="suggest">
+            <ul class="suggestions">
+              {filteredSuggestions.map((suggestion, index) => {
+                let className;
 
-              // Flag the active suggestion with a class
-              if (index === activeSuggestion) {
-                className = "suggestion-active";
-              }
+                // Flag the active suggestion with a class
+                if (index === activeSuggestion) {
+                  className = "suggestion-active";
+                }
 
-              return (
-                <li
-                  className={className}
-                  key={suggestion}
-                  onClick={onClick}
-                >
-                  {suggestion}
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li className={className} key={suggestion} onClick={onClick}>
+                    {suggestion}
+                  </li>
+                );
+              })}
+            </ul>
           </nav>
         );
       } else {
@@ -149,31 +144,32 @@ class Autocomplete extends Component {
       }
     }
 
+    if (this.state.clicked) {
+      console.log("clicked");
+      window.location = `/restaurant/${
+        this.props.suggestions[this.state.userInput]
+      }`;
+    }
+
     return (
       <Fragment>
-          <div> 
+        <div>
           <MDBCol md="12">
-          <form className="form-inline justify-content-center mt-5">
-          <Link className="nav-link" to={{pathname: `/restaurant/${this.props.suggestions[this.state.userInput]}`}}><MDBIcon icon="search" className="amber-text pr-3"/></Link>
-          {/* <Link className="nav-link" to={{pathname: "/restaurant", id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
-
-          {/* <Link className="nav-link" to={{pathname: "/restaurant"+{}, id: this.state.userInput}}><MDBIcon icon="search"/></Link> */}
-
-          {/* <Link className="nav-link"/><MDBIcon icon="search"/></Link> */}
-
-
-        <input
-          type="text"
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          value={userInput}
-          className="form-control form-control-lg ml-4 w-75" type="text" placeholder="Start typing..." aria-label="Search"
-        />
-        
-        </form>
-        {suggestionsListComponent}
-        
-        </MDBCol>
+            <form>
+              <input
+                style={{ display: "inline-block" }}
+                type="text"
+                onChange={onChange}
+                onKeyDown={onKeyDown}
+                value={userInput}
+                className="form-control form-control-lg ml-4 w-75"
+                type="text"
+                placeholder="Start typing..."
+                aria-label="Search"
+              />
+            </form>
+            {suggestionsListComponent}
+          </MDBCol>
         </div>
       </Fragment>
     );
