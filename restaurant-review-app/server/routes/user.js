@@ -66,6 +66,40 @@ router.route('/register').post([
   
 });
 
+router.route('/:id/changeemail').put((req, res) =>{
+  const email = req.body.email;
+  User.findById(req.params.id)
+      .then( (user) =>{
+          user.email = email;
+          user.save()
+              .then( () => res.json("Email edited!"))
+              .catch( (err) => res.status(400).json('Error' + err));
+      })
+      .catch( (err) => res.json('Err' + err));
+})
+
+router.route('/:id/changepassword').put((req, res) =>{
+  bcrypt.genSalt(10, (err,salt) =>{
+    bcrypt.hash(req.body.password, salt, (err, hash)=> {
+      if(err){
+        console.log(err);
+      }
+
+      //replace the password with encrpyted one
+      password = hash;
+    })
+  });
+
+  User.findById(req.params.id)
+      .then( (user) =>{
+          user.password = password;
+          user.save()
+              .then( () => res.json("Password edited!"))
+              .catch( (err) => res.status(400).json('Error' + err));
+      })
+      .catch( (err) => res.json('Err' + err));
+})
+
 // log in 
 router.route('/login').post([
   //validate login info
