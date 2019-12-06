@@ -81,7 +81,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" >
         <NavBar loggedin={this.state.loggedIn} onClick={this.signoutHandler} />
         <header className="masthead text-center text-white">
           <div className="masthead-content">
@@ -89,7 +89,7 @@ class Landing extends Component {
               <h2 className="masthead-subheading mb-0">
                 Search for a restaurant
               </h2>
-              <Autocomplete
+              <Autocomplete className="container2"
                 suggestions={this.state.my_dict}
                 loggedStatus={this.state.loggedIn}
               />

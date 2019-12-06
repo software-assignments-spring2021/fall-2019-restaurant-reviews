@@ -15,8 +15,9 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-select-search": "^0.10.1",
-    "react-star-ratings": "^2.3.0",
-    "react-star-rating-component": "^1.4.1"
+    "react-spinners": "^0.6.1",
+    "react-star-rating-component": "^1.4.1",
+    "react-star-ratings": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

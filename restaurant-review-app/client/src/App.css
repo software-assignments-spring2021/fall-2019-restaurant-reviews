@@ -65,7 +65,7 @@
   background-color: white;
   width: 810px;
   padding: 0.4rem;
-  margin-left: 131px;
+  margin-left: 107px;
   color: black;
 }
 
@@ -95,4 +95,10 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
+}
+
+.containerul {
+  max-width: auto;
+  margin-right: auto;
+  margin-left: auto;
 }
