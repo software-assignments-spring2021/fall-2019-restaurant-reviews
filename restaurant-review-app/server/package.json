@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --exit"
+    "test": "nyc mocha --exit",
+    "testLanding": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "react-star-ratings": "^2.3.0",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
