@@ -9,6 +9,16 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import re
 import operator
 
+
+class menu_dish:
+    snipp = []
+    rate = 0
+
+    def __init__(self, s, r):
+        self.snipp = s
+        self.rate = r
+
+
 sid = SentimentIntensityAnalyzer()
 cluster = MongoClient(
     "mongodb+srv://hw1635:wuhaodong250382@cluster0-lirni.mongodb.net/test?retryWrites=true&w=majority")
@@ -73,16 +83,24 @@ for dish, d in scores_dict.items():
                 menu_snippets[dish][good] = best[0]
                 good -= 1
 
-for i in dict:
+for i in menu_snippets.keys():
     total = 0
     for j in dict[i]:
-        total += int(j)
+        total += float(j)
 
     if len(dict[i]) != 0:
         items_rating[i] = "{0:.2f}".format(total / len(dict[i]))
+
+
+menu_items = {}
+for i in items_rating.keys():
+    menu_items[i] = [menu_snippets[i], items_rating[i]]
+
 
 #                                     insert id of restaurant here
 collection.update_one({"_id": ObjectId("5dd1a02d1e9b0a9800f465dc")}, {
                       "$set": {"menu_ratings": items_rating}})
 collection.update_one({"_id": ObjectId("5dd1a02d1e9b0a9800f465dc")}, {
                       "$set": {"menu_snippets": menu_snippets}})
+collection.update_one({"_id": ObjectId("5dd1a02d1e9b0a9800f465dc")}, {
+                      "$set": {"menu_items": menu_items}})
