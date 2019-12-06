@@ -74,8 +74,12 @@ class Restaurant extends Component{
     }
     
     render(){
-       
-
+        let favbutton = null;
+        if(this.state.stared == false)
+            favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite.</button>
+        else{
+            favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant.</button>
+        }
         return(
         <div className="App">
             <NavBar loggedin={this.state.loggedIn}/>
@@ -86,9 +90,9 @@ class Restaurant extends Component{
                         <h4 align='left'> {this.state.address} </h4>
                         <h4 align='left'> {this.state.rating} star restaurant</h4>
                         <h4 align='left'> {this.state.cuisine} </h4>
-                
-                        <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite.</button>
-                      
+                        
+                        {favbutton}
+                        
                        
                     </div>
                 </div>

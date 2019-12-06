@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBIcon, MDBTable, MDBTableBody, MDBTableHead } from
 'mdbreact';
 import axios from 'axios';
-
+import StarRatingComponent from 'react-star-rating-component';
 class Dish extends Component {
     constructor(props){
       super(props);
@@ -45,17 +45,10 @@ class Dish extends Component {
         showRatingForm = (
         <div>           
         <p>Rate this dish</p>
-          <form onSubmit={this.onSubmitHandler}>
-            <p>
-              <input type='text' 
-              placeholder='Enter a rating from 1 to 5' 
-              rating=''
-              onChange={this.onChangeHandler}
-              />
-            </p>
-            <button>Submit</button>
-
-          </form>
+          <StarRatingComponent
+          name={String} /* name of the radio input, it is required */
+          value={Number} /* number of selected icon (`0` - none, `1` - first) */
+          />
         </div>
         )
       //}
