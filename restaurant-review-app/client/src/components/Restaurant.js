@@ -15,6 +15,7 @@ class Restaurant extends Component {
     super(props);
     this.favoriteHandler = this.favoriteHandler.bind(this);
     this.makeDishes = this.makeDishes.bind(this);
+    this.updateRating = this.updateRating.bind(this);
 
     this.state = {
       name: "",
@@ -23,10 +24,10 @@ class Restaurant extends Component {
       id: null,
       stared: true,
       loggedIn: false,
-      loading: true
+      loading: true,
+      userRatings: {}
     };
   }
-
 
   componentDidMount() {
     const { handle } = this.props.match.params;
@@ -83,18 +84,21 @@ class Restaurant extends Component {
   }
 
   makeDishes(dishes) {
-    console.log("dishes: ", dishes);
     var arr = [];
     for (const name of Object.keys(dishes)) {
+      let ratings = dishes[name][1].slice();
+      if (this.state.userRatings[name] !== undefined) {
+        ratings.push(this.state.userRatings[name]);
+      }
       arr.push(
         <Dish
           dishName={name}
           dishSnippets={dishes[name][0]}
-          dishRating={dishes[name][1]}
+          dishRating={this.averageRating(ratings)}
+          triggerParentUpdate={this.updateRating}
         />
       );
     }
-    console.log("arr-->", arr);
     return arr;
   }
 
@@ -114,13 +118,27 @@ class Restaurant extends Component {
     return [objOne, objTwo];
   }
 
+  updateRating(num, name) {
+    let user = this.state.userRatings;
+    user[name] = num;
+    this.setState({
+      userRatings: user
+    });
+  }
+
+  averageRating(arr) {
+    let total = 0;
+    for (let i = 0; i < arr.length; i++) {
+      total += arr[i];
+    }
+    return (total / arr.length).toFixed(2);
+  }
+
   render() {
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
       let y = x[0];
       let z = x[1];
-      console.log("x = ", y);
-      console.log("y = ", z);
 
       return (
         <div className="App">
@@ -143,7 +161,6 @@ class Restaurant extends Component {
                   Add to my favorite.
                 </button>
               </div>
-
             </div>
           </header>
           <div className="items">
