@@ -1,5 +1,4 @@
 //user router : includes login and register route
-
 const router = require('express').Router();
 const User = require('../models/user.model');
 //use express-validator to validate inputs
@@ -141,38 +140,6 @@ router.route('/login').post([
     
 });
 
-
-//protected route
-router.route('/protected').get( (req,res) =>{
-  const user = res.body;
-  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
-
-    if(err) {
-      console.log(err);
-    }
-    if(info !== undefined){
-      console.log(info.message);
-      res.send(info.message);
-    }
-    else{
-      console.log('user found in mongodb');
-      res.status(200).send({
-        auth:true,
-        firstname:user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        message:'user found in mongodb'
-
-      })
-
-    }
-  })(req,res,next);
-  
-});
-
-
-
 //implement delete user account
 router.route('/:id').delete( (req, res) => {
 
@@ -202,4 +169,15 @@ router.route('/:id/favorites/add').post( (req, res) =>{
       .catch( (err) => res.json('Err' + err));
 })
 
+// router.route('/:id/favorites/').delete((req, res) =>{
+    
+//   User.findById(req.params.id)
+//   .then((user)=> 
+//       user.favoriteRes.
+//       res.json("You unfavorited the restaurant.")
+  
+//     )
+//   .catch( err => res.status(400).json('Err' + err));
+
+// })
 module.exports = router;
