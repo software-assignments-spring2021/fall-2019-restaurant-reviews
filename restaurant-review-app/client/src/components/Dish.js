@@ -22,18 +22,18 @@ import StarRatings from "react-star-ratings";
 class Dish extends Component {
   constructor(props) {
     super(props);
-    this.changeRating = this.changeRating.bind(this);
+    // this.changeRating = this.changeRating.bind(this);
     this.state = {
       rating: "",
       message: "add your rating"
     };
   }
 
-  changeRating(newRating, name) {
-    this.setState({
-      rating: newRating
-    });
-  }
+  // changeRating(newRating, name) {
+  //   this.setState({
+  //     rating: newRating
+  //   });
+  // }
 
   // onChangeHandler(event) {
   //   event.preventDefault();
@@ -56,8 +56,7 @@ class Dish extends Component {
             style={{
               margin: "8px",
               borderStyle: "solid",
-              borderWidth: "3px",
-              borderColor: "rgb(2, 194, 28)"
+              borderWidth: "3px"
             }}
             className="rounded-snippet"
           >
@@ -101,7 +100,6 @@ class Dish extends Component {
               <StarRatings
                 starEmptyColor="white"
                 starRatedColor="red"
-                changeRating={this.changeRating}
                 numberOfStars={5}
                 rating={dishRating}
                 name="rating"
