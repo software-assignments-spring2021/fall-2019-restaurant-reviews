@@ -6715,6 +6715,14 @@ button.bg-dark:focus {
   border-radius: 0 !important;
 }
 
+.rounded-dish {
+  border-radius: 15px !important;
+}
+
+.rounded-snippet {
+  border-radius: 20px !important;
+}
+
 .clearfix::after {
   display: block;
   clear: both;

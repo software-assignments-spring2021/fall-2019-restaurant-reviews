@@ -13,6 +13,8 @@ import {
   MDBTableBody,
   MDBTableHead
 } from "mdbreact";
+import "../vendor/bootstrap/css/bootstrap.css";
+
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
 import StarRatings from "react-star-ratings";
@@ -50,7 +52,15 @@ class Dish extends Component {
     for (var i = 0; i < 6; i++) {
       if (text[i].trim() !== "") {
         s.push(
-          <MDBCard style={{ margin: "8px" }} className="rounded mb-0">
+          <MDBCard
+            style={{
+              margin: "8px",
+              borderStyle: "solid",
+              borderWidth: "3px",
+              borderColor: "rgb(2, 194, 28)"
+            }}
+            className="rounded-snippet"
+          >
             <div
               style={{
                 padding: "1rem",
@@ -72,22 +82,25 @@ class Dish extends Component {
     var dishSnippets = this.props.dishSnippets;
     var dishRating = parseFloat(this.props.dishRating);
 
-    var r = 3.1;
     return (
       <div style={{ margin: "40px" }}>
         <MDBCard
           style={{
             maxHeight: "550px",
             backgroundImage:
-              "linear-gradient(to bottom, rgb(0, 89, 255), 10%,rgb(255,255,255) 60%)"
+              "linear-gradient(to bottom, rgb(255, 166, 0), 20%,rgb(255,255,255) )",
+            padding: "20px"
           }}
+          className="rounded-dish"
         >
           <MDBCardBody cascade className="text-center view-cascade ">
-            <h1 className="h2-responsive mb-2">{dishName.toUpperCase()}</h1>
+            <h1 className="h2-responsive mb-2 res" style={{ color: "black " }}>
+              {dishName.toUpperCase()}
+            </h1>
             <h2>
               <StarRatings
                 starEmptyColor="white"
-                starRatedColor="blue"
+                starRatedColor="red"
                 changeRating={this.changeRating}
                 numberOfStars={5}
                 rating={dishRating}
