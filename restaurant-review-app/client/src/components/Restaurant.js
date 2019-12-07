@@ -141,7 +141,7 @@ class Restaurant extends Component {
       let z = x[1];
 
       return (
-        <div className="App">
+        <div className="App" style={{ backgroundColor: "rgb(240, 240, 255)" }}>
           <NavBar loggedin={this.state.loggedIn} />
           <header className="masthead text-white">
             <div className="masthead-content">

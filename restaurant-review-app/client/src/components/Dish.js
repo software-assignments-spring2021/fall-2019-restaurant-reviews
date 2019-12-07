@@ -75,11 +75,14 @@ class Dish extends Component {
     var r = 3.1;
     return (
       <div style={{ margin: "40px" }}>
-        <MDBCard style={{ maxHeight: "550px" }}>
-          <MDBCardBody
-            cascade
-            className="text-center view-cascade gradient-card-header juicy-peach-gradient"
-          >
+        <MDBCard
+          style={{
+            maxHeight: "550px",
+            backgroundImage:
+              "linear-gradient(to bottom, rgb(0, 89, 255), 10%,rgb(255,255,255) 60%)"
+          }}
+        >
+          <MDBCardBody cascade className="text-center view-cascade ">
             <h1 className="h2-responsive mb-2">{dishName.toUpperCase()}</h1>
             <h2>
               <StarRatings
