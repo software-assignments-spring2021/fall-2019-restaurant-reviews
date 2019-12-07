@@ -164,12 +164,12 @@ class Restaurant extends Component {
             </div>
           </header>
           <div className="items">
-            <MDBContainer>
-              <MDBRow>
-                <MDBCol>{this.makeDishes(y)}</MDBCol>
-                <MDBCol>{this.makeDishes(z)}</MDBCol>
-              </MDBRow>
-            </MDBContainer>
+            {/* <MDBContainer> */}
+            <MDBRow className="no-gutters">
+              <MDBCol>{this.makeDishes(y)}</MDBCol>
+              <MDBCol>{this.makeDishes(z)}</MDBCol>
+            </MDBRow>
+            {/* </MDBContainer> */}
           </div>
         </div>
       );
