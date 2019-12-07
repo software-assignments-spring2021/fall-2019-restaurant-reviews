@@ -5,8 +5,8 @@
   "dependencies": {
     "@fortawesome/react-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
-    "fontawesome": "^5.6.3",
     "emotion": "^10.0.23",
+    "fontawesome": "^5.6.3",
     "git": "^0.1.5",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
@@ -16,6 +16,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-select-search": "^0.10.1",
+    "react-spinners": "^0.6.1",
+    "react-star-rating-component": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
