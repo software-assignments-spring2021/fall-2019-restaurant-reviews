@@ -13,37 +13,64 @@ import {
   MDBTableBody,
   MDBTableHead
 } from "mdbreact";
+import "../vendor/bootstrap/css/bootstrap.css";
+
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
+import StarRatings from "react-star-ratings";
 
 class Dish extends Component {
   constructor(props) {
     super(props);
-    this.onChangeHandler = this.onChangeHandler.bind(this);
+    // this.changeRating = this.changeRating.bind(this);
     this.state = {
       rating: "",
-      rated: false,
       message: "add your rating"
     };
   }
 
-  onChangeHandler(event) {
-    event.preventDefault();
-    this.setState({
-      rating: event.target.value
-    });
-  }
+  // changeRating(newRating, name) {
+  //   this.setState({
+  //     rating: newRating
+  //   });
+  // }
 
-  onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue, message: "your rating" });
-    this.props.triggerParentUpdate(nextValue, this.props.dishName);
-  }
+  // onChangeHandler(event) {
+  //   event.preventDefault();
+  //   this.setState({
+  //     rating: event.target.value
+  //   });
+  // }
+
+  // onStarClick(nextValue, prevValue, name) {
+  //   this.setState({ rating: nextValue, message: "your rating" });
+  //   this.props.triggerParentUpdate(nextValue, this.props.dishName);
+  // }
 
   snippets(text) {
     let s = [];
     for (var i = 0; i < 6; i++) {
       if (text[i].trim() !== "") {
-        s.push(<li>{text[i]}</li>);
+        s.push(
+          <MDBCard
+            style={{
+              margin: "8px",
+              borderStyle: "solid",
+              borderWidth: "3px"
+            }}
+            className="rounded-snippet"
+          >
+            <div
+              style={{
+                padding: "1rem",
+                fontSize: "20px",
+                textAlign: "left"
+              }}
+            >
+              {text[i]}
+            </div>
+          </MDBCard>
+        );
       }
     }
     return s;
@@ -52,34 +79,39 @@ class Dish extends Component {
   render() {
     var dishName = this.props.dishName;
     var dishSnippets = this.props.dishSnippets;
-    var dishRating = this.props.dishRating;
-    return (
-      <MDBCard>
-        <MDBCardImage
-          className="view view-cascade gradient-card-header peach-gradient"
-          cascade
-          tag="div"
-        >
-          <h2 className="h2-responsive mb-2">{dishName.toUpperCase()}</h2>
-        </MDBCardImage>
-        <MDBCardBody cascade className="text-center">
-          <MDBCardText>
-            <h1>
-              {dishRating}
-              <i className="fas fa-star"></i>
-            </h1>
+    var dishRating = parseFloat(this.props.dishRating);
 
-            <StarRatingComponent
-              name="rate"
-              starCount={5}
-              value={this.state.rating}
-              onStarClick={this.onStarClick.bind(this)}
-            />
-            <p>{this.state.message}</p>
-            <ul style={{ textAlign: "left" }}>{this.snippets(dishSnippets)}</ul>
-          </MDBCardText>
-        </MDBCardBody>
-      </MDBCard>
+    return (
+      <div style={{ margin: "40px" }}>
+        <MDBCard
+          style={{
+            maxHeight: "550px",
+            backgroundImage:
+              "linear-gradient(to bottom, rgb(255, 166, 0), 20%,rgb(255,255,255) )",
+            padding: "20px"
+          }}
+          className="rounded-dish"
+        >
+          <MDBCardBody cascade className="text-center view-cascade ">
+            <h1 className="h2-responsive mb-2 res" style={{ color: "black " }}>
+              {dishName.toUpperCase()}
+            </h1>
+            <h2>
+              <StarRatings
+                starEmptyColor="white"
+                starRatedColor="red"
+                numberOfStars={5}
+                rating={dishRating}
+                name="rating"
+                starDimension="30px"
+              />
+            </h2>
+            <MDBCardText style={{ overflow: "scroll", maxHeight: "24rem" }}>
+              {this.snippets(dishSnippets)}
+            </MDBCardText>
+          </MDBCardBody>
+        </MDBCard>
+      </div>
     );
   }
 }
