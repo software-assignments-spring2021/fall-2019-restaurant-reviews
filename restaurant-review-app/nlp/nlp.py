@@ -70,10 +70,10 @@ for dish, d in scores_dict.items():
             worst = sorted_d[i]
             best = sorted_d[(i*-1)-1]
             if worst[1] < 0:
-                menu_snippets[dish][bad] = worst[0]
+                menu_snippets[dish][bad] = worst
                 bad += 1
             if best[1] > 0:
-                menu_snippets[dish][good] = best[0]
+                menu_snippets[dish][good] = best
                 good -= 1
 
 for i in menu_snippets.keys():

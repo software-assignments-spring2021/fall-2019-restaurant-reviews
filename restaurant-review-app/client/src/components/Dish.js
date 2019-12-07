@@ -47,33 +47,58 @@ class Dish extends Component {
   //   this.props.triggerParentUpdate(nextValue, this.props.dishName);
   // }
 
-  snippets(text) {
+  snippets(text, dish) {
     let s = [];
     for (var i = 0; i < 6; i++) {
-      if (text[i].trim() !== "") {
-        s.push(
-          <MDBCard
-            style={{
-              margin: "8px",
-              borderStyle: "solid",
-              borderWidth: "3px"
-            }}
-            className="rounded-snippet"
-          >
-            <div
+      if (text[i] !== "") {
+        if (text[i][0].trim() !== "") {
+          let color = `rgb(
+            ${255 - 255 * text[i][1]}, 
+            ${255 + 255 * text[i][1]},
+             0)`;
+          s.push(
+            <MDBCard
               style={{
-                padding: "1rem",
-                fontSize: "20px",
-                textAlign: "left"
+                margin: "8px",
+                borderStyle: "solid",
+                borderWidth: "4px",
+                borderColor: color
               }}
+              className="rounded-snippet"
             >
-              {text[i]}
-            </div>
-          </MDBCard>
-        );
+              <div
+                style={{
+                  padding: "1rem",
+                  fontSize: "20px",
+                  textAlign: "left"
+                }}
+              >
+                {/* {text[i][0]} */}
+                {this.findDish(text[i][0], dish)}
+              </div>
+            </MDBCard>
+          );
+        }
       }
     }
     return s;
+  }
+
+  findDish(text, dish) {
+    let t = [];
+    let index = text.indexOf(dish);
+    console.log("index", index);
+    let first = text.slice(0, index);
+    let bold = text.slice(index, index + dish.length);
+    let second = text.slice(index + dish.length);
+    console.log("first: ", first);
+    console.log("bold: ", bold);
+    console.log("second: ", second);
+
+    t.push(<span>{first}</span>);
+    t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
+    t.push(<span>{second}</span>);
+    return t;
   }
 
   render() {
@@ -107,7 +132,7 @@ class Dish extends Component {
               />
             </h2>
             <MDBCardText style={{ overflow: "scroll", maxHeight: "24rem" }}>
-              {this.snippets(dishSnippets)}
+              {this.snippets(dishSnippets, dishName)}
             </MDBCardText>
           </MDBCardBody>
         </MDBCard>
