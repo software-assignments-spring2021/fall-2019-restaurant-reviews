@@ -42,6 +42,7 @@ class Dish extends Component {
   snippets(text) {
     let s = [];
     for (var i = 0; i < 6; i++) {
+      console.log(text[i]);
       if (text[i].trim() !== "") {
         s.push(<li>{text[i]}</li>);
       }
@@ -76,7 +77,7 @@ class Dish extends Component {
               onStarClick={this.onStarClick.bind(this)}
             />
             <p>{this.state.message}</p>
-            <ul style={{ textAlign: "left" }}>{this.snippets(dishSnippets)}</ul>
+            {/* <ul style={{ textAlign: "left" }}>{this.snippets(dishSnippets)}</ul> */}
           </MDBCardText>
         </MDBCardBody>
       </MDBCard>
