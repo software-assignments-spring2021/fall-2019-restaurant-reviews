@@ -35,7 +35,8 @@ class Dish extends Component {
   }
 
   onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue, message: "rating saved" });
+    this.setState({ rating: nextValue, message: "your rating" });
+    this.props.triggerParentUpdate(nextValue, this.props.dishName);
   }
 
   snippets(text) {
