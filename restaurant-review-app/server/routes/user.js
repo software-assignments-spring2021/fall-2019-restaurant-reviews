@@ -169,15 +169,25 @@ router.route('/:id/favorites/add').post( (req, res) =>{
       .catch( (err) => res.json('Err' + err));
 })
 
-// router.route('/:id/favorites/').delete((req, res) =>{
-    
-//   User.findById(req.params.id)
-//   .then((user)=> 
-//       user.favoriteRes.
-//       res.json("You unfavorited the restaurant.")
-  
-//     )
-//   .catch( err => res.status(400).json('Err' + err));
 
-// })
+
+      
+router.route('/:id/favorites/delete').put((req, res) =>{
+
+  User.findById(req.params.id)
+  .then((user)=> {
+      const resname = req.body.newFavorite;
+      const index = user.favoriteRes.indexOf(resname);
+      user.favoriteRes.splice(index,1);
+
+      user.save()
+          .then( () => res.json( user.favoriteRes) )
+          .catch ( (err) => res.status(400).json('Error' + err));
+      
+  
+  })
+  .catch( err => res.status(400).json('Err' + err));
+
+})
+
 module.exports = router;
