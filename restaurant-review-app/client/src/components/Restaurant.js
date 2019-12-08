@@ -203,13 +203,7 @@ class Restaurant extends Component {
                   {this.state.cuisine}{" "}
                 </h4>
 
-                <button
-                  type="button"
-                  class="btn btn-outline-warning"
-                  onClick={this.favoriteHandler}
-                >
-                  Add to my favorite.
-                </button>
+                {favbutton}
               </div>
             </div>
           </header>
