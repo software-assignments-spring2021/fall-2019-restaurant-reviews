@@ -5,7 +5,6 @@
 .App-logo {
   height: 40vmin;
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -101,4 +100,9 @@
   max-width: auto;
   margin-right: auto;
   margin-left: auto;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
+.res {
+  font-family: "Nunito", sans-serif;
 }

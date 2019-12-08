@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 // import '../vendor/bootstrap/css/bootstrap.min.css';
-// import './../css/one-page-wonder.min.css';
 // import { BrowserRouter as Router} from "react-router-dom";
 // import { Switch } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
@@ -180,28 +179,52 @@ class Restaurant extends Component {
           favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant</button>
       }
       return (
-        <div className="App">
+        <div className="App" style={{ backgroundColor: "rgb(235, 235, 235)" }}>
           <NavBar loggedin={this.state.loggedIn} />
-          <header className="masthead text-white">
+          <header
+            className="masthead text-black"
+            style={{ height: "450px", paddingTop: "calc(4rem + 72px)" }}
+          >
             <div className="masthead-content">
               <div className="container">
-                <h2 className="masthead-subheading text-left">
+                <h2 className="masthead-subheading text-left res">
                   {this.state.name}
                 </h2>
+<<<<<<< HEAD
                 <h4 align="left"> {this.state.address} </h4>
                 <h4 align="left"> {this.state.rating} star restaurant</h4>
                 <h4 align="left"> {this.state.cuisine} </h4>
                 {favbutton}
+=======
+                <h4 className="res" align="left">
+                  {" "}
+                  {this.state.address}{" "}
+                </h4>
+                <h4 className="res" align="left">
+                  {" "}
+                  {this.state.rating} star restaurant
+                </h4>
+                <h4 className="res" align="left">
+                  {" "}
+                  {this.state.cuisine}{" "}
+                </h4>
+
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                  onClick={this.favoriteHandler}
+                >
+                  Add to my favorite.
+                </button>
+>>>>>>> master
               </div>
             </div>
           </header>
           <div className="items">
-            <MDBContainer>
-              <MDBRow>
-                <MDBCol>{this.makeDishes(y)}</MDBCol>
-                <MDBCol>{this.makeDishes(z)}</MDBCol>
-              </MDBRow>
-            </MDBContainer>
+            <MDBRow className="no-gutters">
+              <MDBCol>{this.makeDishes(y)}</MDBCol>
+              <MDBCol>{this.makeDishes(z)}</MDBCol>
+            </MDBRow>
           </div>
         </div>
       );

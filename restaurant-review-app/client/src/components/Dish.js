@@ -13,62 +13,121 @@ import {
   MDBTableBody,
   MDBTableHead
 } from "mdbreact";
+import "../vendor/bootstrap/css/bootstrap.css";
+
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
+import StarRatings from "react-star-ratings";
 
 class Dish extends Component {
   constructor(props) {
     super(props);
-    this.onChangeHandler = this.onChangeHandler.bind(this);
+    // this.changeRating = this.changeRating.bind(this);
     this.state = {
       rating: "",
-      rated: false,
       message: "add your rating"
     };
   }
 
-  onChangeHandler(event) {
-    event.preventDefault();
-    this.setState({
-      rating: event.target.value
-    });
-  }
+  // changeRating(newRating, name) {
+  //   this.setState({
+  //     rating: newRating
+  //   });
+  // }
 
-  onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue, message: "your rating" });
-    this.props.triggerParentUpdate(nextValue, this.props.dishName);
-  }
+  // onChangeHandler(event) {
+  //   event.preventDefault();
+  //   this.setState({
+  //     rating: event.target.value
+  //   });
+  // }
 
-  snippets(text) {
+  // onStarClick(nextValue, prevValue, name) {
+  //   this.setState({ rating: nextValue, message: "your rating" });
+  //   this.props.triggerParentUpdate(nextValue, this.props.dishName);
+  // }
+
+  snippets(text, dish) {
     let s = [];
     for (var i = 0; i < 6; i++) {
+<<<<<<< HEAD
       console.log(text[i]);
       if (text[i].trim() !== "") {
         s.push(<li>{text[i]}</li>);
+=======
+      if (text[i] !== "") {
+        if (text[i][0].trim() !== "") {
+          let color = `rgb(
+            ${255 - 255 * text[i][1]}, 
+            ${255 + 255 * text[i][1]},
+             0)`;
+          s.push(
+            <MDBCard
+              style={{
+                margin: "8px",
+                borderStyle: "solid",
+                borderWidth: "4px",
+                borderColor: color
+              }}
+              className="rounded-snippet"
+            >
+              <div
+                style={{
+                  padding: "1rem",
+                  fontSize: "20px",
+                  textAlign: "left"
+                }}
+              >
+                {/* {text[i][0]} */}
+                {this.findDish(text[i][0], dish)}
+              </div>
+            </MDBCard>
+          );
+        }
+>>>>>>> master
       }
     }
     return s;
   }
 
+  findDish(text, dish) {
+    let t = [];
+    let index = text.indexOf(dish);
+    console.log("index", index);
+    let first = text.slice(0, index);
+    let bold = text.slice(index, index + dish.length);
+    let second = text.slice(index + dish.length);
+    console.log("first: ", first);
+    console.log("bold: ", bold);
+    console.log("second: ", second);
+
+    t.push(<span>{first}</span>);
+    t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
+    t.push(<span>{second}</span>);
+    return t;
+  }
+
   render() {
     var dishName = this.props.dishName;
     var dishSnippets = this.props.dishSnippets;
-    var dishRating = this.props.dishRating;
+    var dishRating = parseFloat(this.props.dishRating);
+
     return (
-      <MDBCard>
-        <MDBCardImage
-          className="view view-cascade gradient-card-header peach-gradient"
-          cascade
-          tag="div"
+      <div style={{ margin: "40px" }}>
+        <MDBCard
+          style={{
+            maxHeight: "550px",
+            backgroundImage:
+              "linear-gradient(to bottom, rgb(255, 166, 0), 20%,rgb(255,255,255) )",
+            padding: "20px"
+          }}
+          className="rounded-dish"
         >
-          <h2 className="h2-responsive mb-2">{dishName.toUpperCase()}</h2>
-        </MDBCardImage>
-        <MDBCardBody cascade className="text-center">
-          <MDBCardText>
-            <h1>
-              {dishRating}
-              <i className="fas fa-star"></i>
+          <MDBCardBody cascade className="text-center view-cascade ">
+            <h1 className="h2-responsive mb-2 res" style={{ color: "black " }}>
+              {dishName.toUpperCase()}
             </h1>
+<<<<<<< HEAD
 
             <StarRatingComponent
               name="rate"
@@ -81,6 +140,24 @@ class Dish extends Component {
           </MDBCardText>
         </MDBCardBody>
       </MDBCard>
+=======
+            <h2>
+              <StarRatings
+                starEmptyColor="white"
+                starRatedColor="red"
+                numberOfStars={5}
+                rating={dishRating}
+                name="rating"
+                starDimension="30px"
+              />
+            </h2>
+            <MDBCardText style={{ overflow: "scroll", maxHeight: "24rem" }}>
+              {this.snippets(dishSnippets, dishName)}
+            </MDBCardText>
+          </MDBCardBody>
+        </MDBCard>
+      </div>
+>>>>>>> master
     );
   }
 }
