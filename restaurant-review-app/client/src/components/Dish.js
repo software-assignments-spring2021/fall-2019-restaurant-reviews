@@ -16,7 +16,6 @@ import {
 import "../vendor/bootstrap/css/bootstrap.css";
 
 import axios from "axios";
-import StarRatingComponent from "react-star-rating-component";
 import StarRatings from "react-star-ratings";
 
 class Dish extends Component {
