@@ -190,12 +190,6 @@ class Restaurant extends Component {
                 <h2 className="masthead-subheading text-left res">
                   {this.state.name}
                 </h2>
-<<<<<<< HEAD
-                <h4 align="left"> {this.state.address} </h4>
-                <h4 align="left"> {this.state.rating} star restaurant</h4>
-                <h4 align="left"> {this.state.cuisine} </h4>
-                {favbutton}
-=======
                 <h4 className="res" align="left">
                   {" "}
                   {this.state.address}{" "}
@@ -216,7 +210,6 @@ class Restaurant extends Component {
                 >
                   Add to my favorite.
                 </button>
->>>>>>> master
               </div>
             </div>
           </header>

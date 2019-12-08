@@ -50,11 +50,6 @@ class Dish extends Component {
   snippets(text, dish) {
     let s = [];
     for (var i = 0; i < 6; i++) {
-<<<<<<< HEAD
-      console.log(text[i]);
-      if (text[i].trim() !== "") {
-        s.push(<li>{text[i]}</li>);
-=======
       if (text[i] !== "") {
         if (text[i][0].trim() !== "") {
           let color = `rgb(
@@ -84,7 +79,6 @@ class Dish extends Component {
             </MDBCard>
           );
         }
->>>>>>> master
       }
     }
     return s;
@@ -127,20 +121,6 @@ class Dish extends Component {
             <h1 className="h2-responsive mb-2 res" style={{ color: "black " }}>
               {dishName.toUpperCase()}
             </h1>
-<<<<<<< HEAD
-
-            <StarRatingComponent
-              name="rate"
-              starCount={5}
-              value={this.state.rating}
-              onStarClick={this.onStarClick.bind(this)}
-            />
-            <p>{this.state.message}</p>
-            {/* <ul style={{ textAlign: "left" }}>{this.snippets(dishSnippets)}</ul> */}
-          </MDBCardText>
-        </MDBCardBody>
-      </MDBCard>
-=======
             <h2>
               <StarRatings
                 starEmptyColor="white"
@@ -157,7 +137,6 @@ class Dish extends Component {
           </MDBCardBody>
         </MDBCard>
       </div>
->>>>>>> master
     );
   }
 }
