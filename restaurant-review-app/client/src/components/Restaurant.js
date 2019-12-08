@@ -62,16 +62,30 @@ class Restaurant extends Component {
 
     if (userID === null) {
       alert("You must log in to star your favorite restaurants!");
-    } else {
-      const newfav = { newFavorite: this.state.name };
-      axios
-        .post("http://localhost:5000/user/" + userID + "/favorites/add", newfav)
-        .then(res => {
-          this.setState({ stared: true });
-        })
-        .catch(err => "Err" + err);
+    } 
+    else {
+      const restaurant = { newFavorite: this.state.name };
+      if(this.state.stared == false){
+        
+        axios
+          .post("http://localhost:5000/user/" + userID + "/favorites/add", restaurant)
+          .then(res => {
+            this.setState({ stared: true });
+          })
+          .catch(err => "Err" + err);
+          alert("You have stared this restaurant!");
+      }
+      else{
+
+        axios.post("http://localhost:5000/user/" + userID + "/favorites/delete", restaurant)
+             .then(res =>{
+               this.setState({stared: false});
+             })
+             .catch(err => "Err" + err);
+             alert("You have unstared this restaurant!");
+      }
     }
-    alert("You have stared this restaurant!");
+   
   }
 
   getUrlParameter(url, parameter) {
@@ -140,6 +154,15 @@ class Restaurant extends Component {
       let y = x[0];
       let z = x[1];
 
+      //use the state design pattern to check if the user has already starred the restaurant or not.
+      //if it's starred, display "add it to favorites". Otherwise, display unfavorite the restaurant.
+      let favbutton = null;
+     
+      if(this.state.stared == false)
+          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite.</button>
+      else{
+          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant.</button>
+      }
       return (
         <div className="App">
           <NavBar loggedin={this.state.loggedIn} />
@@ -152,14 +175,7 @@ class Restaurant extends Component {
                 <h4 align="left"> {this.state.address} </h4>
                 <h4 align="left"> {this.state.rating} star restaurant</h4>
                 <h4 align="left"> {this.state.cuisine} </h4>
-
-                <button
-                  type="button"
-                  class="btn btn-outline-warning"
-                  onClick={this.favoriteHandler}
-                >
-                  Add to my favorite.
-                </button>
+                {favbutton}
               </div>
             </div>
           </header>
