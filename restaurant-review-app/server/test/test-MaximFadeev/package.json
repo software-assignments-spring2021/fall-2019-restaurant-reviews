@@ -4,12 +4,15 @@
   "description": "app for testing",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "nyc mocha"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.2"
+  },
+  "dependencies": {
+    "nyc": "^14.1.1"
   }
 }
