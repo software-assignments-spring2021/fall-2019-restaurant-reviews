@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
-  MDBRow,
-  MDBCol,
   MDBIcon,
-  MDBTable,
-  MDBTableBody,
-  MDBTableHead
+  MDBContainer,
+  MDBInputGroup,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+  MDBBtn
 } from "mdbreact";
 import "../vendor/bootstrap/css/bootstrap.css";
 
@@ -23,9 +22,16 @@ class Dish extends Component {
     super(props);
     this.state = {
       rating: "",
-      message: "add your rating"
+      button: "disabled",
+      value: [0, 1, 2, 3, 4]
     };
   }
+
+  onChange = e => {
+    console.log("here ", e);
+    var newValue = e.nativeEvent.target.value;
+    this.setState({ rating: newValue, button: "" });
+  };
 
   snippets(text, dish) {
     let s = [];
@@ -41,15 +47,15 @@ class Dish extends Component {
               style={{
                 margin: "8px",
                 borderStyle: "solid",
-                borderWidth: "4px",
-                borderColor: color
+                borderWidth: "2px",
+                borderLeftColor: color
               }}
-              className="rounded-snippet"
+              className="z-depth-1 hoverable"
             >
               <div
                 style={{
                   padding: "1rem",
-                  fontSize: "20px",
+                  fontSize: "18px",
                   textAlign: "left"
                 }}
               >
@@ -80,17 +86,16 @@ class Dish extends Component {
     var dishName = this.props.dishName;
     var dishSnippets = this.props.dishSnippets;
     var dishRating = parseFloat(this.props.dishRating);
-
     return (
       <div style={{ margin: "40px" }}>
         <MDBCard
           style={{
             maxHeight: "550px",
-            backgroundImage:
-              "linear-gradient(to bottom, rgb(255, 166, 0), 20%,rgb(255,255,255) )",
+
             padding: "20px"
           }}
-          className="rounded-dish"
+          className="rounded-dish cloudy-knoxville-gradient
+"
         >
           <MDBCardBody cascade className="text-center view-cascade ">
             <h1 className="h2-responsive mb-2 res" style={{ color: "black " }}>
@@ -99,14 +104,50 @@ class Dish extends Component {
             <h2>
               <StarRatings
                 starEmptyColor="white"
-                starRatedColor="red"
+                starRatedColor="blue"
                 numberOfStars={5}
                 rating={dishRating}
                 name="rating"
                 starDimension="30px"
               />
             </h2>
-            <MDBCardText style={{ overflow: "scroll", maxHeight: "24rem" }}>
+
+            <MDBContainer>
+              <MDBInputGroup
+                containerClassName="mt-4 mb-4 mx-n4"
+                size="lg"
+                hint="Add comment..."
+                type="textarea"
+                style={{ width: "auto" }}
+                prepend={
+                  <div>
+                    <select
+                      className="browser-default custom-select primary-color text-light h-100"
+                      style={{ fontSize: "24px" }}
+                      test={this.getTextContent}
+                      onChange={this.onChange}
+                    >
+                      <option>Rate</option>
+                      <option value="5">5★</option>
+                      <option value="4">4★</option>
+                      <option value="3">3★</option>
+                      <option value="2">2★</option>
+                      <option value="1">1★</option>
+                    </select>
+                  </div>
+                }
+                append={
+                  <MDBBtn
+                    color="primary"
+                    className={`m-0 z-depth-0 border border-3 ${this.state.button}`}
+                  >
+                    Submit
+                  </MDBBtn>
+                }
+              />
+            </MDBContainer>
+
+            <MDBCardText style={{ overflow: "scroll", maxHeight: "16rem" }}>
               {this.snippets(dishSnippets, dishName)}
             </MDBCardText>
           </MDBCardBody>
