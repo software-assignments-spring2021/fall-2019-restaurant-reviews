@@ -16,25 +16,33 @@ class Restaurant extends Component {
     this.favoriteHandler = this.favoriteHandler.bind(this);
     this.makeDishes = this.makeDishes.bind(this);
     this.updateRating = this.updateRating.bind(this);
-
+    this.checkStarStatus = this.checkStarStatus.bind(this);
     this.state = {
       name: "",
       dishes: [],
       snippets: [],
       id: null,
-      stared: true,
+      stared: false,
       loggedIn: false,
       loading: true,
       userRatings: {}
     };
   }
-
+  checkStarStatus(resname,userID){
+   
+    axios.get('http://localhost:5000/user/' + userID)
+        .then( res => {
+          const favs = res.data["favoriteRes"];
+          if(favs.includes(resname)){
+          // if(favs.includes("ICHIRAN Midtown (with ratings)")){
+              this.setState({stared:true});
+          }  
+        })
+  }
   componentDidMount() {
     const { handle } = this.props.match.params;
     const userID = localStorage.getItem("userID");
-    if (userID != null) {
-      this.setState({ loggedIn: true });
-    }
+    
     axios
       .get(`http://localhost:5000/restaurant/${handle}`)
       .then(res => {
@@ -48,11 +56,17 @@ class Restaurant extends Component {
           cuisine: res.data["cuisine"],
           items: res.data["menu_items"]
         });
+        this.checkStarStatus(res.data["name"],userID);
+        
       })
       .catch(err => {
-        console.log("fuckkkk");
         console.log(err);
       });
+      
+      if (userID != null) {
+        this.setState({ loggedIn: true });
+        
+      } 
   }
   favoriteHandler(e) {
     e.preventDefault();
@@ -65,6 +79,7 @@ class Restaurant extends Component {
     } 
     else {
       const restaurant = { newFavorite: this.state.name };
+      console.log('here');
       if(this.state.stared == false){
         
         axios
@@ -76,8 +91,8 @@ class Restaurant extends Component {
           alert("You have stared this restaurant!");
       }
       else{
-
-        axios.post("http://localhost:5000/user/" + userID + "/favorites/delete", restaurant)
+        console.log('here');
+        axios.put("http://localhost:5000/user/" + userID + "/favorites/delete", restaurant)
              .then(res =>{
                this.setState({stared: false});
              })
@@ -149,6 +164,7 @@ class Restaurant extends Component {
   }
 
   render() {
+   //this.checkStarStatus();
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
       let y = x[0];
@@ -159,9 +175,9 @@ class Restaurant extends Component {
       let favbutton = null;
      
       if(this.state.stared == false)
-          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite.</button>
+          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite</button>
       else{
-          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant.</button>
+          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant</button>
       }
       return (
         <div className="App">
