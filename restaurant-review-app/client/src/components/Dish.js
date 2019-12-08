@@ -22,30 +22,11 @@ import StarRatings from "react-star-ratings";
 class Dish extends Component {
   constructor(props) {
     super(props);
-    // this.changeRating = this.changeRating.bind(this);
     this.state = {
       rating: "",
       message: "add your rating"
     };
   }
-
-  // changeRating(newRating, name) {
-  //   this.setState({
-  //     rating: newRating
-  //   });
-  // }
-
-  // onChangeHandler(event) {
-  //   event.preventDefault();
-  //   this.setState({
-  //     rating: event.target.value
-  //   });
-  // }
-
-  // onStarClick(nextValue, prevValue, name) {
-  //   this.setState({ rating: nextValue, message: "your rating" });
-  //   this.props.triggerParentUpdate(nextValue, this.props.dishName);
-  // }
 
   snippets(text, dish) {
     let s = [];
