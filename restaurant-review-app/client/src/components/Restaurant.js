@@ -22,7 +22,6 @@ class Restaurant extends Component {
       snippets: [],
       id: null,
       stared: false,
-      loggedIn: false,
       loading: true,
       userRatings: {}
     };
@@ -39,6 +38,7 @@ class Restaurant extends Component {
         })
   }
   componentDidMount() {
+
     const { handle } = this.props.match.params;
     const userID = localStorage.getItem("userID");
     
@@ -62,10 +62,6 @@ class Restaurant extends Component {
         console.log(err);
       });
       
-      if (userID != null) {
-        this.setState({ loggedIn: true });
-        
-      } 
   }
   favoriteHandler(e) {
     e.preventDefault();
@@ -73,7 +69,7 @@ class Restaurant extends Component {
     const userID = localStorage.getItem("userID");
     //console.log(this.state.name);
 
-    if (userID === null) {
+    if (userID === "null") {
       alert("You must log in to star your favorite restaurants!");
     } 
     else {
@@ -180,7 +176,7 @@ class Restaurant extends Component {
       }
       return (
         <div className="App" style={{ backgroundColor: "rgb(235, 235, 235)" }}>
-          <NavBar loggedin={this.state.loggedIn} />
+          <NavBar/>
           <header
             className="masthead text-black"
             style={{ height: "450px", paddingTop: "calc(4rem + 72px)" }}
