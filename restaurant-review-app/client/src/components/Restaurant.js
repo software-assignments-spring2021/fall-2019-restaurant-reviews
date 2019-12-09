@@ -211,27 +211,23 @@ class Restaurant extends Component {
           <NavBar loggedin={this.state.loggedIn} />
           <header
             className="masthead text-black"
-            style={{ height: "450px", paddingTop: "calc(4rem + 72px)" }}
+            style={{ height: "380px", paddingTop: "120px" }}
           >
             <div className="masthead-content">
-              <div className="container">
-                <h2 className="masthead-subheading text-left res">
+              <div className="container res">
+                <h2 className=" text-left res" style={{ fontSize: "50px" }}>
                   {this.state.name}
                 </h2>
                 <h4 className="res" align="left">
-                  {" "}
-                  {this.state.address}{" "}
+                  {this.state.address}
                 </h4>
                 <h4 className="res" align="left">
-                  {" "}
                   {this.state.rating} star restaurant
                 </h4>
                 <h4 className="res" align="left">
-                  {" "}
-                  {this.state.cuisine}{" "}
+                  {this.state.cuisine}
                 </h4>
-
-                {favbutton}
+                <span style={{ float: "left" }}>{favbutton}</span>
               </div>
             </div>
           </header>
