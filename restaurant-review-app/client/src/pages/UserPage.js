@@ -41,7 +41,7 @@ class UserPage extends Component {
         let loggedin = (localStorage.getItem('jwtToken') === null) ? false:true;
         
         if(loggedin){
-            //MAYBE USE LOCAL STORAGE TO PASS USER ID
+            
             const userId = localStorage.userID;
             axios.get('http://localhost:5000/user/' + userId)
             .then(res =>{

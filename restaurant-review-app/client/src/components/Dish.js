@@ -87,14 +87,13 @@ class Dish extends Component {
   findDish(text, dish) {
     let t = [];
     let index = text.indexOf(dish);
-    console.log("index", index);
+    // console.log("index", index);
     let first = text.slice(0, index);
     let bold = text.slice(index, index + dish.length);
     let second = text.slice(index + dish.length);
-    console.log("first: ", first);
-    console.log("bold: ", bold);
-    console.log("second: ", second);
-
+    // console.log("first: ", first);
+    // console.log("bold: ", bold);
+    // console.log("second: ", second);
     t.push(<span>{first}</span>);
     t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
     t.push(<span>{second}</span>);
