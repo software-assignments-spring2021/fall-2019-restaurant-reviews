@@ -13,46 +13,18 @@ import NavBar from "./navbar";
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
 
-
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.signoutHandler = this.signoutHandler.bind(this);
-    this.loginStatusCheck = this.loginStatusCheck.bind(this);
+
     this.state = {
       ids: [],
       names: [],
-      my_dict: {},
-      loggedIn: true,
-      loginHour: 0
+      my_dict: {}
     };
   }
 
-  loginStatusCheck() {
-    const currentHour = new Date().getHours();
-    console.log(currentHour);
-
-    //check user has logged in or not. If logged in, set login boolean to be true.
-
-    if (localStorage.getItem("jwtToken")) {
-      console.log(localStorage.getItem("jwtToken"));
-      this.setState({ loggedIn: true, loginHour: new Date().getHours() });
-      console.log(this.state.loginHour);
-    }
-    //remove token from local storage after an hour
-    if (currentHour - this.state.loginhour > 0) {
-      localStorage.removeItem("jwtToken");
-      this.setState({ loggedIn: false });
-    }
-  }
-  signoutHandler() {
-    this.setState({ loggedIn: false });
-    localStorage.setItem("jwtToken", null);
-    localStorage.setItem("userID", null);
-  }
-
   componentDidMount() {
-    this.loginStatusCheck();
     axios.get("http://localhost:5000/restaurant").then(response => {
       if (response.data.length > 0) {
         console.log(response.data);
@@ -83,7 +55,7 @@ class Landing extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar loggedin={this.state.loggedIn} onClick={this.signoutHandler} />
+        <NavBar />
         <header className="masthead text-center text-white">
           <div className="masthead-content">
             <div className="container">
