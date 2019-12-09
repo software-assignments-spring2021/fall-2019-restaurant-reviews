@@ -21,8 +21,12 @@ import StarRatings from "react-star-ratings";
 class Dish extends Component {
   constructor(props) {
     super(props);
+
+    this.submitInput = this.submitInput.bind(this);
+
     this.state = {
       rating: "",
+      textareaVal: "",
       button: "disabled",
       value: [0, 1, 2, 3, 4]
     };
@@ -32,7 +36,17 @@ class Dish extends Component {
     console.log("here ", e);
     var newValue = e.nativeEvent.target.value;
     this.setState({ rating: newValue, button: "" });
+    console.log("stars gibve", newValue);
   };
+
+  submitInput() {
+    console.log(
+      "Star rating: ",
+      this.state.rating,
+      " comment: ",
+      this.state.textareaVal
+    );
+  }
 
   snippets(text, dish) {
     let s = [];
@@ -113,10 +127,10 @@ class Dish extends Component {
               />
             </h2>
 
-            <MDBCard className="mt-3 mb-2 mx-0">
+            <MDBCard className="mt-3 mb-1 mx-0">
               <div>
                 <select
-                  className="browser-default custom-select primary-color text-light mt-3 ml-3 mb-0"
+                  className="browser-default custom-select primary-color text-light mt-2 ml-3 mb-0"
                   style={{
                     fontSize: "14px",
                     width: "15%",
@@ -138,51 +152,23 @@ class Dish extends Component {
                   style={{ width: "94%" }}
                   placeholder="Add comment..."
                   rows="2"
+                  onChange={event => {
+                    this.setState({
+                      textareaVal: event.target.value
+                    });
+                    console.log("hello", this.state.textareaVal);
+                  }}
                 />
                 <MDBBtn
                   color="primary"
-                  style={{ float: "right" }}
-                  className={`mr-3 mb-3 mt-0 z-depth-0 border border-3 ${this.state.button}`}
+                  style={{ float: "right", fontSize: "14px" }}
+                  className={`mr-3 mb-2 mt-0 z-depth-0 border border-3 ${this.state.button}`}
+                  onClick={this.submitInput}
                 >
                   Submit
                 </MDBBtn>
               </div>
             </MDBCard>
-
-            {/* <MDBContainer>
-              <MDBInputGroup
-                containerClassName="mt-4 mb-4 mx-n4"
-                size="lg"
-                hint="Add comment..."
-                type="textarea"
-                style={{ width: "auto" }}
-                prepend={
-                  <div>
-                    <select
-                      className="browser-default custom-select primary-color text-light h-100"
-                      style={{ fontSize: "24px" }}
-                      test={this.getTextContent}
-                      onChange={this.onChange}
-                    >
-                      <option>Rate</option>
-                      <option value="5">5★</option>
-                      <option value="4">4★</option>
-                      <option value="3">3★</option>
-                      <option value="2">2★</option>
-                      <option value="1">1★</option>
-                    </select>
-                  </div>
-                }
-                append={
-                  <MDBBtn
-                    color="primary"
-                    className={`m-0 z-depth-0 border border-3 ${this.state.button}`}
-                  >
-                    Submit
-                  </MDBBtn>
-                }
-              />
-            </MDBContainer> */}
 
             <MDBCardText style={{ overflow: "scroll", maxHeight: "15rem" }}>
               {this.snippets(dishSnippets, dishName)}
