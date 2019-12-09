@@ -26,9 +26,10 @@ class Dish extends Component {
 
     this.state = {
       rating: "",
-      textareaVal: "",
+      userComment: "",
       button: "disabled",
-      value: [0, 1, 2, 3, 4]
+      value: [0, 1, 2, 3, 4],
+      submitted: false
     };
   }
 
@@ -40,17 +41,19 @@ class Dish extends Component {
   };
 
   submitInput() {
-    console.log(
-      "Star rating: ",
+    this.setState({
+      submitted: true
+    });
+    this.props.triggerParentUpdate(
       this.state.rating,
-      " comment: ",
-      this.state.textareaVal
+      this.props.dishName,
+      this.state.userComment
     );
   }
 
   snippets(text, dish) {
     let s = [];
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < text.length; i++) {
       if (text[i] !== "") {
         if (text[i][0].trim() !== "") {
           let color = `rgb(
@@ -87,13 +90,17 @@ class Dish extends Component {
   findDish(text, dish) {
     let t = [];
     let index = text.indexOf(dish);
-    let first = text.slice(0, index);
-    let bold = text.slice(index, index + dish.length);
-    let second = text.slice(index + dish.length);
+    if (index === -1) {
+      t.push(<span>{text}</span>);
+    } else {
+      let first = text.slice(0, index);
 
-    t.push(<span>{first}</span>);
-    t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
-    t.push(<span>{second}</span>);
+      let bold = text.slice(index, index + dish.length);
+      let second = text.slice(index + dish.length);
+      t.push(<span>{first}</span>);
+      t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
+      t.push(<span>{second}</span>);
+    }
     return t;
   }
 
@@ -154,9 +161,8 @@ class Dish extends Component {
                   rows="2"
                   onChange={event => {
                     this.setState({
-                      textareaVal: event.target.value
+                      userComment: event.target.value
                     });
-                    console.log("hello", this.state.textareaVal);
                   }}
                 />
                 <MDBBtn

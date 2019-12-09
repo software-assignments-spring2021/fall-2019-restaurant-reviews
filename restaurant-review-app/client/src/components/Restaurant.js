@@ -14,7 +14,7 @@ class Restaurant extends Component {
     super(props);
     this.favoriteHandler = this.favoriteHandler.bind(this);
     this.makeDishes = this.makeDishes.bind(this);
-    this.updateRating = this.updateRating.bind(this);
+    this.updateUserStates = this.updateUserStates.bind(this);
     this.checkStarStatus = this.checkStarStatus.bind(this);
     this.state = {
       name: "",
@@ -24,24 +24,23 @@ class Restaurant extends Component {
       stared: false,
       loggedIn: false,
       loading: true,
-      userRatings: {}
+      userRatings: {},
+      userComments: {}
     };
   }
-  checkStarStatus(resname,userID){
-   
-    axios.get('http://localhost:5000/user/' + userID)
-        .then( res => {
-          const favs = res.data["favoriteRes"];
-          if(favs.includes(resname)){
-          // if(favs.includes("ICHIRAN Midtown (with ratings)")){
-              this.setState({stared:true});
-          }  
-        })
+  checkStarStatus(resname, userID) {
+    axios.get("http://localhost:5000/user/" + userID).then(res => {
+      const favs = res.data["favoriteRes"];
+      if (favs.includes(resname)) {
+        // if(favs.includes("ICHIRAN Midtown (with ratings)")){
+        this.setState({ stared: true });
+      }
+    });
   }
   componentDidMount() {
     const { handle } = this.props.match.params;
     const userID = localStorage.getItem("userID");
-    
+
     axios
       .get(`http://localhost:5000/restaurant/${handle}`)
       .then(res => {
@@ -55,17 +54,15 @@ class Restaurant extends Component {
           cuisine: res.data["cuisine"],
           items: res.data["menu_items"]
         });
-        this.checkStarStatus(res.data["name"],userID);
-        
+        this.checkStarStatus(res.data["name"], userID);
       })
       .catch(err => {
         console.log(err);
       });
-      
-      if (userID != null) {
-        this.setState({ loggedIn: true });
-        
-      } 
+
+    if (userID != null) {
+      this.setState({ loggedIn: true });
+    }
   }
   favoriteHandler(e) {
     e.preventDefault();
@@ -75,31 +72,34 @@ class Restaurant extends Component {
 
     if (userID === null) {
       alert("You must log in to star your favorite restaurants!");
-    } 
-    else {
+    } else {
       const restaurant = { newFavorite: this.state.name };
-      console.log('here');
-      if(this.state.stared == false){
-        
+      console.log("here");
+      if (this.state.stared == false) {
         axios
-          .post("http://localhost:5000/user/" + userID + "/favorites/add", restaurant)
+          .post(
+            "http://localhost:5000/user/" + userID + "/favorites/add",
+            restaurant
+          )
           .then(res => {
             this.setState({ stared: true });
           })
           .catch(err => "Err" + err);
-          alert("You have stared this restaurant!");
-      }
-      else{
-        console.log('here');
-        axios.put("http://localhost:5000/user/" + userID + "/favorites/delete", restaurant)
-             .then(res =>{
-               this.setState({stared: false});
-             })
-             .catch(err => "Err" + err);
-             alert("You have unstared this restaurant!");
+        alert("You have stared this restaurant!");
+      } else {
+        console.log("here");
+        axios
+          .put(
+            "http://localhost:5000/user/" + userID + "/favorites/delete",
+            restaurant
+          )
+          .then(res => {
+            this.setState({ stared: false });
+          })
+          .catch(err => "Err" + err);
+        alert("You have unstared this restaurant!");
       }
     }
-   
   }
 
   getUrlParameter(url, parameter) {
@@ -115,15 +115,22 @@ class Restaurant extends Component {
     var arr = [];
     for (const name of Object.keys(dishes)) {
       let ratings = dishes[name][1].slice();
+      let comments = dishes[name][0].slice();
+
       if (this.state.userRatings[name] !== undefined) {
         ratings.push(this.state.userRatings[name]);
       }
+      if (this.state.userComments[name] !== undefined) {
+        comments.splice(0, 0, this.state.userComments[name]);
+        // comments.push(this.state.userComments[name]);
+      }
+
       arr.push(
         <Dish
           dishName={name}
-          dishSnippets={dishes[name][0]}
+          dishSnippets={comments}
           dishRating={this.averageRating(ratings)}
-          triggerParentUpdate={this.updateRating}
+          triggerParentUpdate={this.updateUserStates}
         />
       );
     }
@@ -146,24 +153,29 @@ class Restaurant extends Component {
     return [objOne, objTwo];
   }
 
-  updateRating(num, name) {
-    let user = this.state.userRatings;
-    user[name] = num;
+  updateUserStates(num, name, comment) {
+    let ratings = this.state.userRatings;
+    ratings[name] = num;
+    let comments = this.state.userComments;
+    let converted = (num - 3) * 0.5;
+    comments[name] = [comment, converted];
+
     this.setState({
-      userRatings: user
+      userRatings: ratings,
+      userComments: comments
     });
   }
 
   averageRating(arr) {
     let total = 0;
     for (let i = 0; i < arr.length; i++) {
-      total += arr[i];
+      total += parseInt(arr[i]);
     }
     return (total / arr.length).toFixed(2);
   }
 
   render() {
-   //this.checkStarStatus();
+    //this.checkStarStatus();
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
       let y = x[0];
@@ -172,11 +184,27 @@ class Restaurant extends Component {
       //use the state design pattern to check if the user has already starred the restaurant or not.
       //if it's starred, display "add it to favorites". Otherwise, display unfavorite the restaurant.
       let favbutton = null;
-     
-      if(this.state.stared == false)
-          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite</button>
-      else{
-          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant</button>
+
+      if (this.state.stared == false)
+        favbutton = (
+          <button
+            type="button"
+            class="btn btn-outline-warning"
+            onClick={this.favoriteHandler}
+          >
+            Add to my favorite
+          </button>
+        );
+      else {
+        favbutton = (
+          <button
+            type="button"
+            class="btn btn-outline-warning"
+            onClick={this.favoriteHandler}
+          >
+            Unfavorite the restaurant
+          </button>
+        );
       }
       return (
         <div className="App" style={{ backgroundColor: "rgb(235, 235, 235)" }}>
