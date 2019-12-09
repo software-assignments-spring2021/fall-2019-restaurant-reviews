@@ -10,7 +10,8 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBBtn
+  MDBBtn,
+  MDBInput
 } from "mdbreact";
 import "../vendor/bootstrap/css/bootstrap.css";
 
@@ -90,7 +91,7 @@ class Dish extends Component {
       <div style={{ margin: "40px" }}>
         <MDBCard
           style={{
-            maxHeight: "550px",
+            maxHeight: "600px",
 
             padding: "20px"
           }}
@@ -112,7 +113,43 @@ class Dish extends Component {
               />
             </h2>
 
-            <MDBContainer>
+            <MDBCard className="mt-3 mb-2 mx-0">
+              <div>
+                <select
+                  className="browser-default custom-select primary-color text-light mt-3 ml-3 mb-0"
+                  style={{
+                    fontSize: "14px",
+                    width: "15%",
+                    float: "left"
+                  }}
+                  test={this.getTextContent}
+                  onChange={this.onChange}
+                >
+                  <option>Rate</option>
+                  <option value="5">5★</option>
+                  <option value="4">4★</option>
+                  <option value="3">3★</option>
+                  <option value="2">2★</option>
+                  <option value="1">1★</option>
+                </select>
+                <br></br>
+                <textarea
+                  className="form-control ml-3 mr-3"
+                  style={{ width: "94%" }}
+                  placeholder="Add comment..."
+                  rows="2"
+                />
+                <MDBBtn
+                  color="primary"
+                  style={{ float: "right" }}
+                  className={`mr-3 mb-3 mt-0 z-depth-0 border border-3 ${this.state.button}`}
+                >
+                  Submit
+                </MDBBtn>
+              </div>
+            </MDBCard>
+
+            {/* <MDBContainer>
               <MDBInputGroup
                 containerClassName="mt-4 mb-4 mx-n4"
                 size="lg"
@@ -145,9 +182,9 @@ class Dish extends Component {
                   </MDBBtn>
                 }
               />
-            </MDBContainer>
+            </MDBContainer> */}
 
-            <MDBCardText style={{ overflow: "scroll", maxHeight: "16rem" }}>
+            <MDBCardText style={{ overflow: "scroll", maxHeight: "15rem" }}>
               {this.snippets(dishSnippets, dishName)}
             </MDBCardText>
           </MDBCardBody>
