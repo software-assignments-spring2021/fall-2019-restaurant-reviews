@@ -35,7 +35,7 @@ class Restaurant extends Component {
       userRatings: {},
       userComments: {},
       searchValue: "",
-      sentences: 0
+      sentences: []
     };
   }
   checkStarStatus(resname, userID) {
@@ -260,7 +260,7 @@ class Restaurant extends Component {
   render() {
     let searchSize = "70px";
     console.log("sent ", this.state.sentences);
-    if (this.state.sentences !== 0) {
+    if (this.state.sentences.length !== 0) {
       console.log("why");
       searchSize = "200px";
     }
