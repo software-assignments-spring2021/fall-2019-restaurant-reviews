@@ -7,7 +7,15 @@ import axios from "axios";
 import NavBar from "../pages/navbar";
 import Dish from "../components/Dish";
 import { ClipLoader } from "react-spinners";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBIcon,
+  MDBFormInline,
+  MDBBtn
+} from "mdbreact";
 
 class Restaurant extends Component {
   constructor(props) {
@@ -16,6 +24,7 @@ class Restaurant extends Component {
     this.makeDishes = this.makeDishes.bind(this);
     this.updateUserStates = this.updateUserStates.bind(this);
     this.checkStarStatus = this.checkStarStatus.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
     this.state = {
       name: "",
       dishes: [],
@@ -24,7 +33,8 @@ class Restaurant extends Component {
       stared: false,
       loading: true,
       userRatings: {},
-      userComments: {}
+      userComments: {},
+      searchValue: ""
     };
   }
   checkStarStatus(resname, userID) {
@@ -50,7 +60,8 @@ class Restaurant extends Component {
           address: res.data["address"],
           rating: res.data["rating"],
           cuisine: res.data["cuisine"],
-          items: res.data["menu_items"]
+          items: res.data["menu_items"],
+          reviews: res.data["reviews"]
         });
         this.checkStarStatus(res.data["name"], userID);
       })
@@ -183,6 +194,27 @@ class Restaurant extends Component {
     return (total / arr.length).toFixed(2);
   }
 
+  handleOnClick() {
+    const search = this.state.searchValue;
+    const reviews = this.state.reviews;
+    for (let r = 0; r < reviews.length; r++) {
+      let review = reviews[r];
+      review = review.substring(1);
+      review = review.replace(/\r?\n|\r/g, " ");
+
+      review = review.match(/[^\.!\?]+[\.!\?]+/g);
+      console.log("here --> ", review);
+      if (review !== null) {
+        for (let s = 0; s < review.length; s++) {
+          const sentence = review[s];
+          if (sentence.toLowerCase().indexOf(" " + search + " ") !== -1) {
+            console.log(sentence);
+          }
+        }
+      }
+    }
+  }
+
   render() {
     //this.checkStarStatus();
     if (this.state.items !== undefined) {
@@ -240,6 +272,37 @@ class Restaurant extends Component {
               </div>
             </div>
           </header>
+
+          <MDBCard style={{ height: "200px" }}>
+            <MDBFormInline
+              className="md-form mr-auto mb-4"
+              style={{ marginLeft: "8%", marginTop: "60px" }}
+            >
+              <input
+                className="form-control mr-sm-2"
+                type="text"
+                placeholder="Search for a dish..."
+                aria-label="Search"
+                onChange={event => {
+                  this.setState({
+                    searchValue: event.target.value
+                  });
+                }}
+              />
+              <MDBBtn
+                color="blue"
+                rounded
+                size="sm"
+                className="mr-auto"
+                tag="a"
+                role="button"
+                onClick={this.handleOnClick}
+              >
+                Search
+              </MDBBtn>
+            </MDBFormInline>
+          </MDBCard>
+
           <div className="items">
             <MDBRow className="no-gutters">
               <MDBCol>{this.makeDishes(y)}</MDBCol>

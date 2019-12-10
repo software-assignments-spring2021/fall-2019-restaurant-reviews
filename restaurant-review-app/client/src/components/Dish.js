@@ -37,7 +37,6 @@ class Dish extends Component {
     console.log("here ", e);
     var newValue = e.nativeEvent.target.value;
     this.setState({ rating: newValue, button: "" });
-    console.log("stars gibve", newValue);
   };
 
   submitInput() {
@@ -164,7 +163,6 @@ class Dish extends Component {
                     this.setState({
                       userComment: event.target.value
                     });
-                    console.log("com", this.state.userComment);
                   }}
                 />
                 <MDBBtn
