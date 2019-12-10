@@ -34,7 +34,8 @@ class Restaurant extends Component {
       loading: true,
       userRatings: {},
       userComments: {},
-      searchValue: ""
+      searchValue: "",
+      sentences: 0
     };
   }
   checkStarStatus(resname, userID) {
@@ -197,25 +198,73 @@ class Restaurant extends Component {
   handleOnClick() {
     const search = this.state.searchValue;
     const reviews = this.state.reviews;
+    let sentences = [];
     for (let r = 0; r < reviews.length; r++) {
       let review = reviews[r];
       review = review.substring(1);
       review = review.replace(/\r?\n|\r/g, " ");
 
       review = review.match(/[^\.!\?]+[\.!\?]+/g);
-      console.log("here --> ", review);
       if (review !== null) {
         for (let s = 0; s < review.length; s++) {
           const sentence = review[s];
           if (sentence.toLowerCase().indexOf(" " + search + " ") !== -1) {
-            console.log(sentence);
+            sentences.push(sentence);
           }
         }
       }
     }
+    this.setState({
+      sentences: sentences
+    });
+  }
+
+  makeCards(sentences) {
+    let cards = [];
+    if (sentences.length === 0) {
+      return [];
+    }
+    for (let i = 0; i < sentences.length; i++) {
+      cards.push(
+        <MDBCard
+          className=" z-depth-1"
+          style={{
+            height: "100px",
+            width: "400px",
+            display: "inline-block",
+            overflowY: "scroll",
+            whiteSpace: "normal",
+            textAlign: "left",
+
+            margin: "8px",
+            borderStyle: "solid",
+            borderWidth: "2px",
+            borderLeftColor: "green"
+          }}
+        >
+          <div
+            style={{
+              padding: "0.5rem",
+              fontSize: "18px",
+              textAlign: "left"
+            }}
+          >
+            {sentences[i]}
+          </div>
+        </MDBCard>
+      );
+    }
+    return cards;
   }
 
   render() {
+    let searchSize = "70px";
+    console.log("sent ", this.state.sentences);
+    if (this.state.sentences !== 0) {
+      console.log("why");
+      searchSize = "200px";
+    }
+
     //this.checkStarStatus();
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
@@ -252,7 +301,7 @@ class Restaurant extends Component {
           <NavBar />
           <header
             className="masthead text-black"
-            style={{ height: "380px", paddingTop: "120px" }}
+            style={{ height: "350px", paddingTop: "90px" }}
           >
             <div className="masthead-content">
               <div className="container res">
@@ -273,10 +322,12 @@ class Restaurant extends Component {
             </div>
           </header>
 
-          <MDBCard style={{ height: "200px" }}>
+          <MDBCard style={{ height: searchSize }}>
             <MDBFormInline
-              className="md-form mr-auto mb-4"
-              style={{ marginLeft: "8%", marginTop: "60px" }}
+              className="md-form mr-auto mt-1 mb-0"
+              style={{
+                marginLeft: "11%"
+              }}
             >
               <input
                 className="form-control mr-sm-2"
@@ -301,6 +352,19 @@ class Restaurant extends Component {
                 Search
               </MDBBtn>
             </MDBFormInline>
+            <div
+              className="mr-5 ml-5 mt-0"
+              style={{
+                overflowY: "hidden",
+                whiteSpace: "nowrap",
+                overflowX: "auto",
+                position: "relative",
+                display: "inline-block",
+                marginBottom: "10px"
+              }}
+            >
+              {this.makeCards(this.state.sentences)}
+            </div>
           </MDBCard>
 
           <div className="items">
