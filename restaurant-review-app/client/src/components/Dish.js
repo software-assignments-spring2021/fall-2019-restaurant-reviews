@@ -99,7 +99,6 @@ class Dish extends Component {
       t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
       t.push(<span>{second}</span>);
     }
-
     return t;
   }
 
