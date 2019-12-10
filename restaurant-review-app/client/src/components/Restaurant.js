@@ -16,6 +16,7 @@ import {
   MDBFormInline,
   MDBBtn
 } from "mdbreact";
+import Sentiment from "sentiment";
 
 class Restaurant extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Restaurant extends Component {
       sentences: []
     };
   }
+
   checkStarStatus(resname, userID) {
     axios.get("http://localhost:5000/user/" + userID).then(res => {
       const favs = res.data["favoriteRes"];
@@ -197,6 +199,9 @@ class Restaurant extends Component {
 
   handleOnClick() {
     const search = this.state.searchValue;
+    this.setState({
+      searched: search
+    });
     const reviews = this.state.reviews;
     let sentences = [];
     for (let r = 0; r < reviews.length; r++) {
@@ -210,6 +215,7 @@ class Restaurant extends Component {
           const sentence = review[s];
           if (sentence.toLowerCase().indexOf(" " + search + " ") !== -1) {
             sentences.push(sentence);
+            this.getSentiment(sentence);
           }
         }
       }
@@ -219,12 +225,37 @@ class Restaurant extends Component {
     });
   }
 
+  getSentiment(sentence) {
+    var sentiment = new Sentiment();
+    var result = sentiment.analyze(sentence);
+    console.log(result.comparative);
+    return result.comparative;
+  }
+
+  findDish(text, dish) {
+    let t = [];
+    let index = text.toLowerCase().indexOf(dish);
+    if (index === -1) {
+      t.push(<span>{text}</span>);
+    } else {
+      let first = text.slice(0, index);
+      let bold = text.slice(index, index + dish.length);
+      let second = text.slice(index + dish.length);
+      t.push(<span>{first}</span>);
+      t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
+      t.push(<span>{second}</span>);
+    }
+    return t;
+  }
+
   makeCards(sentences) {
     let cards = [];
     if (sentences.length === 0) {
       return [];
     }
     for (let i = 0; i < sentences.length; i++) {
+      let score = this.getSentiment(sentences[i]);
+      let color = `rgb(${255 - 255 * score}, ${255 + 255 * score},0)`;
       cards.push(
         <MDBCard
           className=" z-depth-1"
@@ -235,11 +266,10 @@ class Restaurant extends Component {
             overflowY: "scroll",
             whiteSpace: "normal",
             textAlign: "left",
-
             margin: "8px",
             borderStyle: "solid",
             borderWidth: "2px",
-            borderLeftColor: "green"
+            borderLeftColor: color
           }}
         >
           <div
@@ -249,7 +279,7 @@ class Restaurant extends Component {
               textAlign: "left"
             }}
           >
-            {sentences[i]}
+            {this.findDish(sentences[i], this.state.searched)}
           </div>
         </MDBCard>
       );
@@ -332,7 +362,7 @@ class Restaurant extends Component {
               <input
                 className="form-control mr-sm-2"
                 type="text"
-                placeholder="Search for a dish..."
+                placeholder="Search for a keyword..."
                 aria-label="Search"
                 onChange={event => {
                   this.setState({

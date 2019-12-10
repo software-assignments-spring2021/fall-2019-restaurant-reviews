@@ -93,7 +93,6 @@ class Dish extends Component {
       t.push(<span>{text}</span>);
     } else {
       let first = text.slice(0, index);
-
       let bold = text.slice(index, index + dish.length);
       let second = text.slice(index + dish.length);
       t.push(<span>{first}</span>);
