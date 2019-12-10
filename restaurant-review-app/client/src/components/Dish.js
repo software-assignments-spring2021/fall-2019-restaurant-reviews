@@ -164,6 +164,7 @@ class Dish extends Component {
                     this.setState({
                       userComment: event.target.value
                     });
+                    console.log("com", this.state.userComment);
                   }}
                 />
                 <MDBBtn

@@ -30,8 +30,8 @@ class Restaurant extends Component {
   checkStarStatus(resname, userID) {
     axios.get("http://localhost:5000/user/" + userID).then(res => {
       const favs = res.data["favoriteRes"];
+      const userInput = res.data["userInput"];
       if (favs.includes(resname)) {
-        // if(favs.includes("ICHIRAN Midtown (with ratings)")){
         this.setState({ stared: true });
       }
     });
@@ -46,7 +46,6 @@ class Restaurant extends Component {
         this.setState({
           name: res.data["name"],
           dishes: res.data["menu"],
-          snippets: res.data["menu_snippets"],
           id: res.data["_id"],
           address: res.data["address"],
           rating: res.data["rating"],
@@ -86,7 +85,6 @@ class Restaurant extends Component {
           .catch(err => "Err" + err);
         alert("You have stared this restaurant!");
       } else {
-        console.log("here");
         axios
           .put(
             "http://localhost:5000/user/" + userID + "/favorites/delete",
@@ -163,6 +161,18 @@ class Restaurant extends Component {
       userRatings: ratings,
       userComments: comments
     });
+
+    const { handle } = this.props.match.params;
+
+    axios
+      .post(`http://localhost:5000/restaurant/${handle}/addRatings`)
+      .then(res => {
+        console.log("all good dawg", res);
+      })
+      .catch(err => {
+        console.log("ay");
+        console.log(err);
+      });
   }
 
   averageRating(arr) {
