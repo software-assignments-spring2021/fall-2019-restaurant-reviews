@@ -37,7 +37,6 @@ class Dish extends Component {
     console.log("here ", e);
     var newValue = e.nativeEvent.target.value;
     this.setState({ rating: newValue, button: "" });
-    console.log("stars gibve", newValue);
   };
 
   submitInput() {
@@ -94,14 +93,12 @@ class Dish extends Component {
       t.push(<span>{text}</span>);
     } else {
       let first = text.slice(0, index);
-
       let bold = text.slice(index, index + dish.length);
       let second = text.slice(index + dish.length);
       t.push(<span>{first}</span>);
       t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
       t.push(<span>{second}</span>);
     }
-
     return t;
   }
 
@@ -164,7 +161,6 @@ class Dish extends Component {
                     this.setState({
                       userComment: event.target.value
                     });
-                    console.log("com", this.state.userComment);
                   }}
                 />
                 <MDBBtn
