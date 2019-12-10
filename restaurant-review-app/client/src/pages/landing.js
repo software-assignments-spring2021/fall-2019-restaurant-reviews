@@ -16,11 +16,11 @@ import axios from "axios";
 class Landing extends Component {
   constructor(props) {
     super(props);
- 
+
     this.state = {
       ids: [],
       names: [],
-      my_dict: {},
+      my_dict: {}
     };
   }
 
@@ -55,7 +55,7 @@ class Landing extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar/>
+        <NavBar />
         <header className="masthead text-center text-white">
           <div className="masthead-content">
             <div className="container">

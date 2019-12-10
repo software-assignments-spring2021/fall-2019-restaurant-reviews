@@ -116,7 +116,6 @@ class Autocomplete extends Component {
     if (showSuggestions && userInput) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
-          
           <nav class="suggest">
             <ul class="suggestions">
               {filteredSuggestions.map((suggestion, index) => {
@@ -158,7 +157,7 @@ class Autocomplete extends Component {
           <MDBCol md="12">
             <form>
               <input
-                style={{ display: "inline-block"}}
+                style={{ display: "inline-block" }}
                 type="text"
                 onChange={onChange}
                 onKeyDown={onKeyDown}
