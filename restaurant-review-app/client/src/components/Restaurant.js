@@ -7,15 +7,25 @@ import axios from "axios";
 import NavBar from "../pages/navbar";
 import Dish from "../components/Dish";
 import { ClipLoader } from "react-spinners";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBIcon,
+  MDBFormInline,
+  MDBBtn
+} from "mdbreact";
+import Sentiment from "sentiment";
 
 class Restaurant extends Component {
   constructor(props) {
     super(props);
     this.favoriteHandler = this.favoriteHandler.bind(this);
     this.makeDishes = this.makeDishes.bind(this);
-    this.updateRating = this.updateRating.bind(this);
+    this.updateUserStates = this.updateUserStates.bind(this);
     this.checkStarStatus = this.checkStarStatus.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
     this.state = {
       name: "",
       dishes: [],
@@ -23,45 +33,48 @@ class Restaurant extends Component {
       id: null,
       stared: false,
       loading: true,
-      userRatings: {}
+      userRatings: {},
+      userComments: {},
+      searchValue: "",
+      sentences: []
     };
   }
-  checkStarStatus(resname,userID){
-   
-    axios.get('http://localhost:5000/user/' + userID)
-        .then( res => {
-          const favs = res.data["favoriteRes"];
-          if(favs.includes(resname)){
-          // if(favs.includes("ICHIRAN Midtown (with ratings)")){
-              this.setState({stared:true});
-          }  
-        })
+
+  checkStarStatus(resname, userID) {
+    axios.get("http://localhost:5000/user/" + userID).then(res => {
+      const favs = res.data["favoriteRes"];
+      const userInput = res.data["userInput"];
+      if (favs.includes(resname)) {
+        this.setState({ stared: true });
+      }
+    });
   }
   componentDidMount() {
-
     const { handle } = this.props.match.params;
     const userID = localStorage.getItem("userID");
-    
+
     axios
       .get(`http://localhost:5000/restaurant/${handle}`)
       .then(res => {
         this.setState({
           name: res.data["name"],
           dishes: res.data["menu"],
-          snippets: res.data["menu_snippets"],
           id: res.data["_id"],
           address: res.data["address"],
           rating: res.data["rating"],
           cuisine: res.data["cuisine"],
-          items: res.data["menu_items"]
+          items: res.data["menu_items"],
+          reviews: res.data["reviews"]
         });
-        this.checkStarStatus(res.data["name"],userID);
-        
+        this.checkStarStatus(res.data["name"], userID);
       })
       .catch(err => {
         console.log(err);
       });
-      
+
+    if (userID != null) {
+      this.setState({ loggedIn: true });
+    }
   }
   favoriteHandler(e) {
     e.preventDefault();
@@ -71,31 +84,33 @@ class Restaurant extends Component {
 
     if (userID === "null") {
       alert("You must log in to star your favorite restaurants!");
-    } 
-    else {
+    } else {
       const restaurant = { newFavorite: this.state.name };
-      console.log('here');
-      if(this.state.stared == false){
-        
+      console.log("here");
+      if (this.state.stared == false) {
         axios
-          .post("http://localhost:5000/user/" + userID + "/favorites/add", restaurant)
+          .post(
+            "http://localhost:5000/user/" + userID + "/favorites/add",
+            restaurant
+          )
           .then(res => {
             this.setState({ stared: true });
           })
           .catch(err => "Err" + err);
-          alert("You have stared this restaurant!");
-      }
-      else{
-        console.log('here');
-        axios.put("http://localhost:5000/user/" + userID + "/favorites/delete", restaurant)
-             .then(res =>{
-               this.setState({stared: false});
-             })
-             .catch(err => "Err" + err);
-             alert("You have unstared this restaurant!");
+        alert("You have stared this restaurant!");
+      } else {
+        axios
+          .put(
+            "http://localhost:5000/user/" + userID + "/favorites/delete",
+            restaurant
+          )
+          .then(res => {
+            this.setState({ stared: false });
+          })
+          .catch(err => "Err" + err);
+        alert("You have unstared this restaurant!");
       }
     }
-   
   }
 
   getUrlParameter(url, parameter) {
@@ -111,15 +126,22 @@ class Restaurant extends Component {
     var arr = [];
     for (const name of Object.keys(dishes)) {
       let ratings = dishes[name][1].slice();
+      let comments = dishes[name][0].slice();
+
       if (this.state.userRatings[name] !== undefined) {
         ratings.push(this.state.userRatings[name]);
       }
+      if (this.state.userComments[name] !== undefined) {
+        comments.splice(0, 0, this.state.userComments[name]);
+        // comments.push(this.state.userComments[name]);
+      }
+
       arr.push(
         <Dish
           dishName={name}
-          dishSnippets={dishes[name][0]}
+          dishSnippets={comments}
           dishRating={this.averageRating(ratings)}
-          triggerParentUpdate={this.updateRating}
+          triggerParentUpdate={this.updateUserStates}
         />
       );
     }
@@ -142,24 +164,138 @@ class Restaurant extends Component {
     return [objOne, objTwo];
   }
 
-  updateRating(num, name) {
-    let user = this.state.userRatings;
-    user[name] = num;
+  updateUserStates(num, name, comment) {
+    let ratings = this.state.userRatings;
+    ratings[name] = num;
+    let comments = this.state.userComments;
+    let converted = (num - 3) * 0.5;
+    comments[name] = [comment, converted];
+
     this.setState({
-      userRatings: user
+      userRatings: ratings,
+      userComments: comments
     });
+
+    const { handle } = this.props.match.params;
+
+    axios
+      .post(`http://localhost:5000/restaurant/${handle}/addRatings`)
+      .then(res => {
+        console.log("all good dawg", res);
+      })
+      .catch(err => {
+        console.log("ay");
+        console.log(err);
+      });
   }
 
   averageRating(arr) {
     let total = 0;
     for (let i = 0; i < arr.length; i++) {
-      total += arr[i];
+      total += parseInt(arr[i]);
     }
     return (total / arr.length).toFixed(2);
   }
 
+  handleOnClick() {
+    const search = this.state.searchValue;
+    this.setState({
+      searched: search
+    });
+    const reviews = this.state.reviews;
+    let sentences = [];
+    for (let r = 0; r < reviews.length; r++) {
+      let review = reviews[r];
+      review = review.substring(1);
+      review = review.replace(/\r?\n|\r/g, " ");
+
+      review = review.match(/[^\.!\?]+[\.!\?]+/g);
+      if (review !== null) {
+        for (let s = 0; s < review.length; s++) {
+          const sentence = review[s];
+          if (sentence.toLowerCase().indexOf(" " + search + " ") !== -1) {
+            sentences.push(sentence);
+            this.getSentiment(sentence);
+          }
+        }
+      }
+    }
+    this.setState({
+      sentences: sentences
+    });
+  }
+
+  getSentiment(sentence) {
+    var sentiment = new Sentiment();
+    var result = sentiment.analyze(sentence);
+    console.log(result.comparative);
+    return result.comparative;
+  }
+
+  findDish(text, dish) {
+    let t = [];
+    let index = text.toLowerCase().indexOf(dish);
+    if (index === -1) {
+      t.push(<span>{text}</span>);
+    } else {
+      let first = text.slice(0, index);
+      let bold = text.slice(index, index + dish.length);
+      let second = text.slice(index + dish.length);
+      t.push(<span>{first}</span>);
+      t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
+      t.push(<span>{second}</span>);
+    }
+    return t;
+  }
+
+  makeCards(sentences) {
+    let cards = [];
+    if (sentences.length === 0) {
+      return [];
+    }
+    for (let i = 0; i < sentences.length; i++) {
+      let score = this.getSentiment(sentences[i]);
+      let color = `rgb(${255 - 255 * score}, ${255 + 255 * score},0)`;
+      cards.push(
+        <MDBCard
+          className=" z-depth-1"
+          style={{
+            height: "100px",
+            width: "400px",
+            display: "inline-block",
+            overflowY: "scroll",
+            whiteSpace: "normal",
+            textAlign: "left",
+            margin: "8px",
+            borderStyle: "solid",
+            borderWidth: "2px",
+            borderLeftColor: color
+          }}
+        >
+          <div
+            style={{
+              padding: "0.5rem",
+              fontSize: "18px",
+              textAlign: "left"
+            }}
+          >
+            {this.findDish(sentences[i], this.state.searched)}
+          </div>
+        </MDBCard>
+      );
+    }
+    return cards;
+  }
+
   render() {
-   //this.checkStarStatus();
+    let searchSize = "70px";
+    console.log("sent ", this.state.sentences);
+    if (this.state.sentences.length !== 0) {
+      console.log("why");
+      searchSize = "200px";
+    }
+
+    //this.checkStarStatus();
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
       let y = x[0];
@@ -168,41 +304,99 @@ class Restaurant extends Component {
       //use the state design pattern to check if the user has already starred the restaurant or not.
       //if it's starred, display "add it to favorites". Otherwise, display unfavorite the restaurant.
       let favbutton = null;
-     
-      if(this.state.stared == false)
-          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Add to my favorite</button>
-      else{
-          favbutton = <button type="button" class="btn btn-outline-warning" onClick={this.favoriteHandler}>Unfavorite the restaurant</button>
+
+      if (this.state.stared == false)
+        favbutton = (
+          <button
+            type="button"
+            class="btn btn-outline-warning"
+            onClick={this.favoriteHandler}
+          >
+            Add to my favorite
+          </button>
+        );
+      else {
+        favbutton = (
+          <button
+            type="button"
+            class="btn btn-outline-warning"
+            onClick={this.favoriteHandler}
+          >
+            Unfavorite the restaurant
+          </button>
+        );
       }
       return (
         <div className="App" style={{ backgroundColor: "rgb(235, 235, 235)" }}>
-          <NavBar/>
+          <NavBar />
           <header
             className="masthead text-black"
-            style={{ height: "450px", paddingTop: "calc(4rem + 72px)" }}
+            style={{ height: "350px", paddingTop: "90px" }}
           >
             <div className="masthead-content">
-              <div className="container">
-                <h2 className="masthead-subheading text-left res">
+              <div className="container res">
+                <h2 className=" text-left res" style={{ fontSize: "50px" }}>
                   {this.state.name}
                 </h2>
                 <h4 className="res" align="left">
-                  {" "}
-                  {this.state.address}{" "}
+                  {this.state.address}
                 </h4>
                 <h4 className="res" align="left">
-                  {" "}
                   {this.state.rating} star restaurant
                 </h4>
                 <h4 className="res" align="left">
-                  {" "}
-                  {this.state.cuisine}{" "}
+                  {this.state.cuisine}
                 </h4>
-
-                {favbutton}
+                <span style={{ float: "left" }}>{favbutton}</span>
               </div>
             </div>
           </header>
+
+          <MDBCard style={{ height: searchSize }}>
+            <MDBFormInline
+              className="md-form mr-auto mt-1 mb-0"
+              style={{
+                marginLeft: "11%"
+              }}
+            >
+              <input
+                className="form-control mr-sm-2"
+                type="text"
+                placeholder="Search for a keyword..."
+                aria-label="Search"
+                onChange={event => {
+                  this.setState({
+                    searchValue: event.target.value
+                  });
+                }}
+              />
+              <MDBBtn
+                color="blue"
+                rounded
+                size="sm"
+                className="mr-auto"
+                tag="a"
+                role="button"
+                onClick={this.handleOnClick}
+              >
+                Search
+              </MDBBtn>
+            </MDBFormInline>
+            <div
+              className="mr-5 ml-5 mt-0"
+              style={{
+                overflowY: "hidden",
+                whiteSpace: "nowrap",
+                overflowX: "auto",
+                position: "relative",
+                display: "inline-block",
+                marginBottom: "10px"
+              }}
+            >
+              {this.makeCards(this.state.sentences)}
+            </div>
+          </MDBCard>
+
           <div className="items">
             <MDBRow className="no-gutters">
               <MDBCol>{this.makeDishes(y)}</MDBCol>

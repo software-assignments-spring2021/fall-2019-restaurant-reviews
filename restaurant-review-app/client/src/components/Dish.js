@@ -1,55 +1,58 @@
 import React, { Component } from "react";
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
-  MDBRow,
-  MDBCol,
   MDBIcon,
-  MDBTable,
-  MDBTableBody,
-  MDBTableHead
+  MDBContainer,
+  MDBInputGroup,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+  MDBBtn,
+  MDBInput
 } from "mdbreact";
 import "../vendor/bootstrap/css/bootstrap.css";
 
 import axios from "axios";
-import StarRatingComponent from "react-star-rating-component";
 import StarRatings from "react-star-ratings";
 
 class Dish extends Component {
   constructor(props) {
     super(props);
-    // this.changeRating = this.changeRating.bind(this);
+
+    this.submitInput = this.submitInput.bind(this);
+
     this.state = {
       rating: "",
-      message: "add your rating"
+      userComment: "",
+      button: "disabled",
+      value: [0, 1, 2, 3, 4],
+      submitted: false
     };
   }
 
-  // changeRating(newRating, name) {
-  //   this.setState({
-  //     rating: newRating
-  //   });
-  // }
+  onChange = e => {
+    console.log("here ", e);
+    var newValue = e.nativeEvent.target.value;
+    this.setState({ rating: newValue, button: "" });
+  };
 
-  // onChangeHandler(event) {
-  //   event.preventDefault();
-  //   this.setState({
-  //     rating: event.target.value
-  //   });
-  // }
-
-  // onStarClick(nextValue, prevValue, name) {
-  //   this.setState({ rating: nextValue, message: "your rating" });
-  //   this.props.triggerParentUpdate(nextValue, this.props.dishName);
-  // }
+  submitInput() {
+    this.setState({
+      submitted: true
+    });
+    this.props.triggerParentUpdate(
+      this.state.rating,
+      this.props.dishName,
+      this.state.userComment
+    );
+  }
 
   snippets(text, dish) {
     let s = [];
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < text.length; i++) {
       if (text[i] !== "") {
         if (text[i][0].trim() !== "") {
           let color = `rgb(
@@ -61,19 +64,18 @@ class Dish extends Component {
               style={{
                 margin: "8px",
                 borderStyle: "solid",
-                borderWidth: "4px",
-                borderColor: color
+                borderWidth: "2px",
+                borderLeftColor: color
               }}
-              className="rounded-snippet"
+              className="z-depth-1 hoverable"
             >
               <div
                 style={{
                   padding: "1rem",
-                  fontSize: "20px",
+                  fontSize: "18px",
                   textAlign: "left"
                 }}
               >
-                {/* {text[i][0]} */}
                 {this.findDish(text[i][0], dish)}
               </div>
             </MDBCard>
@@ -87,16 +89,16 @@ class Dish extends Component {
   findDish(text, dish) {
     let t = [];
     let index = text.indexOf(dish);
-    // console.log("index", index);
-    let first = text.slice(0, index);
-    let bold = text.slice(index, index + dish.length);
-    let second = text.slice(index + dish.length);
-    // console.log("first: ", first);
-    // console.log("bold: ", bold);
-    // console.log("second: ", second);
-    t.push(<span>{first}</span>);
-    t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
-    t.push(<span>{second}</span>);
+    if (index === -1) {
+      t.push(<span>{text}</span>);
+    } else {
+      let first = text.slice(0, index);
+      let bold = text.slice(index, index + dish.length);
+      let second = text.slice(index + dish.length);
+      t.push(<span>{first}</span>);
+      t.push(<span style={{ fontWeight: "bold" }}>{bold}</span>);
+      t.push(<span>{second}</span>);
+    }
     return t;
   }
 
@@ -104,17 +106,16 @@ class Dish extends Component {
     var dishName = this.props.dishName;
     var dishSnippets = this.props.dishSnippets;
     var dishRating = parseFloat(this.props.dishRating);
-
     return (
       <div style={{ margin: "40px" }}>
         <MDBCard
           style={{
-            maxHeight: "550px",
-            backgroundImage:
-              "linear-gradient(to bottom, rgb(255, 166, 0), 20%,rgb(255,255,255) )",
+            maxHeight: "600px",
+
             padding: "20px"
           }}
-          className="rounded-dish"
+          className="rounded-dish cloudy-knoxville-gradient
+"
         >
           <MDBCardBody cascade className="text-center view-cascade ">
             <h1 className="h2-responsive mb-2 res" style={{ color: "black " }}>
@@ -123,14 +124,57 @@ class Dish extends Component {
             <h2>
               <StarRatings
                 starEmptyColor="white"
-                starRatedColor="red"
+                starRatedColor="blue"
                 numberOfStars={5}
                 rating={dishRating}
                 name="rating"
                 starDimension="30px"
               />
             </h2>
-            <MDBCardText style={{ overflow: "scroll", maxHeight: "24rem" }}>
+
+            <MDBCard className="mt-3 mb-1 mx-0">
+              <div>
+                <select
+                  className="browser-default custom-select primary-color text-light mt-2 ml-3 mb-0"
+                  style={{
+                    fontSize: "14px",
+                    width: "15%",
+                    float: "left"
+                  }}
+                  test={this.getTextContent}
+                  onChange={this.onChange}
+                >
+                  <option>Rate</option>
+                  <option value="5">5★</option>
+                  <option value="4">4★</option>
+                  <option value="3">3★</option>
+                  <option value="2">2★</option>
+                  <option value="1">1★</option>
+                </select>
+                <br></br>
+                <textarea
+                  className="form-control ml-3 mr-3"
+                  style={{ width: "94%" }}
+                  placeholder="Add comment..."
+                  rows="2"
+                  onChange={event => {
+                    this.setState({
+                      userComment: event.target.value
+                    });
+                  }}
+                />
+                <MDBBtn
+                  color="primary"
+                  style={{ float: "right", fontSize: "14px" }}
+                  className={`mr-3 mb-2 mt-0 z-depth-0 border border-3 ${this.state.button}`}
+                  onClick={this.submitInput}
+                >
+                  Submit
+                </MDBBtn>
+              </div>
+            </MDBCard>
+
+            <MDBCardText style={{ overflow: "scroll", maxHeight: "15rem" }}>
               {this.snippets(dishSnippets, dishName)}
             </MDBCardText>
           </MDBCardBody>

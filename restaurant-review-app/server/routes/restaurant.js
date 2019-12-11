@@ -23,6 +23,25 @@ router.route("/add").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route("/:id/addRatings").post((req, res) => {
+  Restaurant.findById(req.params.id)
+    .then(restaurant => {
+      let m_i = restaurant.menu_items;
+      let ratings = req.body;
+      for (const name of Object.keys(ratings)) {
+        let currentRatings = m_i[name][1];
+        currentRatings.push(ratings[name]);
+        m_i[name] = currentRatings;
+      }
+      restaurant.menu_items = m_i;
+      restaurant
+        .save()
+        .then(() => res.json("gucc"))
+        .catch(err => res.status(400).json("Errorr" + err));
+    })
+    .catch(err => res.json("Err" + err));
+});
+
 // router.route('/:id/addRating').post((req, res) =>{
 //     const {newRating} = req.body;
 //     Restaurant.findById(req.params.id)
