@@ -77,25 +77,23 @@ router.route('/:id/changeemail').put((req, res) =>{
       .catch( (err) => res.json('Err' + err));
 })
 
-class hashedPasswordFactory {
-  getHashedPassword(unhashedPassword) {
-    var password = 'error2';
-    bcrypt.genSalt(10, (err,salt) =>{
-      bcrypt.hash(unhashedPassword, salt, (err, hash)=> {
-        if(err){
-          console.log(err);
-          password = 'error in if'
-        }
-  
-        //return hashed password
-        return hash;
-      })
-    });
-    //return password;
-  }
-}
 
 router.route('/:id/changepassword').put((req, res) =>{
+  class hashedPasswordFactory {
+    getHashedPassword(unhashedPassword) {
+      bcrypt.genSalt(10, (err,salt) =>{
+        bcrypt.hash(password, salt, (err, hash)=> {
+          if(err){
+            console.log(err);
+          }
+    
+          //replace the password with encrpyted one
+          unhashedPassword = hash;
+        })
+      });
+      return unhashedPassword;
+    }
+  }
   /* bcrypt.genSalt(10, (err,salt) =>{
     bcrypt.hash(req.body.password, salt, (err, hash)=> {
       if(err){
@@ -107,7 +105,7 @@ router.route('/:id/changepassword').put((req, res) =>{
     })
   }); */
   let hashedPasswordFact = new hashedPasswordFactory();
-  var password = hashedPasswordFact.getHashedPassword(req.body.password);
+  let password = hashedPasswordFact.getHashedPassword(req.body.password);
 
   User.findById(req.params.id)
       .then( (user) =>{
