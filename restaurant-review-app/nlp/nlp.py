@@ -114,5 +114,4 @@ class NLP:
 
 
 n = NLP()
-print(n.processRestaurant("5dd1a02d1e9b0a9800f465dc"))
-print(n.processRestaurant("5dbf1b281c9d440000259588"))
+print(n.processRestaurant("5df029c25296f5b34a2e29f6"))
