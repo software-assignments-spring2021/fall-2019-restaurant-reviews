@@ -25,7 +25,7 @@ class NavBar extends Component {
 
   render(){
     let loggedin = null;
-    console.log(localStorage.getItem('jwtToken'));
+    //console.log(localStorage.getItem('jwtToken'));
     if(localStorage.getItem('jwtToken') === "null"){
       loggedin = false;
     }else{

@@ -177,9 +177,9 @@ class Restaurant extends Component {
     });
 
     const { handle } = this.props.match.params;
-
+    const newRating = { dishrating: ratings , dishname:name};
     axios
-      .post(`http://localhost:5000/restaurant/${handle}/addRatings`)
+      .post(`http://localhost:5000/restaurant/${handle}/addRatings`,newRating)
       .then(res => {
         console.log("all good dawg", res);
       })
@@ -228,7 +228,7 @@ class Restaurant extends Component {
   getSentiment(sentence) {
     var sentiment = new Sentiment();
     var result = sentiment.analyze(sentence);
-    console.log(result.comparative);
+    //console.log(result.comparative);
     return result.comparative;
   }
 
