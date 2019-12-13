@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
 import requests
 import json
 
@@ -11,6 +12,12 @@ class scraping:
          raise Exception("This class is a singleton!")
       else:
          scraping.__instance = self
+    
+    def mongo_connect(self):
+        # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
+        client = MongoClient('mongodb+srv://hw1635:wuhaodong250382@cluster0-lirni.mongodb.net/test?retryWrites=true&w=majority')
+        db=client.test
+        return db
     
     def get_common_restaurants(self):
         restaurant_menu_pages=[]
@@ -69,6 +76,12 @@ class scraping:
         soup = BeautifulSoup(response.text, 'html.parser')
         return soup
         #dump=[item.get_text(strip=True) for item in soup.select("span.html-attribute-value")]
+    
+    def get_page_yelp(self,url,page):
+        #print(url+"?start="+(str)(page))
+        response = requests.get(url+"?start="+(str)(page))
+        soup = BeautifulSoup(response.text, 'html.parser')
+        return soup
 
     def get_menu_links(self):
         max_pages=4075/50
@@ -93,16 +106,21 @@ class scraping:
         print(self.common)
     
     def combine(self):
-        count=0
+        db=self.mongo_connect()
+        count=40
         restaurant=[]
-        for rest in self.common:
-            review_number=120
+        for i,rest in enumerate(self.common):
+            if(i<count):
+                continue
+            review_number=300
             yelp_link=self.common[rest][0]
             menu_link=self.common[rest][1]
             review_list=[]
+            print((str)(count)+" "+rest)
+            #page=1
             for i in range(0,review_number,20):
-                print(rest)
-                soup=self.get_page(yelp_link)
+                soup=self.get_page_yelp(yelp_link,i)
+                #page=page+1
                 json_ob=self.get_reviews(soup)
                 for j in range(len(json_ob['review'])):
                     review_list.append((str)(json_ob['review'][j]['reviewRating']['ratingValue'])+' '+json_ob['review'][j]['description'])
@@ -117,15 +135,21 @@ class scraping:
                 'menu' : self.get_menu(menu_soup),
                 'reviews' : review_list
                 }
-            restaurant.append(business)       
+            db.restaurants.insert_one(business)
+            #restaurant.append(business)       
+            #if(count==5):
+            #    break
             count=count+1
-            if(count==2):
-                break
+
 
 
         rest_json={'restaurants':restaurant}
         with open('restaurants.json', 'w') as outfile:
-            json.dump(rest_json , outfile, indent=4)        
+            json.dump(rest_json , outfile, indent=4)
+
+        #db=self.mongo_connect()
+        #for rest in restaurant:
+        #    db.restaurants.insert_one(rest)        
 
 
 
