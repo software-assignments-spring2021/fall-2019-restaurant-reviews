@@ -60,7 +60,7 @@ class Landing extends Component {
           <div className="masthead-content">
             <div className="container">
               <h2 className="masthead-subheading mb-0">
-                Search for a restaurant
+                Rate The Plate
               </h2>
               <Autocomplete
                 className="container2"

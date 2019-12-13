@@ -98,6 +98,7 @@ class Signup extends Component {
         const isValid = this.validate();
         
         if(isValid){
+            const {history} =this.props;
             const user = {
                 firstname: this.state.firstname,
                 lastname: this.state.lastname,
@@ -106,12 +107,13 @@ class Signup extends Component {
             }
             console.log(user);
             alert("Hello " + user.firstname);
+            
             //stores data in mongodb
             axios.post('http://localhost:5000/user/register', user)
                 .then(res => console.log(res.data));
+            
 
-
-            //window.location.replace('/login');
+            history.push('/login');
 
             //set to initial state
             this.setState({
