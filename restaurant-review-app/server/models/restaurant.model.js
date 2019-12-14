@@ -2,24 +2,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//The restaurant schema includes name, location, dishSchema
-
-//create dish schema
-// const dishSchema = new Schema(
-//   {
-//     dishname: {
-//       type: String,
-//       required: true
-//     },
-
-//     rating: { type: Number, required: true },
-
-//     comments: [String]
-//   },
-//   {
-//     timestamps: false
-//   }
-// );
 
 const restaurantSchema = new Schema(
   {
@@ -56,7 +38,20 @@ const restaurantSchema = new Schema(
     menu_items: {
       type: Object,
       required: true
-    }
+    },
+    new_reviews:[{
+      dishname: {
+        type: String,
+        required: true
+      },
+  
+      ratings: { type: Array, required: true },
+  
+      comments: {
+        type:Array,
+        reuqired: true
+      }
+    }]
   },
 
   { timestamps: false }
