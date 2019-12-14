@@ -164,7 +164,7 @@ class Autocomplete extends Component {
                 value={userInput}
                 className="form-control form-control-lg ml-4 w-75"
                 type="text"
-                placeholder="Start typing..."
+                placeholder="Search for a restaurant..."
                 aria-label="Search"
               />
             </form>
