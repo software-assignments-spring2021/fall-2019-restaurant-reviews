@@ -32,13 +32,24 @@ const userSchema = new Schema({
     password:{
         type:String,
         required:true,
-
     },
 
     favoriteRes:{
         type: [String],
-       
-    }
+    },
+
+    comments:[{
+        dishname: {
+            type: String,
+            required: true
+          },    
+          rating: { type: Number, required: true },
+          comment: {
+            type:String,
+            reuqired: true
+          }
+    }]
+
 
 },{
     timestamps: true,

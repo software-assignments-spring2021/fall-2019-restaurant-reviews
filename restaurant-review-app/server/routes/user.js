@@ -208,4 +208,17 @@ router.route('/:id/favorites/delete').put((req, res) =>{
 
 })
 
+
+// router.route('/:id/addcomments').post( (req, res) =>{
+//   User.findById(req.params.id)
+//   .then( (user) =>{
+//     const dishname = req.body.dishname;
+//     const dishrating = parseInt(req.body.dishrating);
+//     const comments = req.body.comments;
+//     const newcomment = new comments({dishname,dishrating,comments});
+
+//     user.comments.push(newcomment);
+
+//   })
+// })
 module.exports = router;

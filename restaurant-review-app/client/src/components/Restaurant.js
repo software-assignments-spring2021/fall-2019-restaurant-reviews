@@ -175,16 +175,15 @@ class Restaurant extends Component {
       userRatings: ratings,
       userComments: comments
     });
-
+    console.log(comments[name][0]);
     const { handle } = this.props.match.params;
-
+    const newRating = { dishrating: num , dishname:name,comments: comments[name][0]};
     axios
-      .post(`http://localhost:5000/restaurant/${handle}/addRatings`)
+      .post(`http://localhost:5000/restaurant/${handle}/add/rating&comment`,newRating)
       .then(res => {
-        console.log("all good dawg", res);
+        console.log("success", res);
       })
       .catch(err => {
-        console.log("ay");
         console.log(err);
       });
   }
@@ -228,7 +227,7 @@ class Restaurant extends Component {
   getSentiment(sentence) {
     var sentiment = new Sentiment();
     var result = sentiment.analyze(sentence);
-    console.log(result.comparative);
+    //console.log(result.comparative);
     return result.comparative;
   }
 

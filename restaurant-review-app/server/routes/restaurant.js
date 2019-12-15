@@ -1,6 +1,6 @@
 //restaurant router
 const router = require("express").Router();
-let Restaurant = require("../models/restaurant.model");
+const Restaurant = require("../models/restaurant.model");
 
 router.route("/").get((req, res) => {
   Restaurant.find()
@@ -10,48 +10,54 @@ router.route("/").get((req, res) => {
 
 router.route("/:id").get((req, res) => {
   Restaurant.findById(req.params.id)
-    .then(restaurant => res.json(restaurant))
+    .then(restaurant => res.json(restaurant.new_reviews))
     .catch(err => res.status(400).json("Err" + err));
 });
 
+
 router.route("/add").post((req, res) => {
-  const { name, location, dishes, comments } = req.body;
-  const newRest = new Restaurant({ name, location, dishes, comments });
+  const { name, address, rating, cuisine, menu, reviews, menu_items } = req.body;
+  const newRest = new Restaurant({ name, address, rating, cuisine, menu, reviews, menu_items});
   newRest
     .save()
     .then(() => res.json({ message: "restaurant added.", newRest }))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route("/:id/addRatings").post((req, res) => {
+router.route("/:id/add/rating&comment").post((req, res) => {
+
+ 
   Restaurant.findById(req.params.id)
-    .then(restaurant => {
-      let m_i = restaurant.menu_items;
-      let ratings = req.body;
-      for (const name of Object.keys(ratings)) {
-        let currentRatings = m_i[name][1];
-        currentRatings.push(ratings[name]);
-        m_i[name] = currentRatings;
+    .then( (restaurant) => {
+      const ratings = parseInt(req.body.dishrating);
+      const name = req.body.dishname;
+      const comments = req.body.comments;
+
+      restaurant.new_reviews.forEach( (review) =>{
+        
+        if(review.dishname === name){
+          review.ratings.push(ratings);
+          review.comments.push(comments);
+         
+        }
+      })
+      let op = restaurant.new_reviews.filter(data => (data.dishname == name));
+      // res.json(op);
+      if(op.length == 0){
+        const newdish = {dishname:name,ratings:new Array(),comments:new Array()};
+        newdish.ratings.push(ratings);
+        newdish.comments.push(comments);
+        restaurant.new_reviews.push(newdish);
       }
-      restaurant.menu_items = m_i;
-      restaurant
-        .save()
-        .then(() => res.json("gucc"))
+
+      restaurant.save()
+        .then(() => {
+          res.json(restaurant.new_reviews); 
+        })
         .catch(err => res.status(400).json("Errorr" + err));
     })
     .catch(err => res.json("Err" + err));
 });
 
-// router.route('/:id/addRating').post((req, res) =>{
-//     const {newRating} = req.body;
-//     Restaurant.findById(req.params.id)
-//     .then(restaurant => res.json(restaurant))
-//     .catch(err => res.status(400).json('Err' + err));
-
-//     const newRest = new Restaurant({name,location,dishes,comments});
-//     newRest.save()
-//       .then(() => res.json({message:'restaurant added.',newRest}))
-//       .catch(err => res.status(400).json('Error: ' + err));
-// })
 
 module.exports = router;
