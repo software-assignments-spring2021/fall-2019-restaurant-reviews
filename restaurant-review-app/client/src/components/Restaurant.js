@@ -59,7 +59,8 @@ class Restaurant extends Component {
           rating: res.data["rating"],
           cuisine: res.data["cuisine"],
           items: res.data["menu_items"],
-          reviews: res.data["reviews"]
+          reviews: res.data["reviews"],
+          userSnippets: res.data["new_reviews"]
         });
         this.checkStarStatus(res.data["name"], userID);
       })
@@ -73,15 +74,12 @@ class Restaurant extends Component {
   }
   favoriteHandler(e) {
     e.preventDefault();
-    console.log(this);
     const userID = localStorage.getItem("userID");
-    //console.log(this.state.name);
 
     if (userID === "null") {
       alert("You must log in to star your favorite restaurants!");
     } else {
       const restaurant = { newFavorite: this.state.name };
-      console.log("here");
       if (this.state.stared == false) {
         axios
           .post(
@@ -122,6 +120,22 @@ class Restaurant extends Component {
     for (const name of Object.keys(dishes)) {
       let ratings = dishes[name][1].slice();
       let comments = dishes[name][0].slice();
+      let userSnippets = this.state.userSnippets;
+      let userComments = [];
+      let userRatings = [];
+      for (let i = 0; i < userSnippets.length; i++) {
+        if (userSnippets[i]["dishname"] === name) {
+          for (let j = 0; j < userSnippets[i]["ratings"].length; j++) {
+            ratings.push(userSnippets[i]["ratings"][j]);
+          }
+          for (let j = 0; j < userSnippets[i]["comments"].length; j++) {
+            comments.push(userSnippets[i]["comments"][j]);
+          }
+          // userRatings = userSnippets[i]["ratings"];
+          // comments.push(userSnippets[i]["comments"]);
+          break;
+        }
+      }
 
       if (this.state.userRatings[name] !== undefined) {
         ratings.push(this.state.userRatings[name]);
@@ -130,11 +144,14 @@ class Restaurant extends Component {
         comments.splice(0, 0, this.state.userComments[name]);
         // comments.push(this.state.userComments[name]);
       }
+      // ratings.concat(userRatings);
+      console.log("comments for ", name, comments);
 
       arr.push(
         <Dish
           dishName={name}
           dishSnippets={comments}
+          dishUserSnippets={userComments}
           dishRating={this.averageRating(ratings)}
           triggerParentUpdate={this.updateUserStates}
         />
@@ -163,18 +180,30 @@ class Restaurant extends Component {
     let ratings = this.state.userRatings;
     ratings[name] = num;
     let comments = this.state.userComments;
-    let converted = (num - 3) * 0.5;
-    comments[name] = [comment, converted];
+    if (comment.trim() !== "") {
+      let converted = (num - 3) * 0.5;
+      comments[name] = [comment, converted];
+    }
 
     this.setState({
       userRatings: ratings,
       userComments: comments
     });
+    console.log("userRatings", this.state.userRatings);
+    console.log("userComments", this.state.userComments);
+
     console.log(comments[name]);
     const { handle } = this.props.match.params;
-    const newRating = { dishrating: num , dishname:name,comments: comments[name]};
+    const newRating = {
+      dishrating: num,
+      dishname: name,
+      comments: comments[name]
+    };
     axios
-      .post(`http://localhost:5000/restaurant/${handle}/add/rating&comment`,newRating)
+      .post(
+        `http://localhost:5000/restaurant/${handle}/add/rating&comment`,
+        newRating
+      )
       .then(res => {
         console.log("success", res);
       })
@@ -242,14 +271,15 @@ class Restaurant extends Component {
     return t;
   }
 
-
   makeCards(sentences) {
-
     let cards = [];
     if (sentences.length === 0) {
       return [];
     }
     for (let i = 0; i < sentences.length; i++) {
+      console.log("sentences: ", sentences);
+      console.log("sentence: ", sentences[i]);
+
       let score = this.getSentiment(sentences[i]);
       let color = `rgb(${255 - 255 * score}, ${255 + 255 * score},0)`;
       cards.push(
@@ -284,13 +314,9 @@ class Restaurant extends Component {
   }
 
   render() {
-
     let searchSize = "70px";
-    console.log("sent ", this.state.sentences);
     if (this.state.sentences.length !== 0) {
-      console.log("why");
       searchSize = "200px";
-
     }
 
     if (this.state.items !== undefined) {
