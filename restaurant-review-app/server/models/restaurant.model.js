@@ -47,10 +47,10 @@ const restaurantSchema = new Schema(
   
       ratings: { type: Array, required: true },
   
-      comments: {
-        type:Array,
-        reuqired: true
-      }
+      comments: [
+        {type:Array,
+        reuqired: true}
+      ]
     }]
   },
 
