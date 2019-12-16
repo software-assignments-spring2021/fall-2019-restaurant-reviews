@@ -4,18 +4,11 @@ import {
   MDBCardBody,
   MDBCardText,
   MDBIcon,
-  MDBContainer,
-  MDBInputGroup,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
   MDBBtn,
   MDBInput
 } from "mdbreact";
 import "../vendor/bootstrap/css/bootstrap.css";
 
-import axios from "axios";
 import StarRatings from "react-star-ratings";
 
 class Dish extends Component {
