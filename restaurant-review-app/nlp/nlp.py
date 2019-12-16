@@ -28,90 +28,90 @@ class NLP:
         else:
             NLP.__instance = self
 
-    def processRestaurant(self, id):
+    def processRestaurant(self):
         cluster = MongoClient(
             "mongodb+srv://hw1635:wuhaodong250382@cluster0-lirni.mongodb.net/test?retryWrites=true&w=majority")
         db = cluster["test"]
         collection = db["restaurants"]
-        restaurant = collection.find_one({"_id": ObjectId(id)})
-        try:
-            menu = restaurant["menu"]
-        except:
-            return "ERROR: this restaurant doesn't have a menu"
-        try:
-            reviews = restaurant["reviews"]
-        except:
-            return "ERROR: this restaurant doesn't have reviews"
-        sid = SentimentIntensityAnalyzer()
-        dict = {}
-        scores_dict = {}
-        menu = restaurant["menu"]
-        for m in range(len(menu)):
-            item = menu[m]
-            item = item.lower()
-            start = item.find('(')
-            end = item.find(')')
-            if start != -1 and end != -1:
-                item = item[0:start] + item[end:-1]
-            item = re.sub('[^a-zA-Z]+', ' ', item)
-            item = item.strip()
-            menu[m] = item
-            dict[item] = []
-            scores_dict[item] = {}
 
-        reviews = restaurant["reviews"]
+        test = collection.find({})
+        for restaurant in test:
 
-        for r in range(len(reviews)):
-            review = reviews[r]
-            review = review.lower()
-            reviews[r] = review
+            try:
+                menu = restaurant["menu"]
+            except:
+                print("ERROR: this restaurant doesn't have a menu")
+            try:
+                reviews = restaurant["reviews"]
+            except:
+                print("ERROR: this restaurant doesn't have reviews")
+            sid = SentimentIntensityAnalyzer()
+            dict = {}
+            scores_dict = {}
+            for m in range(len(menu)):
+                item = menu[m]
+                item = item.lower()
+                start = item.find('(')
+                end = item.find(')')
+                if start != -1 and end != -1:
+                    item = item[0:start] + item[end:-1]
+                item = re.sub('[^a-zA-Z]+', ' ', item)
+                item = item.strip()
+                menu[m] = item
+                dict[item] = []
+                scores_dict[item] = {}
 
-        tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-        sentiment = []
-        for i in range(len(reviews)):
-            sentences = tokenizer.tokenize(reviews[i])
-            for j in range(len(menu)):
-                if menu[j] in reviews[i]:
-                    for s in sentences:
-                        if menu[j] in s:
-                            ss = sid.polarity_scores(s)
-                            scores_dict[menu[j]][s] = ss["compound"]
-                    dict[menu[j]].append(int(reviews[i][0]))
+            for r in range(len(reviews)):
+                review = reviews[r]
+                review = review.lower()
+                reviews[r] = review
 
-        items_rating = {}
+            tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+            for i in range(len(reviews)):
+                sentences = tokenizer.tokenize(reviews[i])
+                for j in range(len(menu)):
+                    if menu[j] in reviews[i]:
+                        for s in sentences:
+                            if menu[j] in s:
+                                ss = sid.polarity_scores(s)
+                                scores_dict[menu[j]][s] = ss["compound"]
+                        dict[menu[j]].append(int(reviews[i][0]))
 
-        menu_snippets = {}
-        for dish, d in scores_dict.items():
-            menu_snippets[dish] = ['']*6
-            good = -1
-            bad = 0
+            items_rating = {}
 
-            sorted_d = sorted(d.items(), key=operator.itemgetter(1))
+            menu_snippets = {}
+            for dish, d in scores_dict.items():
+                menu_snippets[dish] = ['']*6
+                good = -1
+                bad = 0
 
-            for i in range(3):
-                if len(sorted_d) > i:
-                    worst = sorted_d[i]
-                    best = sorted_d[(i*-1)-1]
-                    if worst[1] < 0:
-                        menu_snippets[dish][bad] = worst
-                        bad += 1
-                    if best[1] > 0:
-                        menu_snippets[dish][good] = best
-                        good -= 1
+                sorted_d = sorted(d.items(), key=operator.itemgetter(1))
 
-        for i in menu_snippets.keys():
-            if(dict[i] != []):
-                items_rating[i] = dict[i]
+                for i in range(3):
+                    if len(sorted_d) > i:
+                        worst = sorted_d[i]
+                        best = sorted_d[(i*-1)-1]
+                        if worst[1] < 0:
+                            menu_snippets[dish][bad] = worst
+                            bad += 1
+                        if best[1] > 0:
+                            menu_snippets[dish][good] = best
+                            good -= 1
 
-        menu_items = {}
-        for i in items_rating.keys():
-            menu_items[i] = [menu_snippets[i], items_rating[i]]
+            for i in menu_snippets.keys():
+                if(dict[i] != []):
+                    items_rating[i] = dict[i]
 
-        collection.update_one({"_id": ObjectId(id)}, {
-            "$set": {"menu_items": menu_items}})
+            menu_items = {}
+            for i in items_rating.keys():
+                menu_items[i] = [menu_snippets[i], items_rating[i]]
 
-        return "SUCCESS: parsed reviews and uploaded to mongodb"
+            id = restaurant["_id"]
+            collection.update_one({"_id": ObjectId(id)}, {
+                "$set": {"menu_items": menu_items}})
+
+            print("SUCCESS: parsed reviews and uploaded to mongodb", ObjectId(id))
 
 
 n = NLP()
-print(n.processRestaurant("5df029c25296f5b34a2e29f6"))
+print(n.processRestaurant())
