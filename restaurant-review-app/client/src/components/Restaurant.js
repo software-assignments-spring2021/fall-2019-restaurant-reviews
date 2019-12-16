@@ -59,7 +59,8 @@ class Restaurant extends Component {
           rating: res.data["rating"],
           cuisine: res.data["cuisine"],
           items: res.data["menu_items"],
-          reviews: res.data["reviews"]
+          reviews: res.data["reviews"],
+          userSnippets: res.data["new_reviews"]
         });
         this.checkStarStatus(res.data["name"], userID);
       })
@@ -119,6 +120,16 @@ class Restaurant extends Component {
     for (const name of Object.keys(dishes)) {
       let ratings = dishes[name][1].slice();
       let comments = dishes[name][0].slice();
+      let userSnippets = this.state.userSnippets;
+      let userComments;
+      for (let i = 0; i < userSnippets.length; i++) {
+        if (userSnippets[i]["dishname"] === name) {
+          console.log("ratings: ", userSnippets[i]["ratings"]);
+          ratings.push(userSnippets[i]["ratings"]);
+          comments.push(userSnippets[i]["comments"]);
+          break;
+        }
+      }
 
       if (this.state.userRatings[name] !== undefined) {
         ratings.push(this.state.userRatings[name]);
@@ -132,6 +143,7 @@ class Restaurant extends Component {
         <Dish
           dishName={name}
           dishSnippets={comments}
+          dishUserSnippets={userComments}
           dishRating={this.averageRating(ratings)}
           triggerParentUpdate={this.updateUserStates}
         />
@@ -169,17 +181,21 @@ class Restaurant extends Component {
       userRatings: ratings,
       userComments: comments
     });
-<<<<<<< HEAD
     console.log("userRatings", this.state.userRatings);
     console.log("userComments", this.state.userComments);
 
-=======
     console.log(comments[name][0]);
->>>>>>> 2636a7a47f210a7c388cf9872b27bce6e23fbfca
     const { handle } = this.props.match.params;
-    const newRating = { dishrating: num , dishname:name,comments: comments[name][0]};
+    const newRating = {
+      dishrating: num,
+      dishname: name,
+      comments: comments[name][0]
+    };
     axios
-      .post(`http://localhost:5000/restaurant/${handle}/add/rating&comment`,newRating)
+      .post(
+        `http://localhost:5000/restaurant/${handle}/add/rating&comment`,
+        newRating
+      )
       .then(res => {
         console.log("success", res);
       })
@@ -227,10 +243,7 @@ class Restaurant extends Component {
   getSentiment(sentence) {
     var sentiment = new Sentiment();
     var result = sentiment.analyze(sentence);
-<<<<<<< HEAD
-=======
     //console.log(result.comparative);
->>>>>>> 2636a7a47f210a7c388cf9872b27bce6e23fbfca
     return result.comparative;
   }
 
@@ -250,9 +263,7 @@ class Restaurant extends Component {
     return t;
   }
 
-
   makeCards(sentences) {
-
     let cards = [];
     if (sentences.length === 0) {
       return [];
@@ -295,11 +306,9 @@ class Restaurant extends Component {
   }
 
   render() {
-
     let searchSize = "70px";
     if (this.state.sentences.length !== 0) {
       searchSize = "200px";
-
     }
 
     if (this.state.items !== undefined) {
