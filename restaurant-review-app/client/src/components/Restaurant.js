@@ -9,7 +9,8 @@ import {
   MDBCol,
   MDBCard,
   MDBFormInline,
-  MDBBtn
+  MDBBtn,
+  MDBInput
 } from "mdbreact";
 import Sentiment from "sentiment";
 
@@ -90,7 +91,7 @@ class Restaurant extends Component {
             this.setState({ stared: true });
           })
           .catch(err => "Err" + err);
-        alert("You have stared this restaurant!");
+        //alert("You have stared this restaurant!");
       } else {
         axios
           .put(
@@ -101,7 +102,7 @@ class Restaurant extends Component {
             this.setState({ stared: false });
           })
           .catch(err => "Err" + err);
-        alert("You have unstared this restaurant!");
+        //alert("You have unstared this restaurant!");
       }
     }
   }
@@ -332,57 +333,64 @@ class Restaurant extends Component {
         favbutton = (
           <button
             type="button"
-            class="btn btn-outline-warning"
+            className="goldtext"
+            border="0px"
             onClick={this.favoriteHandler}
           >
-            Add to my favorite
+            ☆
           </button>
         );
       else {
         favbutton = (
           <button
             type="button"
-            class="btn btn-outline-warning"
+            className="goldtext"
+            border="0px"
             onClick={this.favoriteHandler}
           >
-            Unfavorite the restaurant
+            ★
           </button>
         );
       }
       return (
-        <div className="App" style={{ backgroundColor: "rgb(235, 235, 235)" }}>
+        
+        //bottom background
+        <div className="bg2blue">
           <NavBar />
           <header
-            className="masthead text-black"
-            style={{ height: "350px", paddingTop: "90px" }}
+            className="bg2white"
+            style={{ height: "332px", paddingTop: "90px" }}
           >
+            <br/>
             <div className="masthead-content">
               <div className="container res">
-                <h2 className=" text-left res" style={{ fontSize: "50px" }}>
+                <h2 className=" text-left res" style={{ fontSize: "50px", fontFamily: "Catamaran" }}>
                   {this.state.name}
+                  {favbutton}
                 </h2>
-                <h4 className="res" align="left">
+                <h4 className="res" align="left" style={{fontFamily: "Catamaran" }}>
                   {this.state.address}
                 </h4>
-                <h4 className="res" align="left">
+                <h4 className="res" align="left" style={{fontFamily: "Catamaran" }}>
                   {this.state.rating} star restaurant
                 </h4>
-                <h4 className="res" align="left">
+                <h4 className="res" align="left" style={{fontFamily: "Catamaran" }}>
                   {this.state.cuisine}
                 </h4>
-                <span style={{ float: "left" }}>{favbutton}</span>
               </div>
             </div>
           </header>
-
-          <MDBCard style={{ height: searchSize }}>
+          
+          <MDBCard style={{ height: searchSize, backgroundColor: "#cc6600"}}>
             <MDBFormInline
               className="md-form mr-auto mt-1 mb-0"
               style={{
                 marginLeft: "11%"
+                
               }}
             >
               <input
+                color="#ffffff"
                 className="form-control mr-sm-2"
                 type="text"
                 placeholder="Search for a keyword..."
@@ -394,7 +402,7 @@ class Restaurant extends Component {
                 }}
               />
               <MDBBtn
-                color="blue"
+                color="black"
                 rounded
                 size="sm"
                 className="mr-auto"

@@ -104,7 +104,7 @@ class Dish extends Component {
         <MDBCard
           style={{
             maxHeight: "600px",
-
+            
             padding: "20px"
           }}
           className="rounded-dish cloudy-knoxville-gradient
