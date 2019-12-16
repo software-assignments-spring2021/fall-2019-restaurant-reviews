@@ -37,8 +37,9 @@ router.route("/:id/add/rating&comment").post((req, res) => {
         
         if(review.dishname === name){
           review.ratings.push(ratings);
-          review.comments.push(comments);
-         
+          if(comments != null){
+            review.comments.push(comments);
+          }
         }
       })
       let op = restaurant.new_reviews.filter(data => (data.dishname == name));
