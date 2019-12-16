@@ -175,9 +175,9 @@ class Restaurant extends Component {
       userRatings: ratings,
       userComments: comments
     });
-    console.log(comments[name][0]);
+    console.log(comments[name]);
     const { handle } = this.props.match.params;
-    const newRating = { dishrating: num , dishname:name,comments: comments[name][0]};
+    const newRating = { dishrating: num , dishname:name,comments: comments[name]};
     axios
       .post(`http://localhost:5000/restaurant/${handle}/add/rating&comment`,newRating)
       .then(res => {
