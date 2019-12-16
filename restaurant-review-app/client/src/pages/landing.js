@@ -6,6 +6,7 @@ import Autocomplete from "../Autocomplete";
 import axios from "axios";
 
 class Landing extends Component {
+
   constructor(props) {
     super(props);
 
@@ -17,7 +18,9 @@ class Landing extends Component {
   }
 
   componentDidMount() {
+
     axios.get("http://localhost:5000/restaurant").then(response => {
+
       if (response.data.length > 0) {
         console.log(response.data);
         var keys = response.data.map(restaurant => restaurant.name);
@@ -153,15 +156,5 @@ class Landing extends Component {
     );
   }
 }
-
-function getRestaurantList() {
-  axios.get("http://localhost:5000/restaurant").then(response => {
-    if (response.data.length > 0) {
-      console.log(response.data.map(restaurant => restaurant.name));
-      return response.data.map(restaurant => restaurant.name);
-    }
-  });
-}
-
 
 export default Landing;
