@@ -128,8 +128,11 @@ class Restaurant extends Component {
           for (let j = 0; j < userSnippets[i]["ratings"].length; j++) {
             ratings.push(userSnippets[i]["ratings"][j]);
           }
+          for (let j = 0; j < userSnippets[i]["comments"].length; j++) {
+            comments.push(userSnippets[i]["comments"][j]);
+          }
           // userRatings = userSnippets[i]["ratings"];
-          comments.push(userSnippets[i]["comments"]);
+          // comments.push(userSnippets[i]["comments"]);
           break;
         }
       }
@@ -142,7 +145,7 @@ class Restaurant extends Component {
         // comments.push(this.state.userComments[name]);
       }
       // ratings.concat(userRatings);
-      console.log("ratings for ", name, ratings);
+      console.log("comments for ", name, comments);
 
       arr.push(
         <Dish
@@ -189,12 +192,12 @@ class Restaurant extends Component {
     console.log("userRatings", this.state.userRatings);
     console.log("userComments", this.state.userComments);
 
-    console.log(comments[name][0]);
+    console.log(comments[name]);
     const { handle } = this.props.match.params;
     const newRating = {
       dishrating: num,
       dishname: name,
-      comments: comments[name][0]
+      comments: comments[name]
     };
     axios
       .post(
