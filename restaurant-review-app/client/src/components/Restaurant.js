@@ -125,20 +125,24 @@ class Restaurant extends Component {
       let userRatings = [];
       for (let i = 0; i < userSnippets.length; i++) {
         if (userSnippets[i]["dishname"] === name) {
-          userRatings.push(userSnippets[i]["ratings"]);
+          for (let j = 0; j < userSnippets[i]["ratings"].length; j++) {
+            ratings.push(userSnippets[i]["ratings"][j]);
+          }
+          // userRatings = userSnippets[i]["ratings"];
           comments.push(userSnippets[i]["comments"]);
           break;
         }
       }
 
       if (this.state.userRatings[name] !== undefined) {
-        ratings.concat(this.state.userRatings[name]);
+        ratings.push(this.state.userRatings[name]);
       }
       if (this.state.userComments[name] !== undefined) {
         comments.splice(0, 0, this.state.userComments[name]);
         // comments.push(this.state.userComments[name]);
       }
-      console.log("ratings for ", name, ratings, userRatings);
+      // ratings.concat(userRatings);
+      console.log("ratings for ", name, ratings);
 
       arr.push(
         <Dish
