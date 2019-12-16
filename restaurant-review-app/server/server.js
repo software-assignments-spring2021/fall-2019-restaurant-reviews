@@ -27,8 +27,8 @@ app.use(passport.session());
 
 
 //connect with MongoDB 
-//const uri = process.env.ATLAS_URI;
-const uri = "mongodb+srv://hw1635:wuhaodong250382@cluster0-lirni.mongodb.net/test?retryWrites=true&w=majority";
+const uri = process.env.ATLAS_URI;
+
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true }
 );
 

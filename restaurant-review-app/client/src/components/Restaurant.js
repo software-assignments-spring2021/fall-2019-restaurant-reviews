@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import '../vendor/bootstrap/css/bootstrap.min.css';
-// import { BrowserRouter as Router} from "react-router-dom";
-// import { Switch } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import NavBar from "../pages/navbar";
 import Dish from "../components/Dish";
 import { ClipLoader } from "react-spinners";
@@ -12,7 +8,6 @@ import {
   MDBRow,
   MDBCol,
   MDBCard,
-  MDBIcon,
   MDBFormInline,
   MDBBtn
 } from "mdbreact";
@@ -174,18 +169,21 @@ class Restaurant extends Component {
       userRatings: ratings,
       userComments: comments
     });
+<<<<<<< HEAD
     console.log("userRatings", this.state.userRatings);
     console.log("userComments", this.state.userComments);
 
+=======
+    console.log(comments[name][0]);
+>>>>>>> 2636a7a47f210a7c388cf9872b27bce6e23fbfca
     const { handle } = this.props.match.params;
-
+    const newRating = { dishrating: num , dishname:name,comments: comments[name][0]};
     axios
-      .post(`http://localhost:5000/restaurant/${handle}/addRatings`)
+      .post(`http://localhost:5000/restaurant/${handle}/add/rating&comment`,newRating)
       .then(res => {
-        console.log("all good dawg", res);
+        console.log("success", res);
       })
       .catch(err => {
-        console.log("ay");
         console.log(err);
       });
   }
@@ -229,6 +227,10 @@ class Restaurant extends Component {
   getSentiment(sentence) {
     var sentiment = new Sentiment();
     var result = sentiment.analyze(sentence);
+<<<<<<< HEAD
+=======
+    //console.log(result.comparative);
+>>>>>>> 2636a7a47f210a7c388cf9872b27bce6e23fbfca
     return result.comparative;
   }
 
@@ -248,7 +250,9 @@ class Restaurant extends Component {
     return t;
   }
 
+
   makeCards(sentences) {
+
     let cards = [];
     if (sentences.length === 0) {
       return [];
@@ -291,12 +295,13 @@ class Restaurant extends Component {
   }
 
   render() {
+
     let searchSize = "70px";
     if (this.state.sentences.length !== 0) {
       searchSize = "200px";
+
     }
 
-    //this.checkStarStatus();
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
       let y = x[0];

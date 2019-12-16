@@ -5,7 +5,8 @@ import "mdbreact/dist/css/mdb.css";
 
 function FavoriteResList(props) {
    
-    return props.favRes.map( favorite => {     
+    return props.favRes.map( favorite => {    
+         
         return(
             <div>
             <button type="button" class="list-group-item list-group-item-action">🌟{favorite}</button> 
