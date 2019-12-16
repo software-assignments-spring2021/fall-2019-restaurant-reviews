@@ -207,12 +207,17 @@ header.masthead .bg-circle-4 {
   outline: none;
 }
 
+
 .bg {
-  background-color: #3238a8;
+  background-color: #10316b;
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.bguser {
+  background-color: #10316b;
 }
 
 .bg2 {

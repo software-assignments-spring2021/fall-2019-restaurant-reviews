@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../vendor/bootstrap/css/bootstrap.css';
 import "mdbreact/dist/css/mdb.css";
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBCardTitle, MDBCardText } from 'mdbreact';
 // import { BrowserRouter as Router} from "react-router-dom";
 // import { Switch } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
@@ -91,72 +91,79 @@ class UserPage extends Component {
 
     render () {
         return(
-            <div className="bg2">
-            <NavBar loggedin = {this.state.loggedIn} onClick = {this.signoutHandler}/>
-            
+            <div class="bguser">
 
+            <NavBar loggedin = {this.state.loggedIn} onClick = {this.signoutHandler}/>
             <MDBContainer>
                <MDBRow>
                    <MDBCol md="12">
+
                    <MDBCard>
                    <div className="header pt-3 peach-gradient">
-                       <MDBRow className="d-flex justify-content-center">
-                         <h3 className="white-text mb-3 pt-3 font-weight-bold">Profile </h3>
+                       <MDBRow className="header pt-3 peach-gradient">
+                         <h3 className="white-text mb-3 pt-3 font-weight-bold"> Welcome back, {this.state.firstname} </h3>
                        </MDBRow>
                     </div>
+
+                    <MDBContainer>
+                    <MDBRow className="mb-4">
+                        <MDBCol sm="6">
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>Change your email</MDBCardTitle>
+                                <MDBInput 
+                                    outline color='primary'
+                                    color="blue"
+                                    label="Enter your new email here" 
+                                    type="text" 
+                                    className="z-depth-1a"
+                                    align="left"
+                                    validate
+                                    onChange={this.onChangeEmail}
+                                />
+
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                
+                                <MDBBtn
+                                        color="primary"
+                                        onClick={this.emailChangeHandler}>
+                                        Change Email
+                                </MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                        </MDBCol>
+
+                        <MDBCol sm="6">
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>Edit your password</MDBCardTitle>
+                                <MDBInput 
+                                    outline color='primary'
+                                    color="blue"
+                                    label="Enter your new password here" 
+                                    type="password" 
+                                    className="z-depth-1a"
+                                    align="left"
+                                    validate
+                                    onChange={this.onChangePassword}
+                                />
+                                
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                
+                                <MDBBtn
+                                        color="primary"
+                                        onClick={this.passChangeHandler}>
+                                        Edit Password
+                                </MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                        </MDBCol>
+                    </MDBRow>
+                    </MDBContainer>
+
                     <MDBCardBody className="mx-4 mt-4">
-                    Welcome back, <b>{this.state.firstname}</b>!
-                    <div align="right">
-                        <MDBCol md="4">
-                        <MDBInput 
-                            outline color='primary'
-                            color="blue"
-                            label="Enter your new email here" 
-                            type="text" 
-                            className="z-depth-1a"
-                            align="left"
-                            validate
-                            onChange={this.onChangeEmail}
-                        />
-                        </MDBCol>
-                        <MDBCol md="4">
-                        <MDBInput 
-                            outline color='primary'
-                            color="blue"
-                            label="Enter your new password here" 
-                            type="password" 
-                            className="z-depth-1a"
-                            align="left"
-                            validate
-                            onChange={this.onChangePassword}
-                        />
-                        </MDBCol>
-                        <MDBCol>
-                         <MDBBtn
-                              outline color="primary"
-                              color="blue"
-                              rounded
-                              type="button"
-                              className="z-depth-1a"
-                              align="left"
-                              onClick={this.emailChangeHandler} >
-                              Change Email
-                          </MDBBtn>
-                        </MDBCol>
-                        <MDBCol>
-                         <MDBBtn
-                              outline color="primary"
-                              color="blue"
-                              rounded
-                              type="button"
-                              className="z-depth-1a"
-                              align="left"
-                              onClick={this.passChangeHandler} >
-                              Change Password
-                          </MDBBtn>
-                        </MDBCol>
-                      </div>
-                       <br/><br/>
                        <b padding="1px"> Your Starred Restaurants:</b> <br/>
                        {/* display user's favorite restaurants list  */}
                         <div>
@@ -164,9 +171,11 @@ class UserPage extends Component {
                         </div>
                         </MDBCardBody>
                         </MDBCard>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
+
         </div>
         )
     }
