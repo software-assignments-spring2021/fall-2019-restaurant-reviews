@@ -1,15 +1,7 @@
 import React, { Component } from "react";
-// import '../vendor/bootstrap/css/bootstrap.min.css';
 import "../css/one-page-wonder.min.css";
 import "../App.css";
 import NavBar from "./navbar";
-//import { BrowserRouter as Router} from "react-router-dom";
-//import Signup from "./signup";
-//import Login from "./login";
-// import { Switch } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
-// import { MDBCol, MDBIcon } from "mdbreact";
-// import SelectSearch from 'react-select-search'
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
 
@@ -38,14 +30,6 @@ class Landing extends Component {
           names: keys,
           my_dict: result
 
-          // ids: response.data.map(restaurant => restaurant._id),
-          // names: response.data.map(restaurant => restaurant.name),
-
-          // my_dict: this.state.names.map(function(obj,index){
-          //   var myobj = {};
-          //   myobj[this.state.ids[index]] = obj;
-          //   return myobj;
-          // })
         });
       }
       console.log(typeof this.state.my_dict);
@@ -96,8 +80,10 @@ class Landing extends Component {
                   <p>
 
                     The resources to help users find restaurants to eat at 
-                    are plentiful. However, even the best restaurants can 
-                    have unsatisfactory dishes. Rate the Plate was made to
+                    are plentiful. 
+                    However, even the best restaurants can 
+                    have unsatisfactory dishes. 
+                    Rate the Plate was made to
                     address this issue by offering restaurant-goers a new 
                     kind of tool. Instead of having to scour through hundreds
                     of overly-enthusiastic, hateful, or paid-for reviews,
@@ -129,9 +115,11 @@ class Landing extends Component {
                   <p>
                     
                     The first step is to find your restaurant by searching
-                    for it from the landing page. Next, you will be presented
+                    for it from the landing page. 
+                    Next, you will be presented
                     with some basic information about the restaurant, such as
-                    it's address, cuisine and overall rating. As you scroll
+                    it's address, cuisine and overall rating. 
+                    As you scroll
                     down, you will be able to see ratings for each of the
                     individual menu items along with some comments about that
                     dish in particular. This should help you know what to
@@ -175,8 +163,5 @@ function getRestaurantList() {
   });
 }
 
-function refreshPage() {
-  window.location.reload();
-}
 
 export default Landing;

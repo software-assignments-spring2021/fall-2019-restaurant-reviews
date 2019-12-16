@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import '../vendor/bootstrap/css/bootstrap.min.css';
-// import { BrowserRouter as Router} from "react-router-dom";
-// import { Switch } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import NavBar from "../pages/navbar";
 import Dish from "../components/Dish";
 import { ClipLoader } from "react-spinners";
@@ -12,7 +8,6 @@ import {
   MDBRow,
   MDBCol,
   MDBCard,
-  MDBIcon,
   MDBFormInline,
   MDBBtn
 } from "mdbreact";
@@ -247,7 +242,9 @@ class Restaurant extends Component {
     return t;
   }
 
+
   makeCards(sentences) {
+
     let cards = [];
     if (sentences.length === 0) {
       return [];
@@ -287,14 +284,15 @@ class Restaurant extends Component {
   }
 
   render() {
+
     let searchSize = "70px";
     console.log("sent ", this.state.sentences);
     if (this.state.sentences.length !== 0) {
       console.log("why");
       searchSize = "200px";
+
     }
 
-    //this.checkStarStatus();
     if (this.state.items !== undefined) {
       let x = this.split(this.state.items);
       let y = x[0];

@@ -18,19 +18,22 @@ class NavBar extends Component {
   }
 
   signoutHandler() {
+
     this.setState({ loggedIn: false });
     localStorage.setItem("jwtToken", "null");
     localStorage.setItem("userID", "null");
+
   }
 
   render(){
     let loggedin = null;
-    //console.log(localStorage.getItem('jwtToken'));
+
     if(localStorage.getItem('jwtToken') === "null"){
       loggedin = false;
     }else{
       loggedin = true;
     }
+
     //if user logs in and the token is not expired within an hour, display PROFILE, LOG OUT on nav bar 
     if(loggedin){
       
@@ -69,9 +72,7 @@ class NavBar extends Component {
       <div className="collapse navbar-collapse" id="navbarResponsive">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-         
             <Link className="nav-link" to="/signup">Sign Up</Link>
-
           </li>
           <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>  
