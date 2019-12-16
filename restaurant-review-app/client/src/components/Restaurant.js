@@ -78,15 +78,12 @@ class Restaurant extends Component {
   }
   favoriteHandler(e) {
     e.preventDefault();
-    console.log(this);
     const userID = localStorage.getItem("userID");
-    //console.log(this.state.name);
 
     if (userID === "null") {
       alert("You must log in to star your favorite restaurants!");
     } else {
       const restaurant = { newFavorite: this.state.name };
-      console.log("here");
       if (this.state.stared == false) {
         axios
           .post(
@@ -168,13 +165,17 @@ class Restaurant extends Component {
     let ratings = this.state.userRatings;
     ratings[name] = num;
     let comments = this.state.userComments;
-    let converted = (num - 3) * 0.5;
-    comments[name] = [comment, converted];
+    if (comment.trim() !== "") {
+      let converted = (num - 3) * 0.5;
+      comments[name] = [comment, converted];
+    }
 
     this.setState({
       userRatings: ratings,
       userComments: comments
     });
+    console.log("userRatings", this.state.userRatings);
+    console.log("userComments", this.state.userComments);
 
     const { handle } = this.props.match.params;
 
@@ -228,7 +229,6 @@ class Restaurant extends Component {
   getSentiment(sentence) {
     var sentiment = new Sentiment();
     var result = sentiment.analyze(sentence);
-    console.log(result.comparative);
     return result.comparative;
   }
 
@@ -254,6 +254,9 @@ class Restaurant extends Component {
       return [];
     }
     for (let i = 0; i < sentences.length; i++) {
+      console.log("sentences: ", sentences);
+      console.log("sentence: ", sentences[i]);
+
       let score = this.getSentiment(sentences[i]);
       let color = `rgb(${255 - 255 * score}, ${255 + 255 * score},0)`;
       cards.push(
@@ -289,9 +292,7 @@ class Restaurant extends Component {
 
   render() {
     let searchSize = "70px";
-    console.log("sent ", this.state.sentences);
     if (this.state.sentences.length !== 0) {
-      console.log("why");
       searchSize = "200px";
     }
 
