@@ -59,9 +59,11 @@ class Landing extends Component {
         <header className="masthead text-center text-white">
           <div className="masthead-content">
             <div className="container">
+              <br/>
               <h2 className="masthead-subheading mb-0">
                 Rate The Plate
               </h2>
+              <br/>
               <Autocomplete
                 className="container2"
                 suggestions={this.state.my_dict}
@@ -90,12 +92,18 @@ class Landing extends Component {
               </div>
               <div className="col-lg-6">
                 <div className="p-5">
-                  <h2 className="display-4">For those who want the best!</h2>
+                  <h2 className="display-4">Why did we make Rate The Plate?</h2>
                   <p>
-                    The main purpose of RRA is to give its users (restaurant
-                    goers) clear and concise information on individual dishes of
-                    any given restaurant without them having to read hundreds of
-                    overly-enthusiastic, hateful, or paid-for reviews.
+
+                    The resources to help users find restaurants to eat at 
+                    are plentiful. However, even the best restaurants can 
+                    have unsatisfactory dishes. Rate the Plate was made to
+                    address this issue by offering restaurant-goers a new 
+                    kind of tool. Instead of having to scour through hundreds
+                    of overly-enthusiastic, hateful, or paid-for reviews,
+                    in order to find information on certain dishes, users
+                    can see a precise quantitative score on each menu item.
+
                   </p>
                 </div>
               </div>
@@ -117,10 +125,20 @@ class Landing extends Component {
               </div>
               <div className="col-lg-6 order-lg-1">
                 <div className="p-5">
-                  <h2 className="display-4">Find the Best!</h2>
+                  <h2 className="display-4">How does RTP work?</h2>
                   <p>
-                    Search through restaurants in NYC and see aggregated scores
-                    for dishes served at your restaurant of choice!
+                    
+                    The first step is to find your restaurant by searching
+                    for it from the landing page. Next, you will be presented
+                    with some basic information about the restaurant, such as
+                    it's address, cuisine and overall rating. As you scroll
+                    down, you will be able to see ratings for each of the
+                    individual menu items along with some comments about that
+                    dish in particular. This should help you know what to
+                    order. Once you've decided what to order and have eaten,
+                    we encourage you to leave your own ratings and comments
+                    on the plates you ate for other restaurant-goers!
+
                   </p>
                 </div>
               </div>
