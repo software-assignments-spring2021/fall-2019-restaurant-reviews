@@ -131,7 +131,6 @@ class UserPage extends Component {
                           <MDBInput
                             outline
                             color="primary"
-                            color="blue"
                             label="Enter your new email here"
                             type="text"
                             className="z-depth-1a"
@@ -158,7 +157,6 @@ class UserPage extends Component {
                           <MDBInput
                             outline
                             color="primary"
-                            color="blue"
                             label="Enter your new password here"
                             type="password"
                             className="z-depth-1a"

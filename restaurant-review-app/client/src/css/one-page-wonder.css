@@ -240,40 +240,32 @@ header.masthead .bg-circle-4 {
   background-color: #fff;
 }
 
-.bgbluelightest {
-  background-color: #dff6f0;
+.whitetext {
+  color: #ffffff;
 }
 
-.bgbluelight {
-  background-color: #46b3e6;
-}
-
-.bgbluedark {
-  background-color: #4d80e4;
-}
-
-.bgbluedark {
-  background-color: #2e279d;
-}
-
-.bg2blue {
+.bgblue {
   background-color: #10316b;
 }
 
-.bg2black {
+.bgblack {
   background-color: #000000;
 }
 
-.bg2orange {
+.bgorange {
   background-color: #e25822;
 }
 
-.bg2white {
+.bglightgrey {
   background-color: #ececeb;
 }
 
-.goldtext {
+.goldstar {
   color: #cccc00;
   border: 0px;
   background-color: #ececeb;
+}
+
+.squarecorners {
+  border-radius: 0%;
 }

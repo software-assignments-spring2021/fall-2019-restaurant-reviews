@@ -295,8 +295,8 @@ class Restaurant extends Component {
             textAlign: "left",
             margin: "8px",
             borderStyle: "solid",
-            borderWidth: "2px",
-            borderLeftColor: color
+            borderWidth: "3px",
+            borderColor: color
           }}
         >
           <div
@@ -333,8 +333,7 @@ class Restaurant extends Component {
         favbutton = (
           <button
             type="button"
-            className="goldtext"
-            border="0px"
+            className="goldstar"
             onClick={this.favoriteHandler}
           >
             ☆
@@ -344,8 +343,7 @@ class Restaurant extends Component {
         favbutton = (
           <button
             type="button"
-            className="goldtext"
-            border="0px"
+            className="goldstar"
             onClick={this.favoriteHandler}
           >
             ★
@@ -355,10 +353,10 @@ class Restaurant extends Component {
       return (
         
         //bottom background
-        <div className="bg2blue">
+        <div className="bgblue">
           <NavBar />
           <header
-            className="bg2white"
+            className="bglightgrey"
             style={{ height: "332px", paddingTop: "90px" }}
           >
             <br/>
@@ -381,7 +379,7 @@ class Restaurant extends Component {
             </div>
           </header>
           
-          <MDBCard style={{ height: searchSize, backgroundColor: "#cc6600"}}>
+          <div class="card peach-gradient squarecorners" style={{height: searchSize}}>
             <MDBFormInline
               className="md-form mr-auto mt-1 mb-0"
               style={{
@@ -390,7 +388,6 @@ class Restaurant extends Component {
               }}
             >
               <input
-                color="#ffffff"
                 className="form-control mr-sm-2"
                 type="text"
                 placeholder="Search for a keyword..."
@@ -402,7 +399,7 @@ class Restaurant extends Component {
                 }}
               />
               <MDBBtn
-                color="black"
+                class="bgblue btn Ripple-parent mr-auto btn-rounded btn-sm"
                 rounded
                 size="sm"
                 className="mr-auto"
@@ -426,7 +423,7 @@ class Restaurant extends Component {
             >
               {this.makeCards(this.state.sentences)}
             </div>
-          </MDBCard>
+          </div>
 
           <div className="items">
             <MDBRow className="no-gutters">
