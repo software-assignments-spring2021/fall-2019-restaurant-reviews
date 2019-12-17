@@ -149,6 +149,16 @@ class Dish extends Component {
           Submit
       </MDBBtn>
     </MDBCard>);
+    }else{
+      commentCard = (
+        <MDBBtn
+              color="primary"
+              style={{ textAlign:'center', fontSize: "14px" }}
+              className={'mr-3 mb-2 mt-0 z-depth-0 border border-3'}
+              onClick={this.showComment}
+            >
+              Leave a comment
+        </MDBBtn>);
     }
     return (
       <div style={{ margin: "40px" }}>
@@ -182,14 +192,6 @@ class Dish extends Component {
               {this.snippets(dishSnippets, dishName)}
             </MDBCardText>
 
-            <MDBBtn
-                  color="primary"
-                  style={{ textAlign:'center', fontSize: "14px" }}
-                  className={'mr-3 mb-2 mt-0 z-depth-0 border border-3'}
-                  onClick={this.showComment}
-                >
-                  Leave a comment
-            </MDBBtn>
             {commentCard}
            
           </MDBCardBody>
