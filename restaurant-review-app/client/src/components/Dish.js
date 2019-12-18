@@ -48,7 +48,8 @@ class Dish extends Component {
   snippets(text, dish) {
     let s = [];
     for (var i = 0; i < text.length; i++) {
-      if (text[i] !== "") {
+      console.log(text);
+      if (text !== null && text[i] !== "" && text[i] !== null) {
         if (text[i][0].trim() !== "") {
           let color = `rgb(
             ${255 - 255 * text[i][1]}, 
@@ -96,8 +97,8 @@ class Dish extends Component {
     }
     return t;
   }
-  showComment(){
-    this.setState({show : true});
+  showComment() {
+    this.setState({ show: true });
   }
   render() {
     var dishName = this.props.dishName;
@@ -105,67 +106,68 @@ class Dish extends Component {
     var dishRating = parseFloat(this.props.dishRating);
     let commentCard;
 
-    if(this.state.show){
-      commentCard =  (<MDBCard className="mt-3 mb-1 mx-0">
-      <div>
-        <select
-          className="browser-default custom-select primary-color text-light mt-2 ml-3 mb-0"
-          style={{
-            fontSize: "14px",
-            width: "15%",
-            float: "left"
-          }}
-          test={this.getTextContent}
-          onChange={this.onChange}
-        >
-          <option>Rate</option>
-          <option value="5">5★</option>
-          <option value="4">4★</option>
-          <option value="3">3★</option>
-          <option value="2">2★</option>
-          <option value="1">1★</option>
-        </select>
-        <br></br>
-        <textarea
-          className="form-control ml-3 mr-3"
-          style={{ width: "94%" }}
-          placeholder="Add comment..."
-          rows="2"
-          onChange={event => {
-            this.setState({
-              userComment: event.target.value
-            });
-          }}
-        />
-        
-       
-      </div>
-      <MDBBtn
-          color="primary"
-          style={{ float: "right", fontSize: "14px" }}
-          className={`mr-3 mb-2 mt-0 z-depth-0 border border-3 ${this.state.button}`}
-          onClick={this.submitInput}
-        >
-          Submit
-      </MDBBtn>
-    </MDBCard>);
-    }else{
+    if (this.state.show) {
+      commentCard = (
+        <MDBCard className="mt-3 mb-1 mx-0">
+          <div>
+            <select
+              className="browser-default custom-select primary-color text-light mt-2 ml-3 mb-0"
+              style={{
+                fontSize: "14px",
+                width: "15%",
+                float: "left"
+              }}
+              test={this.getTextContent}
+              onChange={this.onChange}
+            >
+              <option>Rate</option>
+              <option value="5">5★</option>
+              <option value="4">4★</option>
+              <option value="3">3★</option>
+              <option value="2">2★</option>
+              <option value="1">1★</option>
+            </select>
+            <br></br>
+            <textarea
+              className="form-control ml-3 mr-3"
+              style={{ width: "94%" }}
+              placeholder="Add comment..."
+              rows="2"
+              onChange={event => {
+                this.setState({
+                  userComment: event.target.value
+                });
+              }}
+            />
+          </div>
+          <MDBBtn
+            color="primary"
+            style={{ float: "right", fontSize: "14px" }}
+            className={`mr-3 mb-2 mt-0 z-depth-0 border border-3 ${this.state.button}`}
+            onClick={this.submitInput}
+          >
+            Submit
+          </MDBBtn>
+        </MDBCard>
+      );
+    } else {
       commentCard = (
         <MDBBtn
-              color="primary"
-              style={{ textAlign:'center', fontSize: "14px" }}
-              className={'mr-3 mb-2 mt-0 z-depth-0 border border-3'}
-              onClick={this.showComment}
-            >
-              Leave a comment
-        </MDBBtn>);
+          color="primary"
+          style={{ textAlign: "center", fontSize: "14px" }}
+          className={"mr-3 mb-2 mt-0 z-depth-0 border border-3"}
+          onClick={this.showComment}
+        >
+          Leave a comment
+        </MDBBtn>
+      );
     }
     return (
       <div style={{ margin: "40px" }}>
         <MDBCard
           style={{
             maxHeight: "600px",
-            
+
             padding: "20px"
           }}
           className="rounded-dish cloudy-knoxville-gradient
@@ -186,14 +188,11 @@ class Dish extends Component {
               />
             </h2>
 
-            
-
             <MDBCardText style={{ overflow: "scroll", maxHeight: "15rem" }}>
               {this.snippets(dishSnippets, dishName)}
             </MDBCardText>
 
             {commentCard}
-           
           </MDBCardBody>
         </MDBCard>
       </div>
