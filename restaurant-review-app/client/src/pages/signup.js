@@ -106,7 +106,7 @@ class Signup extends Component {
                 password: this.state.password
             }
             console.log(user);
-            alert("Hello " + user.firstname);
+            //alert("Hello " + user.firstname);
             
             //stores data in mongodb
             axios.post('http://localhost:5000/user/register', user)

@@ -343,7 +343,7 @@ class Restaurant extends Component {
         favbutton = (
           <button
             type="button"
-            className="goldstar"
+            className="goldstar bglightgrey"
             onClick={this.favoriteHandler}
           >
             ★
