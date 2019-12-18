@@ -32,7 +32,8 @@ class Restaurant extends Component {
       userRatings: {},
       userComments: {},
       searchValue: "",
-      sentences: []
+      sentences: [],
+      none: false
     };
   }
 
@@ -190,10 +191,6 @@ class Restaurant extends Component {
       userRatings: ratings,
       userComments: comments
     });
-    console.log("userRatings", this.state.userRatings);
-    console.log("userComments", this.state.userComments);
-
-    console.log(comments[name]);
     const { handle } = this.props.match.params;
     const newRating = {
       dishrating: num,
@@ -232,7 +229,6 @@ class Restaurant extends Component {
       let review = reviews[r];
       review = review.substring(1);
       review = review.replace(/\r?\n|\r/g, " ");
-
       review = review.match(/[^\.!\?]+[\.!\?]+/g);
       if (review !== null) {
         for (let s = 0; s < review.length; s++) {
@@ -244,9 +240,17 @@ class Restaurant extends Component {
         }
       }
     }
-    this.setState({
-      sentences: sentences
-    });
+    if (sentences.length === 0) {
+      this.setState({
+        none: true,
+        sentences: sentences
+      });
+    } else {
+      this.setState({
+        none: false,
+        sentences: sentences
+      });
+    }
   }
 
   getSentiment(sentence) {
@@ -278,9 +282,6 @@ class Restaurant extends Component {
       return [];
     }
     for (let i = 0; i < sentences.length; i++) {
-      console.log("sentences: ", sentences);
-      console.log("sentence: ", sentences[i]);
-
       let score = this.getSentiment(sentences[i]);
       let color = `rgb(${255 - 255 * score}, ${255 + 255 * score},0)`;
       cards.push(
@@ -318,6 +319,8 @@ class Restaurant extends Component {
     let searchSize = "70px";
     if (this.state.sentences.length !== 0) {
       searchSize = "200px";
+    } else if (this.state.none === true) {
+      searchSize = "100px";
     }
 
     if (this.state.items !== undefined) {
@@ -351,7 +354,6 @@ class Restaurant extends Component {
         );
       }
       return (
-        
         //bottom background
         <div className="bgblue">
           <NavBar />
@@ -359,32 +361,49 @@ class Restaurant extends Component {
             className="bglightgrey"
             style={{ height: "332px", paddingTop: "90px" }}
           >
-            <br/>
+            <br />
             <div className="masthead-content">
               <div className="container res">
-                <h2 className=" text-left res" style={{ fontSize: "50px", fontFamily: "Catamaran" }}>
+                <h2
+                  className=" text-left res"
+                  style={{ fontSize: "50px", fontFamily: "Catamaran" }}
+                >
                   {this.state.name}
                   {favbutton}
                 </h2>
-                <h4 className="res" align="left" style={{fontFamily: "Catamaran" }}>
+                <h4
+                  className="res"
+                  align="left"
+                  style={{ fontFamily: "Catamaran" }}
+                >
                   {this.state.address}
                 </h4>
-                <h4 className="res" align="left" style={{fontFamily: "Catamaran" }}>
+                <h4
+                  className="res"
+                  align="left"
+                  style={{ fontFamily: "Catamaran" }}
+                >
                   {this.state.rating} star restaurant
                 </h4>
-                <h4 className="res" align="left" style={{fontFamily: "Catamaran" }}>
+                <h4
+                  className="res"
+                  align="left"
+                  style={{ fontFamily: "Catamaran" }}
+                >
                   {this.state.cuisine}
                 </h4>
               </div>
             </div>
           </header>
-          
-          <div class="card peach-gradient squarecorners" style={{height: searchSize}}>
+
+          <div
+            class="card peach-gradient squarecorners"
+            style={{ height: searchSize }}
+          >
             <MDBFormInline
               className="md-form mr-auto mt-1 mb-0"
               style={{
                 marginLeft: "11%"
-                
               }}
             >
               <input
@@ -394,7 +413,7 @@ class Restaurant extends Component {
                 aria-label="Search"
                 onChange={event => {
                   this.setState({
-                    searchValue: event.target.value
+                    searchValue: event.target.value.toLowerCase()
                   });
                 }}
               />
@@ -421,7 +440,11 @@ class Restaurant extends Component {
                 marginBottom: "10px"
               }}
             >
-              {this.makeCards(this.state.sentences)}
+              {this.state.none ? (
+                <span style={{ marginLeft: "8%" }}>No results found</span>
+              ) : (
+                this.makeCards(this.state.sentences)
+              )}
             </div>
           </div>
 
