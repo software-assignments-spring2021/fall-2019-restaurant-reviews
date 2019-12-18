@@ -188,7 +188,7 @@ class Dish extends Component {
                   className={'mr-3 mb-2 mt-0 z-depth-0 border border-3'}
                   onClick={this.showComment}
                 >
-                  Leave a comment
+                  Rate &amp; Comment
             </MDBBtn>
             {commentCard}
            
