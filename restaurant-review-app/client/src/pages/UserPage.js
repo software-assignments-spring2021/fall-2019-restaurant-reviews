@@ -98,7 +98,7 @@ class UserPage extends Component {
 
   render() {
     return (
-      <div class="bguser">
+      <div class="bg">
                     
         <NavBar loggedin={this.state.loggedIn} onClick={this.signoutHandler} />
                     
@@ -116,7 +116,7 @@ class UserPage extends Component {
                                              
                     <h3 className="darkgreytext mb-3 pt-3 font-weight-bold">
                       {" "}
-                      Welcome back, {this.state.firstname}{" "}
+                      Edit Your Account Information{" "}
                     </h3>
                                            
                   </MDBRow>
@@ -176,24 +176,9 @@ class UserPage extends Component {
                       </MDBCard>
                     </MDBCol>
                   </MDBRow>
-                </MDBContainer>
-                                    
-                <MDBCardBody className="mx-4 mt-4">
-                                         
-                  <b padding="1px"> Your Starred Restaurants:</b> <br />
-                                         
-                  {/* display user's favorite restaurants list  */}
-                                         {" "}
-                  <div>
-                    <FavoriteResList favRes={this.state.favRest} />
-                  </div>
-                                         {" "}
-                </MDBCardBody>
-                                        
-              </MDBCard>
-                                  
-            </MDBCol>
-                            
+                </MDBContainer>         
+              </MDBCard>      
+            </MDBCol>   
           </MDBRow>
                      {" "}
         </MDBContainer>

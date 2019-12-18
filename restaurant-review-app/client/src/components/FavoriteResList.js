@@ -9,7 +9,9 @@ function FavoriteResList(props) {
          
         return(
             <div>
-            <button type="button" class="list-group-item list-group-item-action">🌟{favorite}</button> 
+                <button type="button" class="list-group-item list-group-item-action somepadding">
+                    <span className="goldstartext">★</span> &nbsp;&nbsp; {favorite}
+                </button> 
             </div> 
         );
     });

@@ -9,6 +9,7 @@ import { Switch } from 'react-router-dom';
 import UserPage from './pages/UserPage';
 import Landing from "./pages/landing"
 import Restaurant from "./components/Restaurant";
+import Favorites from "./pages/favorites";
 class App extends Component {
   render() {
     return(
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path='/userpage' component={UserPage} />
           <Route path='/restaurant/:handle' component={Restaurant} />
+          <Route path='/favorites' component={Favorites} />
         </Switch>
       </Router>
     );

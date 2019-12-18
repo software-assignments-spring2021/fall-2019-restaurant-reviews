@@ -284,10 +284,20 @@ header.masthead .bg-circle-4 {
   outline: none;
 }
 
+.goldstartext {
+  color: #cccc00;
+}
+
 .squarecorners {
   border-radius: 0%;
 }
 
 .darkgreytext {
   color: #333333;
+}
+
+.somepadding {
+  margin-left: 3vw;
+  margin-top: 10px;
+  width: 68vw;
 }

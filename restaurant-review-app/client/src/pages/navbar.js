@@ -47,13 +47,18 @@ class NavBar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarResponsive">
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item" onClick={this.signoutHandler}>
-                  <Link className="nav-link" to="/">Sign Out</Link>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/favorites">
+                    Favorites
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/userpage">
-                    Profile
+                    Settings
                   </Link>
+                </li>
+                <li className="nav-item" onClick={this.signoutHandler}>
+                  <Link className="nav-link" to="/">Sign Out</Link>
                 </li>
               </ul>
             </div>
