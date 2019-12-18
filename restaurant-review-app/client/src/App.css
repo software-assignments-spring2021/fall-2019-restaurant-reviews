@@ -55,16 +55,16 @@
   margin-top: 10;
   max-height: 1px;
   position: static;
-  width: calc(300px + 5rem);
+  /* width: 300px; */
   text-align: left;
 }
 
 .suggestions li {
   border-radius: 5px;
   background-color: white;
-  width: 810px;
+  width: 676px;
   padding: 0.4rem;
-  margin-left: 107px;
+  margin-left: 84px;
   color: black;
 }
 
