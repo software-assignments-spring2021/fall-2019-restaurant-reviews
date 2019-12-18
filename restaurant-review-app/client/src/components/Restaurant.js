@@ -456,8 +456,6 @@ class Restaurant extends Component {
             </MDBRow>
           </div>
         </div>
-
-        
       );
     } else {
       return (
