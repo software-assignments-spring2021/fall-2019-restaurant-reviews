@@ -114,7 +114,7 @@ class UserPage extends Component {
                                          
                   <MDBRow className="header pt-3 peach-gradient">
                                              
-                    <h3 className="white-text mb-3 pt-3 font-weight-bold">
+                    <h3 className="darkgreytext mb-3 pt-3 font-weight-bold">
                       {" "}
                       Welcome back, {this.state.firstname}{" "}
                     </h3>

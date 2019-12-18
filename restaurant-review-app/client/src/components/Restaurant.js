@@ -333,7 +333,7 @@ class Restaurant extends Component {
         favbutton = (
           <button
             type="button"
-            className="goldstar"
+            className="goldstar bglightgrey"
             onClick={this.favoriteHandler}
           >
             ☆
@@ -399,7 +399,8 @@ class Restaurant extends Component {
                 }}
               />
               <MDBBtn
-                class="bgblue btn Ripple-parent mr-auto btn-rounded btn-sm"
+                class="bglightgrey black-text btn Ripple-parent mr-auto btn-rounded btn-sm"
+                color="#333333"
                 rounded
                 size="sm"
                 className="mr-auto"
@@ -407,7 +408,7 @@ class Restaurant extends Component {
                 role="button"
                 onClick={this.handleOnClick}
               >
-                Search
+                <b>Search</b>
               </MDBBtn>
             </MDBFormInline>
             <div
@@ -432,6 +433,8 @@ class Restaurant extends Component {
             </MDBRow>
           </div>
         </div>
+
+        
       );
     } else {
       return (

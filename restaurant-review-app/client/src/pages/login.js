@@ -123,31 +123,33 @@ class Login extends Component {
                             <MDBCard>
                                 <div className="header pt-3 peach-gradient">
                                 <MDBRow className="d-flex justify-content-center">
-                                    <h3 className="white-text mb-3 pt-3 font-weight-bold">
-                                    Log in
+                                    <h3 className="darkgreytext mb-3 pt-3 font-weight-bold">
+                                    Welcome Back
                                     </h3>
                                 </MDBRow>
                                 </div>
                                 <MDBCardBody className="mx-4 mt-4">
-                                <MDBInput 
-                                    label="Your email" 
-                                    group type="text" 
-                                    validate 
-                                    value={this.state.email}
-                                    onChange={this.onChangeEmail}
-                                />
-                                <div style={{fontSize:15,color:"red"}}>                              
-                                    {this.state.emailErr}
-                                </div>
-                                <MDBInput
-                                    label="Your password"
-                                    group
-                                    type="password"
-                                    validate
-                                    containerClass="mb-0"
-                                    value={this.state.password}
-                                    onChange={this.onChangePassword}
-                                />
+                                    <MDBInput 
+                                        outline
+                                        label="Your email" 
+                                        group type="text" 
+                                        validate 
+                                        value={this.state.email}
+                                        onChange={this.onChangeEmail}
+                                    />
+                                    <div style={{fontSize:15,color:"red"}}>                              
+                                        {this.state.emailErr}
+                                    </div>
+                                    <MDBInput
+                                        outline
+                                        label="Your password"
+                                        group
+                                        type="password"
+                                        validate
+                                        containerClass="mb-0"
+                                        value={this.state.password}
+                                        onChange={this.onChangePassword}
+                                    />
                                 {/*display error message */}
                                 <div style={{fontSize:15,color:"red"}}>                              
                                     {this.state.passwordErr}
@@ -156,17 +158,6 @@ class Login extends Component {
                                 <div style={{fontSize:15,color:"red"}}>                              
                                     {this.state.loginStatus}
                                 </div>
-                                <p className="font-small grey-text d-flex justify-content-end">
-                                    
-                                    Forgot
-                                    <a
-                                    href="#!"
-                                    className="dark-grey-text ml-1 font-weight-bold"
-                                    >
-                                    Password?
-                                    </a>
-
-                                </p>
                                 <MDBRow className="d-flex align-items-center mb-4 mt-5">
                                     <MDBCol md="5" className="d-flex align-items-start">
                                     <div className="text-center">
@@ -174,7 +165,7 @@ class Login extends Component {
                                         color="orange"
                                         rounded
                                         type="button"
-                                        className="z-depth-1a"
+                                        className="darkgreytext z-depth-1a"
                                         onClick={this.onSubmit}
                                         >
                                             Log in

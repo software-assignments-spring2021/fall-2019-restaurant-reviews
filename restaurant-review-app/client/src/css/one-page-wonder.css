@@ -63,7 +63,7 @@ h6 {
 } */
 
 header.masthead {
-  height: 85vh;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   padding-top: calc(7rem + 72px);
@@ -73,6 +73,24 @@ header.masthead {
   background-position: center center;
   background-attachment: scroll;
   background-size: cover;
+}
+
+.landingheader {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(7rem + 72px);
+  padding-bottom: 7rem;
+  background-color: #10316b;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.landingtext {
+  font-size: 4rem;
+  color: #FBD47B;
 }
 
 .restaurant {
@@ -257,15 +275,19 @@ header.masthead .bg-circle-4 {
 }
 
 .bglightgrey {
-  background-color: #ececeb;
+  background-color: #f9f9f9;
 }
 
 .goldstar {
   color: #cccc00;
   border: 0px;
-  background-color: #ececeb;
+  outline: none;
 }
 
 .squarecorners {
   border-radius: 0%;
+}
+
+.darkgreytext {
+  color: #333333;
 }
