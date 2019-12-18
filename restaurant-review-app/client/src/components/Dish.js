@@ -49,7 +49,12 @@ class Dish extends Component {
     let s = [];
     for (var i = 0; i < text.length; i++) {
       console.log(text);
-      if (text !== null && text[i] !== "" && text[i] !== null) {
+      if (
+        text !== null &&
+        text[i] !== "" &&
+        text[i] !== null &&
+        text[i][0] !== null
+      ) {
         if (text[i][0].trim() !== "") {
           let color = `rgb(
             ${255 - 255 * text[i][1]}, 
