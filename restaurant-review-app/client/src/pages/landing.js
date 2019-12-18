@@ -43,11 +43,11 @@ class Landing extends Component {
     return (
       <div className="App">
         <NavBar />
-        <header className="masthead text-center text-white">
+        <header className="landingheader text-center text-white">
           <div className="masthead-content">
             <div className="container">
-              <br/>
-              <h2 className="masthead-subheading mb-0">
+              <br/><br/><br/><br/>
+              <h2 className="landingtext">
                 Rate The Plate
               </h2>
               <br/>
@@ -136,19 +136,6 @@ class Landing extends Component {
             </div>
           </div>
         </section>
-
-        <footer className="py-5 bg-black">
-          <div className="container">
-            <p className="m-0 text-center text-white small">
-              <a
-                className="nav-link"
-                href="https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews"
-              >
-                Contact The Team
-              </a>
-            </p>
-          </div>
-        </footer>
 
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
