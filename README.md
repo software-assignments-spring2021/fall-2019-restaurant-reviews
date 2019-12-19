@@ -6,6 +6,6 @@
 
 - This project is for Agile DevOp course of NYU in Fall 2019. We use React.js and Bootstrap for frontend and Node.js, Express for backend. We choose MongoDB to manipulate our database.
 
-- You are welcome to contribute this project by following [CONTRIBUTING.md](https://github.com/nyu-software-engineering/fall-2019-easy-nyu/blob/master/CONTRIBUTING.md) and also the [REQUIREMENTS.md](https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews/blob/master/REQUIREMENTS.md)
+- You are welcome to contribute this project by following [CONTRIBUTING.md](https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews/blob/master/CONTRIBUTING.md) and also the [REQUIREMENTS.md](https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews/blob/master/REQUIREMENTS.md)
 
 - To install, please wait for further instructions after we finish basic setups.
