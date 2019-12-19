@@ -2,14 +2,24 @@
 
 
 Limited to group members only but will adjust later.
-* Martin Wu
-* Matthew Rodgers
-* Maxim Fadeev
-* Tejas Agrawal
-* Mayukh Ghosh
 
+• Martin Wu
 
+• Matthew Rodgers
 
+• Maxim Fadeev
+
+• Tejas Agrawal
+
+• Mayukh Ghosh
+
+## App Installation
+1. Navigate to desired directory and download the files with the following command: ```git clone https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews```.
+2. Navigate to server folder and create a file named ```.env``` and type the confidential MongoDB Atlas URI into it.
+3. Stay in the sever folder and start up the backend with the following command: ```node server.js```.
+4. In a new terminal window, navigate to the client directory and ```npm install``` and then ```npm start```.
+
+**Note:** You may need to ```npm install [package]``` any necessary missing packages.
 
 ## Contributing Process
  - Fork and clone the project.
