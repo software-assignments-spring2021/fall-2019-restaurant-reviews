@@ -6,6 +6,7 @@ Limited to group members only but will adjust later.
 * Matthew Rodgers
 * Maxim Fadeev
 * Tejas Agrawal
+* Mayukh Ghosh
 
 
 
